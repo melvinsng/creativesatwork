@@ -107,6 +107,8 @@ module Api
         end
         action_block = Proc.new{
           attributes = {}
+          entity = entity_class.find params[:id]
+          entity_class = entity._type.constantize
           associations = entity_class.nested_attributes.keys.map {|x| x.gsub(/_attributes/, '').to_sym}
           params.reject{|k| [:route_info, :id, :_id].include? k.to_sym}.each do |k,v|
             attributes[k.to_sym] = v if entity_class.fields.include? k.to_s
@@ -115,7 +117,6 @@ module Api
           if block_given?
             attributes = block.yield attributes, params
           end
-          entity = entity_class.find params[:id]
           if entity.update_attributes(attributes)
             entity
           else
