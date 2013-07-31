@@ -1,0 +1,92 @@
+<div class = "content-heading">
+  <div class = "about-heading"><h2>Edit User Profile</h2></div>
+</div>
+<div class = "user-profile">
+  <div class = "span4 no-margin">
+    <img ng-src = "{{ current_user.photo_url }}?type=large">
+  </div>
+  <div class="span8">
+    <form novalidate class="form-horizontal" ng-submit="submitForm()" name="userProfileForm" >
+      <fieldset>
+        <legend><h3 ng-bind-template="{{ current_user.first_name }} {{ current_user.last_name }}"></h3></legend>
+
+        <div class="control-group">
+          <label class="control-label">First Name</label>
+          <div class="controls">
+            <input class="input-xlarge" type="text"
+                   ng-model="current_user.first_name" name="first_name" required>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Last Name</label>
+          <div class="controls">
+            <input class="input-xlarge" type="text"
+                   ng-model="current_user.last_name" name="last_name" required>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Contact Number</label>
+          <div class="controls">
+            <input class="input-xlarge" type="text" required ng-minlength="8"
+                   ng-model="current_user.phone" name="phone">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Location</label>
+          <div class="controls">
+            <input class="input-xlarge" type="text"
+                   ng-model="current_user.location" name="location" required>
+          </div>
+        </div>
+        <div ng-switch on="current_user.auth_provider" >
+          <div ng-switch-when="local">
+            <div class="control-group">
+              <label class="control-label">Password</label>
+              <div class="controls">
+                <input class="input-xlarge" type="password"
+                       ng-model="current_user.password" name="password" required ng-minlength="8"
+                       tooltip="Password is 8 letters long" tooltip-trigger="focus" tooltip-placement="right">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Confirm Password</label>
+              <div class="controls">
+                <input class="input-xlarge" type="password" name="confirm_password"
+                       ng-model="password_verify" password-verify="current_user.password" required>
+              </div>
+            </div>
+
+            <div ng-show="userProfileForm.confirm_password.$error.passwordVerify">Passwords do not match</div>
+          </div>
+        </div>
+
+
+        <div class="control-group">
+          <label class="control-label">Picture</label>
+          <div class="controls">
+            <input type="file" fileupload name="picture"
+                   uploader-id="avatar-uploader"
+                   server-domain="http://sgattractions.com:3003"
+                   service-path="pictures" />
+            <span ng-bind="avatar_upload_state"></span>
+          </div>
+        </div>
+
+
+        <div class="control-group">
+          <label class="control-label" for="settings_save"></label>
+          <div class="controls">
+            <button ng-disabled="!userProfileForm.$valid" id="settings_save" class="btn btn-danger" type="submit">Update</button>
+            <a class="btn btn-info" href="#/user.profile">Back To Profile</a>
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+
+  <div class = "clear"></div>
+</div>
+
+
+

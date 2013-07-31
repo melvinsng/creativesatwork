@@ -37,7 +37,7 @@ exports.config =
         'css/app.css': /^app/
 
   server:
-    port: 3313
+    port: 3333
 
 # Enable or disable minifying of result js / css files.
   optimize: false

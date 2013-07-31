@@ -6,35 +6,30 @@
   <meta name="viewport" content="width=device-width" initial-scale="1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>SG2015</title>
-  <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-  <link href="css/bootstrap-responsive.css" rel="stylesheet">
-  <link href="css/custom.css" rel="stylesheet">
-  <link href="css/app.css" rel="stylesheet">
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <title>Creatives@Work</title>
+
+  <link href="styles/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="styles/css/flat-ui.css" rel="stylesheet">
+  <link href="styles/css/custom.css" rel="stylesheet">
+  <link href="styles/css/style.css" rel="stylesheet">
+  <link href="styles/css/style-menu.css" rel="stylesheet">
+  <link href="styles/css/style-button.css" rel="stylesheet">
+  <link href="styles/css/font-awesome.min.css" rel="stylesheet">
+  <link href="styles/css/app.css" rel="stylesheet">
+  <link href="styles/css/felix.css" rel="stylesheet">
+  <link rel="shortcut icon" href="styles/img/favicon.png">
+
   <!--[if lte IE 7]><script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script><![endif]-->
-  <!--[if lte IE 8]><script src="/html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!--[if lte IE 8]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
 <spinner></spinner>
-
-<div class="container">
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="row-fluid">
-
-          <div ng-include src="'partials/common/header.html'"></div>
-          <alerter close-count-down="6000"></alerter>
-          <div ng-view></div>
-
-        </div>
-      </div>
-      <!--Body content-->
-    </div>
-  </div>
+<div ng-include src="'partials/account/linkedin.html'"></div>
+<div ng-include src="'partials/common/header.html'"></div>
+<div class="body_container">
+  <alerter close-count-down="6000"></alerter>
+  <div ng-view></div>
 </div>
-
 <div ng-include src="'partials/common/footer.html'"></div>
 
 <script src="js/vendor.js"></script>
