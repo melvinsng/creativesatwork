@@ -1,0 +1,46 @@
+<div class = "header">
+  <div class="span2">
+    <a href = "/"><img class = "logo" src = "img/logo.jpg"></a>
+  </div>
+
+  <div class="span10 navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="brand" href="#">Menu</div>
+        <div class="nav-collapse in collapse" style="height: auto;">
+          <ul class="nav">
+            <li  class="dropdown"><a href="#/projects.list" class="dropdown-toggle">Explore Project</a>
+              <ul class = "dropdown-menu">
+                <li> <a href = "#/projects.list/0">We the citizens</a></li>
+                <li> <a href = "#/projects.list/1">Pledge ourselves as one united people </a></li>
+                <li> <a href = "#/projects.list/2">Regardless of Race, Language or Religion</a></li>
+                <li> <a href = "#/projects.list/3">To build a democratic society</a></li>
+                <li> <a href = "#/projects.list/4">Based on justice and equality </a></li>
+                <li> <a href = "#/projects.list/5">To achieve happiness </a></li>
+                <li> <a href = "#/projects.list/6">Prosperity </a></li>
+                <li> <a href = "#/projects.list/7">Progress for our nation </a></li>
+              </ul>
+            </li>
+            <li><a ng-show="authenticated" href="#/projects.new">Start Project</a></li>
+            <li><a href="events.php">Events</a></li>
+            <li><a href="newsroom.php">Newsroom</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <li ng-hide="authenticated"><a href="#/user.login">Login</a></li>
+            <li ng-hide="authenticated"><a href="#/user.register">Register</a></li>
+            <li ng-show="authenticated"><a href="#/user.profile">My Account</a></li>
+            <li ng-show="authenticated"><a ng-click="logout()">Logout</a></li>
+          </ul>
+          <!--<ul class="nav account-links">
+          </ul>-->
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div class = "clear"></div>
+</div>

@@ -1,0 +1,26 @@
+<div class = "login-wrap">
+  <div class = "content-heading">
+    <div class = "about-heading"><h2>Login</h2></div>
+  </div>
+
+  <form novalidate class="form-horizontal" ng-submit="submitForm()" name="userLoginForm" >
+    <fieldset>
+
+      <div class="control-group">
+        <label class="control-label">Password</label>
+        <div class="controls">
+          <input class="input-xlarge" type="password"
+                 ng-model="user.password" name="password" required ng-minlength="8"
+                 tooltip="Password is 8 letters long" tooltip-trigger="focus" tooltip-placement="right">
+        </div>
+      </div>
+      <div class="control-group">
+        <a class="control-label" ng-click="forgotPassword()">Forgot Password?</a>
+        <div class="controls">
+          <button ng-disabled="!userLoginForm.$valid" id="settings_save" class="btn btn-danger" type="submit">Login</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+</div>

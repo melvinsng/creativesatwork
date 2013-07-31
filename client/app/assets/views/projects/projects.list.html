@@ -1,0 +1,16 @@
+<div class = "projects-content content-heading">
+  <div class = "projects-heading"><h2>{{ objective }}</h2></div>
+</div>
+
+<div class = "project">
+  <div class = "span4" ng-repeat="project in projects">
+    <a ng-href="#/projects.show/{{ project.id }}">
+      <img nailthumb width="287" method="resize" height="250" ng-src="{{ project.project_photos[0].url }}" />
+    </a>
+    <h3><a ng-href="#/projects.show/{{ project.id }}">{{ project.name }}</a></h3>
+    <div class = "span6 no-margin"><a class = "support" ng-href="#/projects.show/{{ project.id }}">Support</a></div>
+    <div class = "span6"><a class = "volunteer" ng-href="#/projects.show/{{ project.id }}">Volunteer</a></div>
+    <div class = "clear"></div>
+  </div>
+  <h2 ng-show="projects.length == 0">There is no project in this category</h2>
+</div>

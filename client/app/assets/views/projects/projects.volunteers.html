@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row">
+    <ol>
+      <li class="well" ng-repeat="vol in project.volunteers">
+          <span>{{ vol.first_name }} {{ vol.last_name }}</span>&nbsp;
+          <span>{{ vol.email }}</span>&nbsp;
+          <span ng-bind="vol.phone"></span>
+      </li>
+    </ol>
+  </div>
+</div>

@@ -1,0 +1,210 @@
+
+<div class="content-heading">
+  <div class="about-heading">
+    <h2>
+      Edit Project
+    </h2>
+  </div>
+</div>
+<div class="start-form">
+
+<form novalidate class="form-horizontal">
+<fieldset>
+  <div class="control-group">
+    <label class="control-label" for="textinput">Name of Project</label>
+    <div class="controls">
+      <input id="textinput" ng-model="project.name" name="name" type="text" placeholder="whats your project?" class="input-xxlarge" required>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="textinput">Contact Person</label>
+    <div class="controls">
+      <input id="textinput" ng-model="project.contact_person" name="contact_person" type="text" placeholder="contact name" class="input-xxlarge" required>
+
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="textinput">Handphone Number</label>
+    <div class="controls">
+      <input id="textinput" ng-model="project.contact_person_number" name="contact_person_number" type="text" placeholder="number" class="input-xxlarge" required>
+
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="textinput">Email</label>
+    <div class="controls">
+      <input id="textinput" ng-model="project.contact_person_email" name="contact_person_email" type="text" placeholder="your_email@email.com" class="input-xxlarge" required>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">First Objective</label>
+    <div class="controls">
+      <select ng-model="project.first_objective" ng-options="objective for objective in objectives" class="input-xxlarge" required></select>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Second Objective</label>
+    <div class="controls">
+      <select ng-model="project.second_objective" ng-options="objective for objective in objectives" class="input-xxlarge"></select>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Third Objective</label>
+    <div class="controls">
+      <select ng-model="project.third_objective" ng-options="objective for objective in objectives" class="input-xxlarge"></select>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="textarea">Project objective in one line</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.objective_summary" placeholder="Your project in one line: objective, target group, action point." required>
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">The inspiration behind this project</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.inspiration_behind">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textinput">This project seeks to serve</label>
+    <div class="controls">
+      <input id="textinput" name="textinput" ng-model="project.target_audience" type="text" placeholder="The target audience your project hopes to reach out to?" class="input-xxlarge" required>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">Why does it meet the objective of our pledge</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.why_meet_objectives">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">Plans to accomplish the project</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.how_to_accomplish">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">We will know it is accomplished when</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.when_accomplish" placeholder="your vision for the project and some tangible milestones you would hope to achieve, e.g. To have 1000 shares about gracious living on Facebook / to raise $xxx for xxx organization)">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">Why should you support this project</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.why_support" placeholder=" A shoutout to Singaporeans to garner their support for this project">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">How you can support us</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.how_to_support" placeholder="Indicate the type of support you will need, e.g. no. of volunteers, financial support, government approval etc.">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">People behind this project</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.people_behind" placeholder="Name of project leader, and up to 5 team members you have in your team">
+      </textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textarea">Announcements</label>
+    <div class="controls">
+      <textarea id="textarea" name="textarea" ng-model="project.announcement" placeholder="you can use this space to announce upcoming events, update your supporters on progress of the project or a shout out to celebrate the achievement of your milestone. you can edit the content here every time you log in to your profile)">
+      </textarea>
+    </div>
+  </div>
+</fieldset>
+
+
+<!-- PROJECT LEADER -->
+<fieldset class = "leaders well">
+
+  <div ng-repeat="leader in project.project_leaders" id="project-leaders">
+    <div class = "span5">
+      <div class="control-group">
+        <label class="control-label" for="textinput" ng-bind-template="Project Leader {{ $index + 1 }}"></label>
+        <div class="controls">
+          <input id="textinput" ng-model="leader.name" name="name" type="text" class="input-medium" required>
+        </div>
+      </div>
+    </div>
+    <div class = "span5">
+      <div class="control-group">
+        <label class="control-label" for="textinput">Contact Number</label>
+        <div class="controls">
+          <input id="textinput" ng-model="leader.contact_number" name="contact_number" type="text" class="input-medium">
+        </div>
+      </div>
+    </div>
+    <div class="span2" ng-hide="$index == 0"><a ng-click="removeProjectLeader($index)" class="btn btn-danger">X</a></div>
+    <div class = "clear"></div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="singlebutton"></label>
+    <div class="controls">
+      <button ng-click="addProjectLeader()" id="addbutton" name="singlebutton" class="btn btn-default">Add Project Leader</button>
+    </div>
+  </div>
+
+</fieldset>
+
+<fieldset class="well">
+  <div class="control-group">
+    <label class="control-label">Project Photo Album</label>
+    <div class="controls">
+      <input type="file" fileupload name="picture"
+             uploader-id="photo-uploader"
+             server-domain="http://sgattractions.com:3003"
+             service-path="pictures" />
+      <span ng-bind="photo_upload_state"></span>
+    </div>
+  </div>
+  <div class="span4">
+    <div ng-repeat="photo in project.project_photos">
+      <img ng-src = "{{ photo.url }}" style="max-width: 150px;">
+      <a ng-click="removeProjectPhoto($index)" class="btn btn-danger">X</a>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <div class="control-group">
+    <label class="control-label" for="textinput">Youtube Video Link</label>
+    <div class="controls">
+      <input id="textinput" ng-model="project.video_url" name="video_url" type="text" placeholder="" class="input-xxlarge" required>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="textinput">Facebook Page</label>
+    <div class="controls">
+      <input id="textinput" ng-model="project.facebook_page" name="facebook_page" type="text" placeholder="" class="input-xxlarge">
+    </div>
+  </div>
+</fieldset>
+
+<div class="control-group">
+  <label class="control-label" for="singlebutton"></label>
+  <div class="controls">
+    <button ng-click="submitForm()" id="singlebutton" name="singlebutton" class="btn btn-danger">Update</button>
+  </div>
+</div>
+</form>
+</div>
