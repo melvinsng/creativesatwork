@@ -5,7 +5,7 @@ development:
     default:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
-      database: sg2015_development
+      database: creatives_at_work_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
@@ -67,7 +67,7 @@ development:
 test:
   sessions:
     default:
-      database: sg2015_test
+      database: creatives_at_work_test
       hosts:
         - localhost:27017
       options:
