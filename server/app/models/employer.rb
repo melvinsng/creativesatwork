@@ -5,7 +5,6 @@ class Employer < User
   field :company_description
   field :company_location
 
-
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
 

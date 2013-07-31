@@ -18,9 +18,9 @@ angular.module('account').controller 'AccountEmailConfirmationCtrl', [
     ).error ->
       $scope.error_notification 'We are unable to activate this account.'
 
-    $scope.$on 'session:created', ->
+    $scope.$on 'session:created', (ev, user) ->
       $scope.attemptLogin().then ( ->
-        $scope.redirect_to 'user.profile.edit', success: 'Please proceed to furnish your account information'
+        $scope.redirect_to "${user.user_type.toLowerCase()}.profile.edit", success: 'Please proceed to furnish your account information'
       ), ->
         $scope.error_notification 'Unable to log you in'
 ]

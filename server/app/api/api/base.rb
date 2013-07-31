@@ -117,6 +117,12 @@ module Api
           if block_given?
             attributes = block.yield attributes, params
           end
+          p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+          p params
+          p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+          p attributes
+          p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+
           if entity.update_attributes(attributes)
             entity
           else
