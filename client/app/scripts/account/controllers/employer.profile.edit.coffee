@@ -1,4 +1,4 @@
-angular.module('account').controller 'UserProfileEditCtrl', [
+angular.module('account').controller 'EmployerProfileEditCtrl', [
   '$scope'
   ($scope) ->
 

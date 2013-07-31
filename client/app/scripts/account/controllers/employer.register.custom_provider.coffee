@@ -1,4 +1,4 @@
-angular.module('account').controller 'UserRegisterCustomProviderCtrl', [
+angular.module('account').controller 'EmployerRegisterCustomProviderCtrl', [
   '$scope'
   'Auth'
   'MemoryStore'
@@ -11,5 +11,5 @@ angular.module('account').controller 'UserRegisterCustomProviderCtrl', [
 
     $scope.submitForm = ->
       $scope.clear_notifications()
-      Auth.register('CommonUser', $scope.user.auth_id, $scope.user.auth_provider, $scope.user.email, $scope.user.password, $scope.user.additional_fields)
+      Auth.register('Employer', $scope.user.auth_id, $scope.user.auth_provider, $scope.user.email, $scope.user.password, $scope.user.additional_fields)
 ]

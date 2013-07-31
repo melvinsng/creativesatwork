@@ -7,11 +7,13 @@ resolvables['current_user'] = [
     authenticated.then ((user) ->
       $rootScope.current_user = user
       $rootScope.authenticated = true
+      $rootScope.user_class = user.user_type
       $rootScope.user_type = user.user_type.toLowerCase()
       user
     ), ->
       $rootScope.current_user = null
       $rootScope.authenticated = false
+      $rootScope.user_class = 'User'
       $rootScope.user_type = 'guest'
       alert('access failed')
       $rootScope.error_notification 'You need to login to access this page', false

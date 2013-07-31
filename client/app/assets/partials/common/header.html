@@ -8,10 +8,13 @@
         <div class="row">
           <div class="signup-area">
             <ul class="nav">
-              <li ng-hide="authenticated"><a href="#/freelancer.register">Sign Up</a> </li>
-              <li ng-hide="authenticated"><a href="#/freelancer.login">Login</a> </li>
+              <li ng-hide="authenticated"><a href="#/home">Sign Up</a> </li>
+              <li ng-hide="authenticated"><a href="#/freelancer.login">Freelancer login</a> </li>
+              <li ng-hide="authenticated"><a href="#/employer.login">Employer login</a> </li>
+              <li ng-show="authenticated"><a ng-href="#/{{ user_type }}.dashboard">Dashboard</a></li>
               <li ng-show="authenticated"><a ng-click="logout()">Logout</a></li>
-              <li><a class="btn btn-primary btn-mini">Post a Job</a></li>
+              <li ng-show="authenticated && user_type == 'employer' ">
+                <a class="btn btn-primary btn-mini">Post a Job</a></li>
             </ul>
           </div>
         </div>

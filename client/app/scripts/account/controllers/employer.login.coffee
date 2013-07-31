@@ -1,21 +1,21 @@
-angular.module('account').controller 'UserLoginCtrl', [
+angular.module('account').controller 'EmployerLoginCtrl', [
   '$scope'
   'Auth'
   'CustomProvider'
   '$dialog'
   ($scope, Auth, CustomProvider, $dialog) ->
 
-    $scope.facebookConnect = ->
-      CustomProvider.connect('facebook', 'CommonUser')
+    $scope.linkedinConnect = ->
+      CustomProvider.connect('linkedin', 'Employer', 'employer')
 
     $scope.submitForm = ->
       $scope.clear_notifications()
-      Auth.authenticate('CommonUser', $scope.user.email, 'local', $scope.user.password)
+      Auth.authenticate('Employer', $scope.user.email, 'local', $scope.user.password)
 
     $scope.forgotPassword = ->
       $dialog.dialog().open('dialogs/account.forgot_password.html').then (result) ->
         if result?
-          Auth.forgot_password('CommonUser', result, 'local')
+          Auth.forgot_password('Employer', result, 'local')
 
 
 ]
