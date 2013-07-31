@@ -45,7 +45,7 @@ angular.module('account').factory 'CustomProvider', [
             'picture-url', 'public-profile-url', 'skills', 'certifications', 'educations',
             'date-of-birth', 'three-current-positions')
         .result (result) ->
-          authenticate_with_custom_provider {
+          fields = {
             user_class: user_class
             user_type: user_type
             auth_id: result.values[0].emailAddress
@@ -54,13 +54,15 @@ angular.module('account').factory 'CustomProvider', [
             additional_fields: {
               first_name: result.values[0].firstName
               last_name: result.values[0].lastName
-              job_title: result.values[0].threeCurrentPositions?.values?[0]?.title
-              professional_history: result.values[0].threeCurrentPositions?.values?[0]?.summary
               photo_url: result.values[0].pictureUrl
               location: result.values[0].location?.name
-              other_information: result.values[0].summary
             }
           }
+          if user_type == 'freelancer'
+            fields.additional_fields.job_title = result.values[0].threeCurrentPositions?.values?[0]?.title
+            fields.additional_fields.professional_history = result.values[0].threeCurrentPositions?.values?[0]?.summary
+            fields.additional_fields.other_information = result.values[0].summary
+          authenticate_with_custom_provider fields
 
       connect: (providerName, user_class, user_type) ->
         $rootScope.start_ajax()

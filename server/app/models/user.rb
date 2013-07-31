@@ -24,6 +24,7 @@ class User
   field :email_confirmed, type: Boolean, default: false
   field :account_status, default: ACCOUNT_INCOMPLETE_INFO
 
+
   validates_presence_of :has_password, :first_name, :last_name
 
   before_save :mark_completed_profile
@@ -32,13 +33,28 @@ class User
   def active?; self.account_status == ACCOUNT_ACTIVE end
   def blocked?; self.account_status == ACCOUNT_BLOCKED end
   def incomplete_profile?; !active? || !valid?  end
+
   def as_json_options(options={})
+    # val must be array!
     preset_options = {except: [:password_digest, :session, :email_sessions], include: [:auth_accounts], methods: [:user_type]}
     if defined?(super)
-      super(preset_options).merge options
+      super(preset_options).each do |key,val|
+        if options.has_key?(key)
+          options[key] = (val.to_set.merge options[key]).to_a
+        else
+          options[key] = val
+        end
+      end
     else
-      preset_options.merge options
+      preset_options.each do |key,val|
+        if options.has_key?(key)
+          options[key] = (val.to_set.merge options[key]).to_a
+        else
+          options[key] = val
+        end
+      end
     end
+    options
   end
   def as_json(options={})
     super as_json_options(options)

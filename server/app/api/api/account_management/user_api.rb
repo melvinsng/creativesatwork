@@ -3,14 +3,9 @@ module Api
     class UserApi < Grape::API
       extend Api::Base
 
-      count :user
-      all :user
-      find :user
-      update :user do |attributes, params|
-        attributes[:password] = params[:password]
-        attributes
-      end
-      destroy :user
+      crud :user
+      crud :employer
+      crud :freelancer
 
       end
     end

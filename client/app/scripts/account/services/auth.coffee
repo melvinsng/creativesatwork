@@ -10,6 +10,7 @@ angular.module('account').service 'Auth',[
     @create_session = (authenticated) ->
       Session.set(authenticated.user_type, authenticated.auth_id, authenticated.auth_provider, authenticated.token)
       $http.defaults.headers.common['User-Authorization'] = Session.as_json()
+      console.log authenticated
       $rootScope.$broadcast 'session:created', authenticated
 
     @user = (options={})->

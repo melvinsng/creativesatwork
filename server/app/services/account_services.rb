@@ -8,7 +8,7 @@ module AccountServices
   }
   PROVIDER_POLICIES = {
       local: {require_email_confirmation: false},
-      facebook: {}
+      linkedin: {}
   }
   POLICIES.freeze
   PROVIDER_POLICIES.freeze

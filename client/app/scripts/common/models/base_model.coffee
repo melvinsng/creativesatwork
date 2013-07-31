@@ -28,7 +28,6 @@ class BaseModel
         console.log '@create error: '
         console.log response
 
-
   all: (options={}) ->
     @before_operation {options}
     queries =
