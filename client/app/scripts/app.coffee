@@ -1,6 +1,7 @@
 angular.module 'config', []
 
 angular.module 'common', [
+  'ui.route'
   'config'
   'ngMobile'
   'ngCookies'
@@ -9,12 +10,14 @@ angular.module 'common', [
 ]
 
 angular.module 'account', []
+angular.module 'dashboard', []
 angular.module 'pages', []
 angular.module 'projects', []
 
 angular.module 'app', [
   'config'
   'common'
+  'dashboard'
   'account'
   'pages'
   'projects'
