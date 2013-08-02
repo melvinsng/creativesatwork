@@ -1,22 +1,25 @@
 module Includable
   module AsJson
-    extend ActiveSupport::Concern
 
-    included do
-
+    def self.included(base)
       define_singleton_method :expose_attrs do |attrs|
-        define_method :as_json_options do |options|
-          # val must be array!
-          preset_options = attrs
-          if defined?(super)
-            super(preset_options).each do |key,val|
+        if self.new.respond_to?(:as_json_options)
+          alias_method :as_json_options_original, :as_json_options
+          define_method :as_json_options do |options|
+            # val must be array!
+            preset_options = attrs
+            as_json_options_original(preset_options).each do |key,val|
               if options.has_key?(key)
                 options[key] = (val.to_set.merge options[key]).to_a
               else
                 options[key] = val
               end
             end
-          else
+            options
+          end
+        else
+          define_method :as_json_options do |options|
+            preset_options = attrs
             preset_options.each do |key,val|
               if options.has_key?(key)
                 options[key] = (val.to_set.merge options[key]).to_a
@@ -24,17 +27,16 @@ module Includable
                 options[key] = val
               end
             end
+            options
           end
-          options
         end
 
+        alias_method :as_json_original, :as_json
         define_method :as_json do |options={}|
-          super as_json_options(options)
+          as_json_original as_json_options(options)
         end
       end # after define_singleton_method
-
     end
-
 
   end
 end

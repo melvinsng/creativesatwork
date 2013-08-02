@@ -32,11 +32,8 @@
                 </a><!-- /nav-collapse -->
                 <div class="nav-collapse collapse">
                   <ul class="nav top-2">
-                    <li class="active"><a href="#/home">Browse</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="contactus.html">Contact</a></li>
-
+                    <li ui-route="#/projects" ng-class="{active: $uiRoute}"><a href="#/projects">Projects</a></li>
+                    <li ui-route="#/freelancers" ng-class="{active: $uiRoute}"><a href="#/freelancers">Freelancers</a></li>
                   </ul>
                   <div class="clearfix"></div>
                 </div><!-- /nav-collapse -->
