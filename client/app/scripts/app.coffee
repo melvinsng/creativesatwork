@@ -12,7 +12,7 @@ angular.module 'common', [
 angular.module 'account', []
 angular.module 'dashboard', []
 angular.module 'pages', []
-angular.module 'projects', []
+angular.module 'platform', []
 
 angular.module 'app', [
   'config'
@@ -20,7 +20,7 @@ angular.module 'app', [
   'dashboard'
   'account'
   'pages'
-  'projects'
+  'platform'
 ]
 
 angular.element(document).ready ->
