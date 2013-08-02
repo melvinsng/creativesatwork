@@ -10,18 +10,20 @@
 
     <div class="span9">
       <h3 class="title-listing-1 margin-bottom-10">
-        Your Company Profile
+        Your Profile
       </h3>
 
       <div class="featured_box box_main" id="settings_con">
-        <div class="box_main_title">
-            Please provide your information below
-        </div>
+
 
         <form novalidate ng-submit="submitForm()" name="form">
 
-          <div class="settings_divider">
+          <div class="box_main_title">
+            Please provide your information below
           </div>
+
+          <div class="settings_divider"></div>
+
           <div class="control-group">
             <label class="control-label">First Name</label>
             <input type="text" ng-model="current_user.first_name" class="input-xlarge focused">
@@ -30,26 +32,96 @@
             <label class="control-label">Last Name</label>
             <input type="text" ng-model="current_user.last_name" class="input-xlarge focused">
           </div>
+          <div class="control-group">
+            <label class="control-label"></label>
+                    <span class="btn btn-small btn-info fileupload-wrapper">
+                        <i class="fui-plus"></i>
+                        <span>&nbsp;Upload Profile Picture</span>
+                        <input type="file" fileupload name="picture"
+                               uploader-id="avatar-uploader"
+                               server-domain="http://sgattractions.com:3003"
+                               service-path="pictures" />
+                    </span>
+            <span class="label label-primary">{{avatar_upload_state}}</span>
+            <img ng-show="current_user.photo_url != '' && current_user.photo_url != null "
+                 nailthumb
+                 ng-src="{{current_user.photo_url}}">
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="box_main_title">
+            Tell us about your talent and work history
+          </div>
 
           <div class="settings_divider"></div>
 
           <div class="control-group">
-            <div class="control-group">
-              <label class="control-label">Company Name</label>
-              <input type="text" ng-model="current_user.company_name" class="input-xlarge focused">
-            </div>
-            <div class="control-group">
-              <label class="control-label">Company URL</label>
-              <input type="text" ng-model="current_user.company_url" class="input-xlarge focused">
-            </div>
-            <div class="control-group">
-              <label class="control-label">Company Description</label>
-              <textarea rows="5" ng-model="current_user.company_description" class="input-xlarge focused"></textarea>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Company Location</label>
-              <input type="text" ng-model="current_user.company_location" class="input-xlarge focused">
-            </div>
+            <label class="control-label">Your Talent</label>
+            <select ng-model="current_user.job_category_id" ng-options="cat.id as cat.name for cat in job_categories"></select>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Job Title</label>
+            <input type="text" ng-model="current_user.job_title" class="input-xlarge focused">
+          </div>
+          <div class="control-group">
+            <label class="control-label">Years of Experience</label>
+            <input type="text" ng-model="current_user.years_of_experience" class="input-xlarge focused">
+          </div>
+          <div class="control-group">
+            <label class="control-label">Professional History</label>
+            <textarea rows="5" ng-model="current_user.professional_history" class="input-xlarge focused"></textarea>
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="box_main_title">
+            Tell us about your skills and qualifications
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="control-group">
+            <label class="control-label">Skills</label>
+            <input tagsinput ng-list ng-model="current_user._skills" class="input-xlarge focused">
+          </div>
+          <div class="control-group">
+            <label class="control-label">Your Education / Certifications</label>
+            <textarea rows="5" ng-model="current_user.education_and_certificates" class="input-xlarge focused"></textarea>
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="box_main_title">
+            Let us know if you have other information you would like to tell about yourself
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="control-group">
+            <label class="control-label">Extra Information</label>
+            <textarea rows="5" ng-model="current_user.other_information" class="input-xlarge focused"></textarea>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Your Accolades/Awards</label>
+            <textarea rows="5" ng-model="current_user.accolades_and_awards" class="input-xlarge focused"></textarea>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Your Portfolio URL</label>
+            <input type="url" ng-model="current_user.portfolio" class="input-xlarge focused">
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="box_main_title">
+            How would you like to remunerated? Rate per day(8 hours)
+          </div>
+
+          <div class="settings_divider"></div>
+
+          <div class="control-group">
+            <label class="control-label">Rate</label>
+            <input type="number" step="any" ng-model="current_user.day_rate" class="input-xlarge focused">
           </div>
 
           <div class="settings_divider"></div>
