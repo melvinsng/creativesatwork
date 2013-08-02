@@ -13,7 +13,7 @@ angular.module('dashboard').config [
     .when('dashboard.freelancer', omitController: true)
     .when('dashboard.freelancer.notifications', omitController: true)
     .when('dashboard.freelancer.completed_projects', omitController: true)
-    .when('dashboard.freelancer.pending_projects', omitController: true)
+    .when('dashboard.freelancer.bid_projects', omitController: true)
     .when('dashboard.freelancer.active_projects', omitController: true)
     .when('dashboard.freelancer.profile', omitController: true)
 ]
