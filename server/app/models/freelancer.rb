@@ -1,7 +1,5 @@
 class Freelancer < User
   belongs_to :job_category
-  has_and_belongs_to_many :skills
-  accepts_nested_attributes_for :skills
 
   field :job_title
   field :years_of_experience
@@ -14,6 +12,20 @@ class Freelancer < User
 
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
+
+  include Mongoid::TaggableWithContext
+  include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
+  # include Mongoid::TaggableWithContext::AggregationStrategy::MapReduce
+  taggable :skills, separator: ','
+
+=begin
+  alias_method :skills_eq_original, :skills=
+
+  def skills=(string)
+    _skills_array = string.split(',').map{|x| x.strip}
+    skills_eq_original(_skills_array)
+  end
+=end
 
   def as_json_options(options={})
     # val must be array!

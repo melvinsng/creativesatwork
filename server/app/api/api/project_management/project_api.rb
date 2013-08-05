@@ -4,7 +4,6 @@ module Api
       extend Api::Base
 
       crud :job_category
-      crud :skill
       crud :project
 
     end

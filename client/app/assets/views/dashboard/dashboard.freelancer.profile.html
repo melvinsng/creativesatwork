@@ -34,17 +34,20 @@
           </div>
           <div class="control-group">
             <label class="control-label"></label>
-                    <span class="btn btn-small btn-info fileupload-wrapper">
-                        <i class="fui-plus"></i>
-                        <span>&nbsp;Upload Profile Picture</span>
-                        <input type="file" fileupload name="picture"
-                               uploader-id="avatar-uploader"
-                               server-domain="http://sgattractions.com:3003"
-                               service-path="pictures" />
-                    </span>
+            <span class="btn btn-small btn-info fileupload-wrapper">
+                <i class="fui-plus"></i>
+                <span>&nbsp;Upload Profile Picture</span>
+                <input type="file" fileupload name="picture"
+                       uploader-id="avatar-uploader"
+                       server-domain="http://sgattractions.com:3003"
+                       service-path="pictures" />
+            </span>
             <span class="label label-primary">{{avatar_upload_state}}</span>
+          </div>
+          <div class="control-group">
+            <label class="control-label"></label>
             <img ng-show="current_user.photo_url != '' && current_user.photo_url != null "
-                 nailthumb
+                 nailthumb height="200" width="240" method="resize"
                  ng-src="{{current_user.photo_url}}">
           </div>
 
@@ -83,7 +86,7 @@
 
           <div class="control-group">
             <label class="control-label">Skills</label>
-            <input tagsinput ng-list ng-model="current_user._skills" class="input-xlarge focused">
+            <input tagsinput ng-list ng-model="current_user.skills" class="input-xlarge focused">
           </div>
           <div class="control-group">
             <label class="control-label">Your Education / Certifications</label>

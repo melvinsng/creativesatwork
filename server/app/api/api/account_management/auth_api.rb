@@ -50,7 +50,7 @@ module Api
 
       resources 'users' do
 
-        desc 'Get user from account'
+        desc 'Get user from account. When client pass in auth provider&id, determine if the account exists'
         params do
           requires :auth_id
           requires :auth_provider

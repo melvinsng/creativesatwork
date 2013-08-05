@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 gem 'mongoid', git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongoid_taggable_with_context'
 gem 'grape'
 gem 'grape-swagger'
 gem 'thin'

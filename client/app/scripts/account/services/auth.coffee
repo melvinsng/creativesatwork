@@ -11,6 +11,7 @@ angular.module('account').service 'Auth',[
       Session.set(authenticated.user_type, authenticated.auth_id, authenticated.auth_provider, authenticated.token)
       $http.defaults.headers.common['User-Authorization'] = Session.as_json()
       console.log authenticated
+      alert('broadcasting')
       $rootScope.$broadcast 'session:created', authenticated
 
     @user = (options={})->
@@ -56,7 +57,6 @@ angular.module('account').service 'Auth',[
 
     @logout = ->
       Session.destroy()
-      $rootScope.$broadcast 'logged_out'
 
     @forgot_password = (user_type, auth_id, auth_provider, opts={}) ->
       User.forgot_password(user_type, auth_id, auth_provider).then ( (success) ->

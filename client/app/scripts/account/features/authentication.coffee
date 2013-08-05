@@ -6,22 +6,10 @@ angular.module('account').run [
 
     $rootScope.logout = ->
       Auth.logout()
+      $rootScope.$broadcast 'logged_out'
+      $rootScope.redirect_to '', success: 'You are logged out'
 
-    angular.forEach ['logged_out', 'login:started'], (event) ->
-      $rootScope.$on event, ->
-        $rootScope.current_user = null
-        $rootScope.authenticated = false
-        $rootScope.user_class = 'User'
-        $rootScope.user_type = 'guest'
-
-    angular.forEach ['session:created'], (event) ->
-      $rootScope.$on event, (ev, user) ->
-        $rootScope.current_user = user
-        $rootScope.authenticated = true
-        $rootScope.user_class = user.user_type
-        $rootScope.user_type = user.user_type.toLowerCase()
-
-    $rootScope.attemptLogin = ->
+    $rootScope.attemptLogin = (opts={})->
       deferred = $q.defer()
       if $rootScope.authenticated? and $rootScope.authenticated
         deferred.resolve($rootScope.current_user)
@@ -32,14 +20,30 @@ angular.module('account').run [
           $rootScope.authenticated = true
           $rootScope.user_class = user.user_type
           $rootScope.user_type = user.user_type.toLowerCase()
+          opts.successHandler?(user)
           deferred.resolve(user)
         ), ->
           $rootScope.current_user = null
           $rootScope.authenticated = false
           $rootScope.user_class = 'User'
           $rootScope.user_type = 'guest'
+          opts.failedHandler?(user)
           deferred.reject('user is not logged in')
       deferred.promise
+
+    angular.forEach ['logged_out', 'login:started'], (event) ->
+      $rootScope.$on event, ->
+        $rootScope.current_user = null
+        $rootScope.authenticated = false
+        $rootScope.user_class = 'User'
+        $rootScope.user_type = 'guest'
+
+    $rootScope.$on 'session:created', (event, authenticated) ->
+      alert 'attempting login'
+      $rootScope.attemptLogin {
+        successHandler: (user) ->
+          $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: 'You are logged in'
+      }
 
     $rootScope.attemptLogin()
 
