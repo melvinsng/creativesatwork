@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/mauriciozaffari/mongoid_search.git
+  revision: cabd032afc4fccaa5d71d0ac065e66c72216b57a
+  specs:
+    mongoid_search (0.3.2)
+      fast-stemmer (~> 1.0.0)
+      mongoid (>= 3.0.0)
+
+GIT
   remote: git://github.com/mongoid/mongoid.git
   revision: 88599cf64c3d6df9a1277178ced69cd45d30c2f1
   specs:
@@ -51,6 +59,7 @@ GEM
     descendants_tracker (0.0.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    fast-stemmer (1.0.2)
     grape (0.5.0)
       activesupport
       builder
@@ -144,6 +153,7 @@ DEPENDENCIES
   grape-swagger
   mongoid!
   mongoid-erd!
+  mongoid_search!
   mongoid_taggable_with_context
   rack-cors
   rails (= 4.0.0)

@@ -18,6 +18,9 @@ class Freelancer < User
   # include Mongoid::TaggableWithContext::AggregationStrategy::MapReduce
   taggable :skills, separator: ','
 
+  include Mongoid::Search
+  search_in :first_name, :last_name, :job_title, :skills_string
+
   def profile_incomplete
     job_title.blank? || years_of_experience.blank? || professional_history.blank? ||
         day_rate.blank? || education_and_certificates.blank? || location.blank? ||
