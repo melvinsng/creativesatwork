@@ -5,7 +5,6 @@ class User
 
   ACCOUNT_ACTIVE = 'active'
   ACCOUNT_BLOCKED = 'blocked'
-  ACCOUNT_INCOMPLETE_INFO = 'account_incomplete_info'
   PASSWORD_STUB = 'justapasswordstub'
 
   has_secure_password
@@ -20,19 +19,15 @@ class User
   field :photo_url
   field :password_digest
   field :has_password, type: Boolean, default: false
-  field :profile_complete, type: Boolean, default: false
   field :email_confirmed, type: Boolean, default: false
-  field :account_status, default: ACCOUNT_INCOMPLETE_INFO
+  field :account_status, default: ACCOUNT_ACTIVE
 
 
   validates_presence_of :has_password, :first_name, :last_name
 
-  before_save :mark_completed_profile
-
   def user_type; self._type end
   def active?; self.account_status == ACCOUNT_ACTIVE end
   def blocked?; self.account_status == ACCOUNT_BLOCKED end
-  def incomplete_profile?; !active? || !valid?  end
 
   def as_json_options(options={})
     # val must be array!
@@ -58,12 +53,5 @@ class User
   end
   def as_json(options={})
     super as_json_options(options)
-  end
-
-  protected
-  def mark_completed_profile
-    self.profile_complete = !incomplete_profile?
-    self.account_status = (self.profile_complete == true)? ACCOUNT_ACTIVE : ACCOUNT_INCOMPLETE_INFO
-    true
   end
 end

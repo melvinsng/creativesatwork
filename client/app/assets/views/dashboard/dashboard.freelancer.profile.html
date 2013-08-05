@@ -1,42 +1,43 @@
-<div class="container">
-  <div class="row">
-    <div class="span3">
-      <div class="box_main sidenav" ng-show="current_user.profile_complete">
-        <div ng-include src="'partials/dashboard/freelancer.side_menu.html'">
+<div class="body_container">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <div class="box_main sidenav" ng-hide="current_user.profile_incomplete">
+          <div ng-include src="'partials/dashboard/freelancer.side_menu.html'">
+          </div>
         </div>
       </div>
-    </div>
-    <!-- end of span3 -->
+      <!-- end of span3 -->
 
-    <div class="span9">
-      <h3 class="title-listing-1 margin-bottom-10" ng-hide="current_user.profile_complete">
-        Registration
-      </h3>
-      <h3 class="title-listing-1 margin-bottom-10" ng-show="current_user.profile_complete">
-        Your Profile
-      </h3>
+      <div class="span9">
+        <h3 class="title-listing-1 margin-bottom-10" ng-show="current_user.profile_incomplete">
+          Complete Registration
+        </h3>
+        <h3 class="title-listing-1 margin-bottom-10" ng-hide="current_user.profile_incomplete">
+          Your Profile
+        </h3>
 
-      <div class="featured_box box_main" id="settings_con">
+        <div class="featured_box box_main" id="settings_con">
 
 
-        <form novalidate ng-submit="submitForm()" name="form">
+          <form novalidate ng-submit="submitForm()" name="form">
 
-          <div class="box_main_title">
-            Please provide your information below
-          </div>
+            <div class="box_main_title">
+              Please provide your information below
+            </div>
 
-          <div class="settings_divider"></div>
+            <div class="settings_divider"></div>
 
-          <div class="control-group" ng-class="{error: hasError(form.first_name)}">
-            <label class="control-label">First Name</label>
-            <input type="text" ng-model="current_user.first_name" name="first_name" class="input-xlarge focused" required>
-          </div>
-          <div class="control-group" ng-class="{error: hasError(form.last_name)}">
-            <label class="control-label">Last Name</label>
-            <input type="text" ng-model="current_user.last_name" name="last_name" class="input-xlarge focused" required>
-          </div>
-          <div class="control-group">
-            <label class="control-label"></label>
+            <div class="control-group" ng-class="{error: hasError(form.first_name)}">
+              <label class="control-label">First Name</label>
+              <input type="text" ng-model="current_user.first_name" name="first_name" class="input-xlarge focused" required>
+            </div>
+            <div class="control-group" ng-class="{error: hasError(form.last_name)}">
+              <label class="control-label">Last Name</label>
+              <input type="text" ng-model="current_user.last_name" name="last_name" class="input-xlarge focused" required>
+            </div>
+            <div class="control-group">
+              <label class="control-label"></label>
             <span class="btn btn-small btn-info fileupload-wrapper">
                 <i class="fui-plus"></i>
                 <span>&nbsp;Upload Profile Picture</span>
@@ -45,107 +46,109 @@
                        server-domain="http://sgattractions.com:3003"
                        service-path="pictures" />
             </span>
-            <span class="label label-primary">{{avatar_upload_state}}</span>
-          </div>
-          <div class="control-group">
-            <label class="control-label"></label>
-            <img ng-show="current_user.photo_url != '' && current_user.photo_url != null "
-                 nailthumb height="200" width="240" method="resize"
-                 ng-src="{{current_user.photo_url}}">
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="box_main_title">
-            Tell us about your talent and work history
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="control-group" ng-class="{error: hasError(form.job_category_id)}">
-            <label class="control-label">Your Talent</label>
-            <select ng-model="current_user.job_category_id" name="job_category_id" ng-options="cat.id as cat.name for cat in job_categories" required></select>
-          </div>
-          <div class="control-group" ng-class="{error: hasError(form.job_title)}">
-            <label class="control-label">Job Title</label>
-            <input type="text" ng-model="current_user.job_title" name="job_title" class="input-xlarge focused" required>
-          </div>
-          <div class="control-group" ng-class="{error: hasError(form.years_of_experience)}">
-            <label class="control-label">Years of Experience</label>
-            <input type="text" ng-model="current_user.years_of_experience" name="years_of_experience" class="input-xlarge focused" required>
-          </div>
-          <div class="control-group" ng-class="{error: hasError(form.professional_history)}">
-            <label class="control-label">Professional History</label>
-            <textarea rows="5" ng-model="current_user.professional_history" name="professional_history" class="input-xlarge focused"></textarea>
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="box_main_title">
-            Tell us about your skills and qualifications
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="control-group">
-            <label class="control-label">Skills</label>
-            <input tagsinput ng-list ng-model="current_user.skills" class="input-xlarge focused">
-          </div>
-          <div class="control-group">
-            <label class="control-label">Your Education / Certifications</label>
-            <textarea rows="5" ng-model="current_user.education_and_certificates" class="input-xlarge focused"></textarea>
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="box_main_title">
-            Let us know if you have other information you would like to tell about yourself
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="control-group">
-            <label class="control-label">Extra Information</label>
-            <textarea rows="5" ng-model="current_user.other_information" class="input-xlarge focused"></textarea>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Your Accolades/Awards</label>
-            <textarea rows="5" ng-model="current_user.accolades_and_awards" class="input-xlarge focused"></textarea>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Your Portfolio URL</label>
-            <input type="url" ng-model="current_user.portfolio" class="input-xlarge focused">
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="box_main_title">
-            How would you like to remunerated? Rate per day(8 hours)
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="control-group" ng-class="{error: hasError(form.rate)}">
-            <label class="control-label">Rate</label>
-            <input type="number" step="any" ng-model="current_user.day_rate" name="rate" class="input-xlarge focused" required>
-          </div>
-
-          <div class="settings_divider"></div>
-
-          <div class="control-group">
-            <label class="control-label" for="settings_save"></label>
-            <div class="controls">
-              <button class="btn btn-primary" id="settings_save" name="submit" type="submit">
-                Save
-                changes
-              </button>
+              <span class="label label-primary">{{avatar_upload_state}}</span>
             </div>
-          </div>
+            <div class="control-group">
+              <label class="control-label"></label>
+              <img ng-show="current_user.photo_url != '' && current_user.photo_url != null "
+                   nailthumb height="200" width="240" method="resize"
+                   ng-src="{{current_user.photo_url}}">
+            </div>
 
-        </form>
+            <div class="settings_divider"></div>
+
+            <div class="box_main_title">
+              Tell us about your talent and work history
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="control-group" ng-class="{error: hasError(form.job_category_id)}">
+              <label class="control-label">Your Talent</label>
+              <select ng-model="current_user.job_category_id" name="job_category_id" ng-options="cat.id as cat.name for cat in job_categories" required></select>
+            </div>
+            <div class="control-group" ng-class="{error: hasError(form.job_title)}">
+              <label class="control-label">Job Title</label>
+              <input type="text" ng-model="current_user.job_title" name="job_title" class="input-xlarge focused" required>
+            </div>
+            <div class="control-group" ng-class="{error: hasError(form.years_of_experience)}">
+              <label class="control-label">Years of Experience</label>
+              <input type="number" step="0.01" ng-model="current_user.years_of_experience" name="years_of_experience" class="input-xlarge focused" required>
+            </div>
+            <div class="control-group" ng-class="{error: hasError(form.professional_history)}">
+              <label class="control-label">Professional History</label>
+              <textarea rows="5" ng-model="current_user.professional_history" name="professional_history" class="input-xlarge focused"></textarea>
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="box_main_title">
+              Tell us about your skills and qualifications
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="control-group">
+              <label class="control-label">Skills</label>
+              <input tagsinput ng-list ng-model="current_user.skills" class="input-xlarge focused">
+            </div>
+            <div class="control-group">
+              <label class="control-label">Your Education / Certifications</label>
+              <textarea rows="5" ng-model="current_user.education_and_certificates" class="input-xlarge focused"></textarea>
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="box_main_title">
+              Let us know if you have other information you would like to tell about yourself
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="control-group">
+              <label class="control-label">Extra Information</label>
+              <textarea rows="5" ng-model="current_user.other_information" class="input-xlarge focused"></textarea>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Your Accolades/Awards</label>
+              <textarea rows="5" ng-model="current_user.accolades_and_awards" class="input-xlarge focused"></textarea>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Your Portfolio URL</label>
+              <input type="url" ng-model="current_user.portfolio" class="input-xlarge focused">
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="box_main_title">
+              How would you like to remunerated? Rate per day(8 hours)
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="control-group" ng-class="{error: hasError(form.rate)}">
+              <label class="control-label">Rate</label>
+              <input type="number" step="any" ng-model="current_user.day_rate" name="rate" class="input-xlarge focused" required>
+            </div>
+
+            <div class="settings_divider"></div>
+
+            <div class="control-group">
+              <label class="control-label" for="settings_save"></label>
+              <div class="controls">
+                <button class="btn btn-primary" id="settings_save" name="submit" type="submit">
+                  Save
+                  changes
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
       </div>
-
+      <!-- end of span9 -->
     </div>
-    <!-- end of span9 -->
   </div>
+
 </div>

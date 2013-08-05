@@ -18,18 +18,13 @@ class Freelancer < User
   # include Mongoid::TaggableWithContext::AggregationStrategy::MapReduce
   taggable :skills, separator: ','
 
-=begin
-  alias_method :skills_eq_original, :skills=
-
-  def skills=(string)
-    _skills_array = string.split(',').map{|x| x.strip}
-    skills_eq_original(_skills_array)
+  def profile_incomplete
+    job_title.blank? || years_of_experience.blank? || professional_history.blank? || day_rate.blank?
   end
-=end
 
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:skills, :job_category]}
+    preset_options = {methods: [:skills, :job_category, :profile_incomplete]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)

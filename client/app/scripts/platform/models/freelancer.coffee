@@ -3,7 +3,6 @@ angular.module('account').factory 'Freelancer', [
   '$rootScope'
   '$filter'
   (Restangular, $rootScope, $filter) ->
-    class Freelancer extends BaseModel
-
-    return new Freelancer(Restangular, $rootScope, $filter, 'freelancer', 'freelancers')
+    class Model extends BaseModel
+    return new Model(Restangular, $rootScope, $filter, 'freelancer', 'freelancers')
 ]

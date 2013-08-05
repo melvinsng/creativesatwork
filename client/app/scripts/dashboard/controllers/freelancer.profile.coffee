@@ -1,6 +1,7 @@
 angular.module('account').controller 'DashboardFreelancerProfileCtrl', [
   '$scope'
-  ($scope) ->
+  'job_categories'
+  ($scope, job_categories) ->
 
     $scope.$on 'fileupload:add', ->
       $scope.$apply ->
@@ -25,16 +26,21 @@ angular.module('account').controller 'DashboardFreelancerProfileCtrl', [
     $scope.hasError = (input) ->
       !input.$valid && (input.$dirty || $scope.submitted)
 
-    $scope.submitted = false
     $scope.submitForm = ->
       $scope.submitted = true
       if $scope.form.$valid
         $scope.clear_notifications()
         $scope.current_user.put().then ((current_user)->
-          $scope.success_notification 'Your profile is updated successfully'
-          current_user
+          $scope.current_user = current_user
+          $scope.redirect_to "freelancers.show/#{current_user.id}", success: 'Your profile is updated successfully'
         ), ->
           $scope.error_notification 'Form has missing or invalid values'
       else
         $scope.error_notification 'Form has missing or invalid values'
+
+    init = ->
+      $scope.submitted = false
+      $scope.job_categories = job_categories
+    init()
+
 ]

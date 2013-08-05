@@ -11,8 +11,8 @@
               <li ng-hide="authenticated"><a href="#/home">Sign Up</a> </li>
               <li ng-hide="authenticated"><a href="#/freelancer.login">Freelancer login</a> </li>
               <li ng-hide="authenticated"><a href="#/employer.login">Employer login</a> </li>
-              <li ng-show="authenticated && current_user.profile_complete"><a ng-href="#/dashboard.{{ user_type }}">Dashboard</a></li>
-              <li ng-show="authenticated && !current_user.profile_complete"><a ng-href="#/dashboard.{{ user_type }}.profile">Dashboard</a></li>
+              <li ng-show="authenticated && !current_user.profile_incomplete"><a ng-href="#/dashboard.{{ user_type }}">Dashboard</a></li>
+              <li ng-show="authenticated && current_user.profile_incomplete"><a ng-href="#/dashboard.{{ user_type }}.profile">Dashboard</a></li>
               <li ng-show="authenticated"><a ng-click="logout()">Logout</a></li>
               <li ng-show="authenticated && user_type == 'employer' ">
                 <a class="btn btn-primary btn-mini">Post a Job</a></li>
