@@ -6,9 +6,19 @@ module Api
       plural_resource_name = resource_name.pluralize
       entity_class = resource_name.camelize.constantize
       resources plural_resource_name do
-        desc 'Get resources count'
+        desc "Get #{plural_resource_name} count"
+        params do
+          optional :search, desc: 'Full text search'
+          optional :conditions, desc: 'A JSON formatted string of conditions'
+        end
         get 'count' do
-          entity_class.count
+          search = params[:search].blank?? '' : params[:search]
+          conditions = params[:conditions].blank?? {} : ActiveSupport::JSON.decode(params[:conditions]).symbolize_keys
+          if search.blank?
+            entity_class.where(conditions).count
+          else
+            entity_class.full_text_search(search).where(conditions).count
+          end
         end
       end
     end
@@ -20,19 +30,29 @@ module Api
       resources plural_resource_name do
         desc "Get all #{plural_resource_name}"
         params do
+          optional :search, desc: 'Full text search'
           optional :conditions, desc: 'A JSON formatted string of conditions'
           optional :order, desc: 'order by command such as "created_at DESC", multiple order by can be written as "created_at DESC, name ASC"'
           optional :limit
           optional :offset
+          optional :page
+          optional :per_page
           optional :includes, desc: 'a json string of what to include, check \'http://apidock.com/rails/ActiveModel/Serializers/JSON/as_json\''
         end
         get do
+          search = params[:search].blank?? '' : params[:search]
           order = params[:order].blank?? '' : params[:order]
           conditions = params[:conditions].blank?? {} : ActiveSupport::JSON.decode(params[:conditions]).symbolize_keys
           limit = params[:limit].blank?? 100 : params[:limit]
           offset = params[:offset].blank?? 0 : params[:offset]
+          page = params[:page].blank?? 0 : params[:page]
+          per_page = params[:per_page].blank?? 100 : params[:per_page]
           includes = params[:includes].blank?? {} : ActiveSupport::JSON.decode(params[:includes]).symbolize_keys
-          entity_class.where(conditions).order_by(order).limit(limit).skip(offset).as_json includes
+          if search.blank?
+            entity_class.where(conditions).order_by(order).limit(limit).skip(offset).paginate(page: page, per_page: per_page).as_json includes
+          else
+            entity_class.full_text_search(search).where(conditions).order_by(order).limit(limit).skip(offset).paginate(page: page, per_page: per_page).as_json includes
+          end
         end
       end
     end

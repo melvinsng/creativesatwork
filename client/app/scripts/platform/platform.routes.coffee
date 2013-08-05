@@ -9,4 +9,5 @@ angular.module('platform').config [
     .when('projects.edit/:id')
     .when('projects')
     .when('freelancers.show/:id', resolves: ['freelancer', 'job_categories'])
+    .when('freelancers', resolves: ['job_categories'])
 ]

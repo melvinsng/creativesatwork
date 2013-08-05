@@ -143,6 +143,10 @@ GEM
     virtus (0.5.5)
       backports (~> 3.3)
       descendants_tracker (~> 0.0.1)
+    will_paginate (3.0.4)
+    will_paginate_mongoid (1.1.0)
+      mongoid (>= 2.4)
+      will_paginate (~> 3.0)
 
 PLATFORMS
   ruby
@@ -159,3 +163,4 @@ DEPENDENCIES
   rails (= 4.0.0)
   sdoc
   thin
+  will_paginate_mongoid
