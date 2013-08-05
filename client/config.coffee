@@ -35,6 +35,7 @@ exports.config =
     stylesheets:
       joinTo:
         'css/app.css': /^app/
+        'css/vendor.css': /vendor/
 
   server:
     port: 3333
