@@ -4,7 +4,6 @@ angular.module('common').directive 'alerter', [
     replace: true
     scope:
       closeCountDown: '@'
-    templateUrl: 'partials/common/alerter.html'
     controller: [
       '$scope'
       '$timeout'
@@ -16,20 +15,23 @@ angular.module('common').directive 'alerter', [
           _alerts = (alert.msg for alert in $scope.alerts)
           return if _alerts.indexOf(message) >= 0
           $scope.alerts.push type: type, msg: message
+          $.pnotify(
+            text: message
+            type: type
+            width: '300px'
+          )
           $timeout.cancel(clearAlertTimeout) if clearAlertTimeout?
 
-          _closeCountDown = 2000
+          _closeCountDown = 3000
           if angular.isDefined($scope.closeCountDown)
             _closeCountDown = $scope.closeCountDown
           clearAlertTimeout = $timeout (->
             $scope.clearAlerts()
           ), _closeCountDown
 
-        $scope.closeAlert = (index) ->
-          $scope.alerts.splice index, 1
-
         $scope.clearAlerts = ->
           $scope.alerts = []
+          $.pnotify_remove_all()
 
         ### hook to notification event ###
 
