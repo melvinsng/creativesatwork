@@ -22,13 +22,19 @@ angular.module('account').controller 'DashboardFreelancerProfileCtrl', [
     $scope.$on 'fileupload:failed', ->
       $scope.error_notification 'Upload failed', false
 
-    console.log $scope.current_user
+    $scope.hasError = (input) ->
+      !input.$valid && (input.$dirty || $scope.submitted)
 
+    $scope.submitted = false
     $scope.submitForm = ->
-      $scope.clear_notifications()
-      $scope.current_user.put().then ((current_user)->
-        $scope.success_notification 'Your profile is updated successfully'
-        current_user
-      ), ->
-        $scope.error_notification 'Unable to update user'
+      $scope.submitted = true
+      if $scope.form.$valid
+        $scope.clear_notifications()
+        $scope.current_user.put().then ((current_user)->
+          $scope.success_notification 'Your profile is updated successfully'
+          current_user
+        ), ->
+          $scope.error_notification 'Form has missing or invalid values'
+      else
+        $scope.error_notification 'Form has missing or invalid values'
 ]

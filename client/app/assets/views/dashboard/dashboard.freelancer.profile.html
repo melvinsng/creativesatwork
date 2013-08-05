@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="span3">
-      <div class="box_main sidenav">
+      <div class="box_main sidenav" ng-show="current_user.profile_complete">
         <div ng-include src="'partials/dashboard/freelancer.side_menu.html'">
         </div>
       </div>
@@ -9,7 +9,10 @@
     <!-- end of span3 -->
 
     <div class="span9">
-      <h3 class="title-listing-1 margin-bottom-10">
+      <h3 class="title-listing-1 margin-bottom-10" ng-hide="current_user.profile_complete">
+        Registration
+      </h3>
+      <h3 class="title-listing-1 margin-bottom-10" ng-show="current_user.profile_complete">
         Your Profile
       </h3>
 
@@ -24,13 +27,13 @@
 
           <div class="settings_divider"></div>
 
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.first_name)}">
             <label class="control-label">First Name</label>
-            <input type="text" ng-model="current_user.first_name" class="input-xlarge focused">
+            <input type="text" ng-model="current_user.first_name" name="first_name" class="input-xlarge focused" required>
           </div>
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.last_name)}">
             <label class="control-label">Last Name</label>
-            <input type="text" ng-model="current_user.last_name" class="input-xlarge focused">
+            <input type="text" ng-model="current_user.last_name" name="last_name" class="input-xlarge focused" required>
           </div>
           <div class="control-group">
             <label class="control-label"></label>
@@ -59,21 +62,21 @@
 
           <div class="settings_divider"></div>
 
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.job_category_id)}">
             <label class="control-label">Your Talent</label>
-            <select ng-model="current_user.job_category_id" ng-options="cat.id as cat.name for cat in job_categories"></select>
+            <select ng-model="current_user.job_category_id" name="job_category_id" ng-options="cat.id as cat.name for cat in job_categories" required></select>
           </div>
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.job_title)}">
             <label class="control-label">Job Title</label>
-            <input type="text" ng-model="current_user.job_title" class="input-xlarge focused">
+            <input type="text" ng-model="current_user.job_title" name="job_title" class="input-xlarge focused" required>
           </div>
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.years_of_experience)}">
             <label class="control-label">Years of Experience</label>
-            <input type="text" ng-model="current_user.years_of_experience" class="input-xlarge focused">
+            <input type="text" ng-model="current_user.years_of_experience" name="years_of_experience" class="input-xlarge focused" required>
           </div>
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.professional_history)}">
             <label class="control-label">Professional History</label>
-            <textarea rows="5" ng-model="current_user.professional_history" class="input-xlarge focused"></textarea>
+            <textarea rows="5" ng-model="current_user.professional_history" name="professional_history" class="input-xlarge focused"></textarea>
           </div>
 
           <div class="settings_divider"></div>
@@ -122,9 +125,9 @@
 
           <div class="settings_divider"></div>
 
-          <div class="control-group">
+          <div class="control-group" ng-class="{error: hasError(form.rate)}">
             <label class="control-label">Rate</label>
-            <input type="number" step="any" ng-model="current_user.day_rate" class="input-xlarge focused">
+            <input type="number" step="any" ng-model="current_user.day_rate" name="rate" class="input-xlarge focused" required>
           </div>
 
           <div class="settings_divider"></div>
