@@ -10,6 +10,15 @@ angular.module('common').directive 'alerter', [
       ($scope, $timeout) ->
         $scope.alerts = []
 
+        stack_topright =
+          dir1: "down"
+          dir2: "left"
+          push: "top"
+          spacing1: 25
+          spacing2: 25
+          firstpos1: 125
+          firstpos2: 25
+
         clearAlertTimeout = null
         $scope.addAlert = (type, message)->
           _alerts = (alert.msg for alert in $scope.alerts)
@@ -18,7 +27,7 @@ angular.module('common').directive 'alerter', [
           $.pnotify(
             text: message
             type: type
-            width: '300px'
+            stack: stack_topright
           )
           $timeout.cancel(clearAlertTimeout) if clearAlertTimeout?
 

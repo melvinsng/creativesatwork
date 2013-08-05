@@ -41,6 +41,7 @@ angular.module('account').run [
     $rootScope.$on 'session:created', (event, authenticated) ->
       $rootScope.attemptLogin {
         successHandler: (user) ->
+          console.log(user)
           $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: 'You are logged in'
       }
 
