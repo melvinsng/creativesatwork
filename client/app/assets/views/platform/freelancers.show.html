@@ -1,3 +1,96 @@
-hello
+<div class="body_container">
+  <div class="container">
+    <div class="row">
+      <!-- end of span12 -->
+      <div class="span3">
 
-        {{ freelancer | json }}
+        <div>
+          <h6 class="title-sidebar-1"><a href="#/freelancers">Browse All Freelancers</a></h6>
+        </div>
+        <div class="con_box listing-sidebar sidebar-search">
+          <h6 class="title-sidebar-1">Find a freelancer</h6>
+          <form class="form-search ">
+            <div class="input-append">
+              <input type="text" search-input class="search-query span2" placeholder="Search">
+              <button type="submit" search-button class="btn btn-large"> <i class="fui-search"></i> </button>
+            </div>
+          </form>
+        </div>
+        <div class="con_box listing-sidebar sidebar-categories">
+          <div class="">
+            <h6 class="title-sidebar-1">Categories</h6>
+            <ul>
+              <search-menu name="job_categories" options="item as item.name for item in job_categories"></search-menu>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- end of span3 -->
+      <div class="span9">
+        <div class="slider_div con_box">
+          <div class="slider_img_con">
+            <a href=""><img class="img_refit" nailthumb height="125" width="125" method="resize" ng-src="{{ freelancer.photo_url }}"></a>
+            <div class="clearfix"></div>
+          </div>
+          <div class="slider_details_con">
+            <a href="">
+              <h3>{{ freelancer.first_name }} {{ freelancer.last_name }} | {{ freelancer.job_title }}</h3>
+            </a>
+            <div class="slider_skills">
+              <span class="demo-inline">
+                <span class="label" ng-repeat="skill in freelancer.skills">{{ skill }}</span>
+              </span>
+            </div>
+            <!-- /row -->
+            <div class="slider_details_1">
+              <div class="slider_price"><span>Day Rate:</span> ${{ freelancer.day_rate }} ++</div>
+              <div class="slider_place"><i class="fui-location"></i> {{ freelancer.location }}</div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <!-- end of slider_div -->
+
+        <div ng-show=" user_type == 'employer' " class="slider_div projects_listing_div con_box">
+          <div class="final-offer-div">
+            <div class="final-offer-div-desc">Offer my project: </div>
+            <select>
+              <option>project photoshop designer needed</option>
+              <option>project commencement photographer</option>
+              <option>Fringilla Commodo Tellus Ipsum</option>
+            </select>
+            <a id="" style="" class="btn btn-header-nav btn-primary" href="#">Confirm</a>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="slider_div con_box">
+
+          <h6 class="con-box-title-1"><i class="icon-coffee"></i> About</h6>
+          <p ng-bind="freelancer.other_information"></p>
+          <div class="hr1"></div>
+
+          <h6 class="con-box-title-1"><i class="icon-briefcase"></i> Work</h6>
+          <h5>Years of experience</h5>
+          <p ng-bind="freelancer.years_of_experience"></p>
+          <h5>Professional History</h5>
+          <p ng-bind="freelancer.professional_history"></p>
+          <h5 ng-show="freelancer.portfolio">Portfolio</h5>
+          <p  ng-show="freelancer.portfolio" ng-bind="freelancer.portfolio"></p>
+          <div class="hr1"></div>
+
+          <h6 class="con-box-title-1"><i class="icon-book"></i> Education</h6>
+          <h5>Education and Certificates</h5>
+          <p ng-bind="freelancer.education_and_certificates"></p>
+          <h5 ng-show="freelancer.accolades_and_awards">Accolades and Awards</h5>
+          <p ng-show="freelancer.accolades_and_awards" ng-bind="freelancer.accolades_and_awards"></p>
+
+
+        </div>
+        <!-- end of con_box -->
+      </div>
+      <!-- end of span9 -->
+    </div>
+  </div>
+</div>

@@ -19,7 +19,9 @@ class Freelancer < User
   taggable :skills, separator: ','
 
   def profile_incomplete
-    job_title.blank? || years_of_experience.blank? || professional_history.blank? || day_rate.blank?
+    job_title.blank? || years_of_experience.blank? || professional_history.blank? ||
+        day_rate.blank? || education_and_certificates.blank? || location.blank? ||
+        other_information.blank? || skills.blank?
   end
 
   def as_json_options(options={})

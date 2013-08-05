@@ -8,5 +8,5 @@ angular.module('platform').config [
     .when('projects.show/:id')
     .when('projects.edit/:id')
     .when('projects')
-    .when('freelancers.show/:id', resolves: ['freelancer'])
+    .when('freelancers.show/:id', resolves: ['freelancer', 'job_categories'])
 ]

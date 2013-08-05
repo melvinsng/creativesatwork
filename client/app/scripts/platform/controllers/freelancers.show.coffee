@@ -1,7 +1,8 @@
 angular.module('platform').controller 'FreelancersShowCtrl', [
   '$scope'
   'freelancer'
-  ($scope, freelancer) ->
+  'job_categories'
+  ($scope, freelancer, job_categories) ->
     $scope.freelancer = freelancer
-    console.log freelancer
+    $scope.job_categories = job_categories
 ]
