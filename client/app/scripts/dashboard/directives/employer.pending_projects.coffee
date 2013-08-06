@@ -3,6 +3,6 @@ angular.module('dashboard').directive 'employerPendingProjects', [
     restrict: 'E'
     replace: true
     scope:
-      projects: '@'
+      projects: '='
     templateUrl: 'partials/dashboard/employer.pending_projects.html'
 ]

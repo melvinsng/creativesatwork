@@ -2,9 +2,9 @@ class Project
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  PENDING = 'pending'
-  ACTIVE = 'active'
-  COMPLETED = 'completed'
+  PENDING = 'project_pending'
+  ACTIVE = 'project_active'
+  COMPLETED = 'project_completed'
 
   belongs_to :employer
   belongs_to :job_category
@@ -14,7 +14,7 @@ class Project
   field :project_timeline
   field :additional_info
   field :budget_range
-  field :status, default: PENDING
+  field :project_status, default: PENDING
 
   include Mongoid::TaggableWithContext
   include Mongoid::TaggableWithContext::AggregationStrategy::RealTime

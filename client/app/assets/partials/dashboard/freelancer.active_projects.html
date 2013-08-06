@@ -5,12 +5,12 @@
     (3)
   </span>
   </h3>
-  <div class="slider_div projects_listing_div con_box" ng-repeat="project in [1,2,3]">
+  <div class="slider_div projects_listing_div con_box" ng-repeat="project in projects">
     <div class="slider_details_con">
 
       <a href="">
         <h3>
-          Freelance Web Design Engineer needed
+          {{ project.title }}
         </h3>
       </a>
       <div class="slider_skills">
