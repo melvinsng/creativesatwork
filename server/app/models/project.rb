@@ -24,9 +24,11 @@ class Project
   include Mongoid::Search
   search_in :title, :project_description, :tags_string
 
+  delegate :company_location, to: :employer
+
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:employer, :job_category, :tags]}
+    preset_options = {methods: [:employer, :job_category, :tags, :company_location]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)
