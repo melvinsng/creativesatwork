@@ -1,4 +1,4 @@
-angular.module('account').controller 'DashboardFreelancerProfileCtrl', [
+angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
   '$scope'
   'job_categories'
   ($scope, job_categories) ->

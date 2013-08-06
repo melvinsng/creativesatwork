@@ -8,9 +8,13 @@ class Employer < User
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
 
+  def profile_incomplete
+    company_name.blank? || company_description.blank? || company_location.blank?
+  end
+
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:projects]}
+    preset_options = {methods: [:projects, :profile_incomplete]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)
