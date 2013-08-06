@@ -42,10 +42,7 @@ angular.module('account').service 'Auth',[
       User.authenticate(user_type, auth_id, auth_provider, password)
       .then ((authenticated) =>
         @create_session(authenticated)
-        if register
-          $rootScope.$broadcast 'register:success', authenticated
-        else
-          $rootScope.$broadcast 'login:success', authenticated
+        $rootScope.$broadcast 'authenticate:success', {authenticated, register}
         opts.successHandler?(authenticated)
       ), (response) =>
         ErrorProcessor.process_login response

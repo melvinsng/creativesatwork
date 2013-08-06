@@ -38,11 +38,11 @@ angular.module('account').run [
         $rootScope.user_class = 'User'
         $rootScope.user_type = 'guest'
 
-    $rootScope.$on 'session:created', (event, authenticated) ->
+    $rootScope.$on 'authenticate:success', (event, response) ->
       $rootScope.attemptLogin {
         successHandler: (user) ->
-          console.log(user)
-          $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: 'You are logged in'
+          success_msg = if response.register then 'Welcome to Creatives@Work!' else 'You are logged in'
+          $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: success_msg
       }
 
     $rootScope.attemptLogin()
