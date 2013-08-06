@@ -1,6 +1,11 @@
 class Freelancer < User
   belongs_to :job_category
 
+  has_many :projects
+
+  has_and_belongs_to_many :bidding_projects, class_name: 'Project', inverse_of: :bidders
+  has_and_belongs_to_many :offered_projects, class_name: 'Project', inverse_of: :offers
+
   field :job_title
   field :years_of_experience
   field :professional_history
@@ -29,7 +34,7 @@ class Freelancer < User
 
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:skills, :job_category, :profile_incomplete]}
+    preset_options = {methods: [:skills, :job_category, :profile_incomplete, :bidding_projects, :offered_projects]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)

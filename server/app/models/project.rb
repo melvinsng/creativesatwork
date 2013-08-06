@@ -7,7 +7,11 @@ class Project
   COMPLETED = 'project_completed'
 
   belongs_to :employer
+  belongs_to :freelancer
   belongs_to :job_category
+
+  has_and_belongs_to_many :bidders, class_name: 'Freelancer', inverse_of: :bidding_projects
+  has_and_belongs_to_many :offers, class_name: 'Freelancer', inverse_of: :offered_projects
 
   field :title
   field :project_description
@@ -28,7 +32,7 @@ class Project
 
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:employer, :job_category, :tags, :company_location]}
+    preset_options = {methods: [:employer, :job_category, :tags, :company_location, :offers, :bidders]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)

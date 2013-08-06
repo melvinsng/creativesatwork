@@ -9,9 +9,9 @@ module Api
         params do
           requires :user_id
         end
-        post ':id/add_volunteer' do
+        post ':id/add_bidder' do
           begin
-            ProjectServices::Activities.add_volunteer params[:id], params[:user_id]
+            ProjectServices::Activities.add_bidder params[:id], params[:user_id]
           rescue ProjectServices::Exception => e
             status(404)
             {
@@ -24,9 +24,9 @@ module Api
         params do
           requires :user_id
         end
-        post ':id/add_supporter' do
+        post ':id/add_offer' do
           begin
-            ProjectServices::Activities.add_supporter params[:id], params[:user_id]
+            ProjectServices::Activities.add_offer params[:id], params[:user_id]
           rescue ProjectServices::Exception => e
             status(404)
             {

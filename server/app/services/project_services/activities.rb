@@ -2,24 +2,24 @@ module ProjectServices
   class Activities < Base
 
     class << self
-      def add_volunteer(pid, uid)
+      def add_bidder(pid, uid)
         project = Project.where(id: pid)
         raise! PROJECT_NOT_FOUND if project.blank?
         project = project.first
-        user = User.where(id: uid)
+        user = Freelancer.where(id: uid)
         raise! USER_NOT_FOUND if user.blank?
         user = user.first
-        project.volunteers << user
+        project.bidders << user
       end
 
-      def add_supporter(pid, uid)
+      def add_offer(pid, uid)
         project = Project.where(id: pid)
         raise! PROJECT_NOT_FOUND if project.blank?
         project = project.first
-        user = User.where(id: uid)
+        user = Freelancer.where(id: uid)
         raise! USER_NOT_FOUND if user.blank?
         user = user.first
-        project.supporters << user
+        project.offers << user
       end
 
     end
