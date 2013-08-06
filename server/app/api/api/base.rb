@@ -41,11 +41,11 @@ module Api
         end
         get do
           search = params[:search].blank?? '' : params[:search]
-          order = params[:order].blank?? '' : params[:order]
+          order = params[:order].blank?? 'created_at DESC' : params[:order]
           conditions = params[:conditions].blank?? {} : ActiveSupport::JSON.decode(params[:conditions]).symbolize_keys
           limit = params[:limit].blank?? 100 : params[:limit]
           offset = params[:offset].blank?? 0 : params[:offset]
-          page = params[:page].blank?? 0 : params[:page]
+          page = params[:page].blank?? 1 : params[:page]
           per_page = params[:per_page].blank?? 100 : params[:per_page]
           includes = params[:includes].blank?? {} : ActiveSupport::JSON.decode(params[:includes]).symbolize_keys
           if search.blank?

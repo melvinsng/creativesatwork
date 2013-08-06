@@ -1,15 +1,32 @@
 class Project
   include Mongoid::Document
   include Mongoid::Timestamps
+
+  PENDING = 'pending'
+  ACTIVE = 'active'
+  COMPLETED = 'completed'
+
   belongs_to :employer
+  belongs_to :job_category
 
   field :title
-  field :description
+  field :project_description
+  field :project_timeline
+  field :additional_info
   field :budget_range
+  field :status, default: PENDING
+
+  include Mongoid::TaggableWithContext
+  include Mongoid::TaggableWithContext::AggregationStrategy::RealTime
+  # include Mongoid::TaggableWithContext::AggregationStrategy::MapReduce
+  taggable :tags, separator: ','
+
+  include Mongoid::Search
+  search_in :title, :project_description, :tags_string
 
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:employer]}
+    preset_options = {methods: [:employer, :job_category, :tags]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)

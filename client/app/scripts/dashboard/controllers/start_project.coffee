@@ -1,7 +1,8 @@
 angular.module('dashboard').controller 'DashboardCreateProjectCtrl', [
   '$scope'
   'job_categories'
-  ($scope, job_categories) ->
+  'Project'
+  ($scope, job_categories, Project) ->
 
     $scope.hasError = (input) ->
       !input.$valid && (input.$dirty || $scope.submitted)
@@ -10,9 +11,11 @@ angular.module('dashboard').controller 'DashboardCreateProjectCtrl', [
       $scope.submitted = true
       if $scope.form.$valid
         $scope.clear_notifications()
-        $scope.current_user.put().then ((current_user)->
-          $scope.current_user = current_user
-          $scope.success_notification 'Your project is created successfully'
+        promise = Project.create $scope.project
+        promise.then ((project)->
+          console.log project
+          alert 'success'
+          #$scope.redirect_to "projects.show/#{project.id}" ,success: 'Your project is created successfully'
         ), ->
           $scope.error_notification 'Form has missing or invalid values'
       else
@@ -21,6 +24,8 @@ angular.module('dashboard').controller 'DashboardCreateProjectCtrl', [
     init = ->
       $scope.submitted = false
       $scope.job_categories = job_categories
+      $scope.project =
+        employer_id: $scope.current_user.id
       $scope.budget_ranges = [
         '$0 - $500'
         '$500 - $1000'
