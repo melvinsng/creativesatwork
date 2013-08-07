@@ -56,12 +56,8 @@
         <div ng-show=" user_type == 'employer' " class="slider_div projects_listing_div con_box">
           <div class="final-offer-div">
             <div class="final-offer-div-desc">Offer my project: </div>
-            <select>
-              <option>project photoshop designer needed</option>
-              <option>project commencement photographer</option>
-              <option>Fringilla Commodo Tellus Ipsum</option>
-            </select>
-            <a id="" style="" class="btn btn-header-nav btn-primary" href="#">Confirm</a>
+            <select ng-model="offering_project_id" ng-options="project.id as project.title for project in current_user.projects"></select>
+            <a ng-click="offerProject()" class="btn btn-header-nav btn-primary" href>Confirm</a>
           </div>
           <div class="clearfix"></div>
         </div>

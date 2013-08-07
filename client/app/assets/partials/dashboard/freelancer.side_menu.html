@@ -14,10 +14,10 @@
   </li>
   <li ui-route="#/dashboard.freelancer.bid_projects" ng-class="{active: $uiRoute}">
     <a href="#/dashboard.freelancer.bid_projects">
-      Bid Projects (3)
+      Bidding Projects ({{ current_user.bidding_projects.length }})
     </a>
   </li>
-  <li ui-route="#/dashboard.freelancer.active_projects" ng-class="{active: $uiRoute}">
+<!--  <li ui-route="#/dashboard.freelancer.active_projects" ng-class="{active: $uiRoute}">
     <a href="#/dashboard.freelancer.active_projects">
       Active Projects (1)
     </a>
@@ -25,6 +25,11 @@
   <li ui-route="#/dashboard.freelancer.completed_projects" ng-class="{active: $uiRoute}">
     <a href="#/dashboard.freelancer.completed_projects">
       Completed Projects (5)
+    </a>
+  </li>-->
+  <li ui-route="#/dashboard.freelancer.offered_projects" ng-class="{active: $uiRoute}">
+    <a href="#/dashboard.freelancer.offered_projects">
+      Offered Projects ({{ current_user.offered_projects.length }})
     </a>
   </li>
   <li ui-route="#/dashboard.freelancer.profile" ng-class="{active: $uiRoute}">

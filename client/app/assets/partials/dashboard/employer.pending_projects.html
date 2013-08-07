@@ -27,17 +27,12 @@
           <i class="icon-bolt">
           </i>
           Bid by
-          <a href="">
-            The-designer-name-1
-          </a>
-          ,
-          <a href="">
-            The-designer-name-2
-          </a>
-          ,
-          <a href="">
-            The-designer-name-3
-          </a>
+          <div  ng-repeat="bidder in project.bidders">
+            <a ng-click="fulfillBid(bidder, project)">
+              {{ bidder.first_name }}
+            </a>
+          </div>
+
 
         </div>
         <div class="offer-name">
@@ -45,16 +40,8 @@
           <i class="icon-arrow-right">
           </i>
           Offered to
-          <a href="">
-            The-designer-name-1
-          </a>
-          ,
-          <a href="">
-            The-designer-name-2
-          </a>
-          ,
-          <a href="">
-            The-designer-name-3
+          <a ng-href="#/freelancers.show/{{ bidder.id }}" ng-repeat="offer in project.offers">
+            {{ offer.first_name }}
           </a>
 
         </div>
@@ -63,32 +50,7 @@
 
       <div class="hr1">
       </div>
-      <div class="final-offer-div">
-        <div class="final-offer-div-desc">
-          Final offer to:
-        </div>
-        <select>
-          <option>
-            The-designer-name-1
-          </option>
-          <option>
-            The-designer-name-2
-          </option>
-          <option>
-            The-designer-name-3
-          </option>
-          <option>
-            The-designer-name-4
-          </option>
-          <option>
-            The-designer-name-5
-          </option>
-        </select>
-        <a id="" style="" class="btn btn-header-nav btn-primary" href="#">
-          Confirm
-        </a>
 
-      </div>
       <div class="clearfix">
       </div>
     </div>

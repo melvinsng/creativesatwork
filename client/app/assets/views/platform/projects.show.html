@@ -5,32 +5,7 @@
         <div>
           <h6 class="title-sidebar-1"><a href="#/projects">Browse All Projects</a></h6>
         </div>
-        <div class="con_box listing-sidebar sidebar-search">
-          <h6 class="title-sidebar-1">Find a project</h6>
-          <form class="form-search ">
-            <div class="input-append">
-              <input search-input type="text" class="search-query span2" placeholder="Search">
-              <button search-button type="submit" class="btn btn-large"> <i class="fui-search"></i> </button>
-            </div>
-          </form>
-        </div>
-        <div class="con_box listing-sidebar sidebar-categories">
-          <div class="">
-            <h6 class="title-sidebar-1">Categories</h6>
-            <ul class="side_second_menu">
-              <search-menu name="job_categories" options="item as item.name for item in job_categories"></search-menu>
-            </ul>
-          </div>
-        </div>
 
-        <div class="con_box listing-sidebar sidebar-categories">
-          <div class="">
-            <h6 class="title-sidebar-1">Budgets</h6>
-            <ul class="side_second_menu">
-              <search-menu name="budget_range" options="item as item for item in budget_ranges"></search-menu>
-            </ul>
-          </div>
-        </div>
       </div>
       <!-- end of span3 -->
 
@@ -58,7 +33,7 @@
 
             <div class="slider_bid">
               <p>If you are interested to work on this project, please bid for it.</p>
-              <a id="" style="" class="btn btn-header-nav btn-success" href="#">Bid for this project</a><div class="clearfix"></div>
+              <a ng-click="bidProject()" class="btn btn-header-nav btn-success" href>Bid for this project</a><div class="clearfix"></div>
             </div>
 
           </div>
@@ -71,22 +46,24 @@
 
         <div class="slider_div projects_listing_div con_box">
           <div class="project-offer-to">
-            <div class="offer-name"> <i class="icon-bolt"></i> Bid by <a href="">The-designer-name-1</a>, <a href="">The-designer-name-2</a>, <a href="">The-designer-name-3</a> </div>
-            <div class="offer-name"> <i class="icon-arrow-right"></i> Offered to <a href="">The-designer-name-1</a>, <a href="">The-designer-name-2</a>, <a href="">The-designer-name-3</a> </div>
+            <div class="offer-name"> <i class="icon-bolt"></i>
+              Bid by
+              <div ng-repeat="bidder in project.bidders">
+                <a href="#/freelancers.show/{{ bidder.id }}" >{{ bidder.first_name }}</a>
+              </div>
+
+            </div>
+            <div class="offer-name"> <i class="icon-arrow-right"></i>
+              Offered to
+              <div ng-repeat="offer in project.offers">
+                <a href="#/freelancers.show/{{ offer.id }}" >{{ offer.first_name }}</a>
+              </div>
+            </div>
           </div>
           <!-- end of project-offer-to -->
 
           <div class="hr1"></div>
-          <div class="final-offer-div">
-            <div class="final-offer-div-desc">Final offer to: </div>
-            <select>
-              <option>The-designer-name-1</option>
-              <option>The-designer-name-2</option>
-              <option>The-designer-name-3</option>
-              <option>The-designer-name-4</option>
-              <option>The-designer-name-5</option>
-            </select>
-            <a id="" style="" class="btn btn-header-nav btn-primary" href="#">Confirm</a> </div>
+
           <div class="clearfix"></div>
         </div>
         <!-- end of slider_div -->

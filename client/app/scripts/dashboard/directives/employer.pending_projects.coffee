@@ -5,4 +5,10 @@ angular.module('dashboard').directive 'employerPendingProjects', [
     scope:
       projects: '='
     templateUrl: 'partials/dashboard/employer.pending_projects.html'
+    controller: [
+      '$scope'
+      ($scope) ->
+        $scope.fulfillBid = (bidder, project) ->
+          console.log project
+    ]
 ]
