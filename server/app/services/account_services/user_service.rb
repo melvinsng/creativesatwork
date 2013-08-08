@@ -1,13 +1,12 @@
 module AccountServices
   class UserService < Base
 
+    self.extend AccountServices::DataAccessors
+
     class << self
       def authenticate(user_type, auth_id, auth_provider, ip_address, password=nil)
-        policy = effective_policies[auth_provider.to_sym]
-        raise! UNDEFINED_PROVIDER if policy.nil?
-        auth = AuthAccount.where(auth_id: auth_id, auth_provider: auth_provider, user_type: user_type)
-        raise! USER_NOT_FOUND if auth.blank?
-        user = auth.first.user
+        policy = policy(auth_provider)
+        user = auth(user_type, auth_id, auth_provider).user
         if policy[:require_email_confirmation] and !user.email_confirmed
           AccountServices::EmailSessionService.send_confirmation_email user
           raise! USER_PENDING_CONFIRMATION
@@ -31,11 +30,7 @@ module AccountServices
       end
 
       def authenticate_with_token(user_type, auth_id, auth_provider, token, ip_address)
-        policy = effective_policies[auth_provider.to_sym]
-        raise! UNDEFINED_PROVIDER if policy.nil?
-        auth = AuthAccount.where(auth_id: auth_id, auth_provider: auth_provider, user_type: user_type)
-        raise! USER_NOT_FOUND if auth.blank?
-        user = auth.first.user
+        user = auth(user_type, auth_id, auth_provider).user
         raise! SESSION_NOT_FOUND if user.session.blank?
         raise! TOKEN_NOT_FOUND if user.session.token != token
         raise! DIFFERENT_IP_ADDRESS if user.session.ip_address != ip_address
@@ -47,10 +42,9 @@ module AccountServices
       end
 
       def register(user_type, auth_id, auth_provider, email, password=nil, additional_fields=nil)
-        policy = effective_policies[auth_provider.to_sym]
+        policy = policy(auth_provider)
         additional_fields ||= {}
         additional_fields.except!(:auth_id, :auth_provider, :email, :password, :password_digest, :id)
-        raise! UNDEFINED_PROVIDER if policy.nil?
         user = User.where(email: email, _type: user_type)
         if !user.blank?
           auth = AuthAccount.where(auth_id: auth_id, auth_provider: auth_provider, user_type: user_type)
@@ -85,11 +79,8 @@ module AccountServices
       end
 
       def forgot_password(user_type, auth_id, auth_provider)
-        policy = effective_policies[auth_provider.to_sym]
-        raise! UNDEFINED_PROVIDER if policy.nil?
-        auth = AuthAccount.where(auth_id: auth_id, auth_provider: auth_provider, user_type: user_type)
-        raise! USER_NOT_FOUND if auth.blank?
-        user = auth.first.user
+        policy = policy(auth_provider)
+        user = auth(user_type, auth_id, auth_provider).user
         if policy[:require_email_confirmation] and !user.email_confirmed
           AccountServices::EmailSessionService.send_confirmation_email user
           raise! USER_PENDING_CONFIRMATION

@@ -26,15 +26,19 @@ class Freelancer < User
   include Mongoid::Search
   search_in :first_name, :last_name, :job_title, :skills_string
 
+  def active_projects; projects.where(project_status: Project::ACTIVE) end
+  def completed_projects; projects.where(project_status: Project::COMPLETED) end
+
   def profile_incomplete
-    job_title.blank? || years_of_experience.blank? || professional_history.blank? ||
-        day_rate.blank? || education_and_certificates.blank? || location.blank? ||
-        other_information.blank? || skills.blank?
+    job_title.blank? || years_of_experience.blank? || day_rate.blank? ||
+        education_and_certificates.blank? || location.blank?
   end
 
   def as_json_options(options={})
     # val must be array!
-    preset_options = {methods: [:skills, :job_category, :profile_incomplete, :bidding_projects, :offered_projects]}
+    exposed = [:skills, :job_category, :profile_incomplete,
+               :bidding_projects, :offered_projects, :active_projects, :completed_projects]
+    preset_options = {methods: exposed}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)

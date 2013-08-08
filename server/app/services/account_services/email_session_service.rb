@@ -1,6 +1,8 @@
 module AccountServices
   class EmailSessionService < Base
 
+    self.extend AccountServices::DataAccessors
+
     class << self
       def send_confirmation_email(user)
         session = EmailSession.create_from_user!(user, ACTIVATE_USER)
@@ -13,12 +15,8 @@ module AccountServices
       end
 
       def perform_operation(user_id, token, ip_address, payload={})
-        user = User.where(id: user_id)
-        raise! USER_NOT_FOUND if user.blank?
-        user = user.first
-        session = EmailSession.get_session(user, token)
-        raise! SESSION_NOT_FOUND if session.blank?
-        raise! TOKEN_EXPIRED if session.expired?
+        user = user(user_id)
+        session = email_session(user, token)
         case session.purpose
           when ACTIVATE_USER
             result = activate_user(user, ip_address)
