@@ -8,7 +8,7 @@ angular.module('account').controller 'AccountEmailConfirmationCtrl', [
 
     $http.get("#{ServiceEndpoint}/users/activate_from_email/#{$routeParams.userId}/#{$routeParams.token}")
     .success( (authenticated)->
-      $scope.success_notification 'Your email has been verified'
+      $scope.notify_success 'Your email has been verified'
       Auth.create_session {
         user_type: authenticated.user_type,
         auth_id: authenticated.auth_id,
@@ -16,11 +16,11 @@ angular.module('account').controller 'AccountEmailConfirmationCtrl', [
         token: authenticated.token
       }
     ).error ->
-      $scope.error_notification 'We are unable to activate this account.'
+      $scope.notify_error 'We are unable to activate this account.'
 
     $scope.$on 'session:created', (ev, user) ->
       $scope.attemptLogin().then ( ->
         $scope.redirect_to "${user.user_type.toLowerCase()}.profile.edit", success: 'Please proceed to furnish your account information'
       ), ->
-        $scope.error_notification 'Unable to log you in'
+        $scope.notify_error 'Unable to log you in'
 ]

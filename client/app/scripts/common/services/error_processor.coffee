@@ -8,42 +8,42 @@ angular.module('common').service 'ErrorProcessor', [
           for field, error_list of response.data
             for error in error_list
               $log.error error
-              $rootScope.error_notification "#{field} #{error}"
+              $rootScope.notify_error "#{field} #{error}"
         else
           if defaultHandler?
             defaultHandler()
           else
-            $rootScope.error_notification 'Unable to save.'
+            $rootScope.notify_error 'Unable to save.'
 
     @process_login = (response, defaultHandler) ->
       switch response.status
         when 401 # unauthorized
-          $rootScope.error_notification response.data.message if "message" of response.data
+          $rootScope.notify_error response.data.message if "message" of response.data
         else
           if defaultHandler?
             defaultHandler()
           else
-            $rootScope.error_notification 'Login failed'
+            $rootScope.notify_error 'Login failed'
 
     @process_registration = (response, defaultHandler) ->
       switch response.status
         when 401
-          $rootScope.error_notification response.data.message if "message" of response.data
+          $rootScope.notify_error response.data.message if "message" of response.data
         else
           if defaultHandler?
             defaultHandler()
           else
-            $rootScope.error_notification 'Registration Failed'
+            $rootScope.notify_error 'Registration Failed'
 
     @process_forgot_password = (response, defaultHandler) ->
       switch response.status
         when 401
-          $rootScope.error_notification response.data.message if "message" of response.data
+          $rootScope.notify_error response.data.message if "message" of response.data
         else
           if defaultHandler?
             defaultHandler()
           else
-            $rootScope.error_notification 'Sorry, we are unable to reset your password.'
+            $rootScope.notify_error 'Sorry, we are unable to reset your password.'
 
     @ #return self
 ]

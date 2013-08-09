@@ -29,7 +29,7 @@ angular.module('account').service 'Auth',[
     @register = (user_type, auth_id, auth_provider, email, password, additional_fields) ->
       User.register(user_type, auth_id, auth_provider, email, password, additional_fields).then ( (response)=>
         if response.email_confirmation
-          $rootScope.info_notification 'An email has been sent to verify your email address.'
+          $rootScope.notify_info 'An email has been sent to verify your email address.'
         else
           @authenticate(user_type, auth_id, auth_provider, password, true)
       ), (response) ->
@@ -56,7 +56,7 @@ angular.module('account').service 'Auth',[
 
     @forgot_password = (user_type, auth_id, auth_provider, opts={}) ->
       User.forgot_password(user_type, auth_id, auth_provider).then ( (success) ->
-        $rootScope.success_notification 'An email has been sent to you to confirm password'
+        $rootScope.notify_success 'An email has been sent to you to confirm password'
         opts.successHandler?(success)
       ), (response) ->
         console.log response

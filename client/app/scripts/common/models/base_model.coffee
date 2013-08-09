@@ -25,11 +25,11 @@ class BaseModel
       opts.notify_error = options.notify_error if options.notify_error?
       promise.then ((project)=>
         @operation_success {project}
-        @$rootScope.success_notification "#{@humanizedSingularName} created successfully" if opts.notify_success
+        @$rootScope.notify_success "#{@humanizedSingularName} created successfully" if opts.notify_success
         project
       ), (response) =>
         @operation_failed {response, model, options}
-        @$rootScope.error_notification "Failed to create #{@humanizedSingularName}" if opts.notify_error
+        @$rootScope.notify_error "Failed to create #{@humanizedSingularName}" if opts.notify_error
         console.log '@create error: '
         console.log response
 
@@ -91,7 +91,7 @@ class BaseModel
         project
       ), (response) =>
         @operation_failed {response}
-        @$rootScope.error_notification "Unable to find #{@humanizedSingularName} with id = #{id}"
+        @$rootScope.notify_error "Unable to find #{@humanizedSingularName} with id = #{id}"
         console.log '@find error'
         console.log response
 

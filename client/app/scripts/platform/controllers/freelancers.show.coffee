@@ -10,7 +10,7 @@ angular.module('platform').controller 'FreelancersShowCtrl', [
     $scope.offerProject = ->
       Project.add_offer($scope.offering_project_id, freelancer.id).then (res)->
         console.log res
-        $scope.success_notification 'Project offered'
+        $scope.notify_success 'Project offered'
       , (response) ->
         console.log response
         alert 'fai'

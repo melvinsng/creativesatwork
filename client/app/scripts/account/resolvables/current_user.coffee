@@ -15,6 +15,6 @@ resolvables['current_user'] = [
       $rootScope.authenticated = false
       $rootScope.user_class = 'User'
       $rootScope.user_type = 'guest'
-      $rootScope.error_notification 'Please login first', false
+      $rootScope.notify_error 'Please login first', false
       $q.reject('Access not allowed')
 ]

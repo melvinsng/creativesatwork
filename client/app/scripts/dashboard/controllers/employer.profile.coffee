@@ -11,11 +11,11 @@ angular.module('dashboard').controller 'DashboardEmployerProfileCtrl', [
         $scope.clear_notifications()
         $scope.current_user.put().then ((current_user)->
           $scope.current_user = current_user
-          $scope.success_notification 'Your profile is updated successfully'
+          $scope.notify_success 'Your profile is updated successfully'
         ), ->
-          $scope.error_notification 'Form has missing or invalid values'
+          $scope.notify_error 'Form has missing or invalid values'
       else
-        $scope.error_notification 'Form has missing or invalid values'
+        $scope.notify_error 'Form has missing or invalid values'
 
     init = ->
       $scope.submitted = false

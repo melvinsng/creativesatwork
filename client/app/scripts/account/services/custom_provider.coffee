@@ -7,7 +7,7 @@ angular.module('account').factory 'CustomProvider', [
   (Auth, User, $rootScope, MemoryStore, $timeout) ->
     class CustomProvider
       connectFailure = ->
-        $rootScope.error_notification 'You need to authorize this app in order to log in'
+        $rootScope.notify_error 'You need to authorize this app in order to log in'
 
       authenticate_with_custom_provider = (info) ->
         $timeout ( ->

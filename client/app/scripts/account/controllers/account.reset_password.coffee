@@ -9,5 +9,5 @@ angular.module('account').controller 'AccountResetPasswordCtrl', [
       .then ( ->
         $scope.redirect_to 'user.login', success: 'Your password is changed successfully. Please login'
       ), ->
-        $scope.error_notification 'Unable to reset password. Token is invalid.'
+        $scope.notify_error 'Unable to reset password. Token is invalid.'
 ]

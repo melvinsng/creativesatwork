@@ -23,11 +23,11 @@ angular.module('platform').controller 'FreelancersCtrl', [
         $scope.total_results = count
         $scope.total_pages = Math.ceil(count/$scope.query.per_page)
       ), ->
-        $scope.error_notification 'Unable to fetch count from server'
+        $scope.notify_error 'Unable to fetch count from server'
       Freelancer.all($scope.query).then ((freelancers) ->
         $scope.freelancers = freelancers
       ), ->
-        $scope.error_notification 'Unable to fetch result from server'
+        $scope.notify_error 'Unable to fetch result from server'
 
 
     init = =>
