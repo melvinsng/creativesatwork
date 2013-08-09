@@ -13,12 +13,16 @@ class Employer < User
   def completed_projects; projects.where(project_status: Project::COMPLETED) end
 
   def profile_incomplete
-    company_name.blank? || company_description.blank? || company_location.blank?
+    company_location.blank?
+  end
+
+  def _deny_fields
+    %W{pending_projects active_projects completed_projects}
   end
 
   def as_json_options(options={})
     # val must be array!
-    exposed = [:active_projects, :pending_projects, :completed_projects, :profile_incomplete]
+    exposed = [:active_projects, :pending_projects, :completed_projects, :profile_incomplete, :_deny_fields]
     preset_options = {methods: exposed}
     if defined?(super)
       super(preset_options).each do |key,val|

@@ -12,7 +12,7 @@ module Api
         post ':id/add_bidder' do
           begin
             ProjectServices::Activities.add_bidder params[:id], params[:user_id]
-          rescue ProjectServices::Exception => e
+          rescue ProjectServices::Exceptions::Exception => e
             status(404)
             {
                 message: e.message
@@ -27,7 +27,7 @@ module Api
         post ':id/add_offer' do
           begin
             ProjectServices::Activities.add_offer params[:id], params[:user_id]
-          rescue ProjectServices::Exception => e
+          rescue ProjectServices::Exceptions::Exception => e
             status(404)
             {
                 message: e.message

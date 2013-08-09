@@ -34,10 +34,14 @@ class Freelancer < User
         education_and_certificates.blank? || location.blank?
   end
 
+  def _deny_fields
+    %W{pending_projects active_projects completed_projects}
+  end
+
   def as_json_options(options={})
     # val must be array!
     exposed = [:skills, :job_category, :profile_incomplete,
-               :bidding_projects, :offered_projects, :active_projects, :completed_projects]
+               :bidding_projects, :offered_projects, :active_projects, :completed_projects, :_deny_fields]
     preset_options = {methods: exposed}
     if defined?(super)
       super(preset_options).each do |key,val|
