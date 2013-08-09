@@ -1,6 +1,7 @@
 class Project
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
 
   PENDING = 'project_pending'
   ACTIVE = 'project_active'

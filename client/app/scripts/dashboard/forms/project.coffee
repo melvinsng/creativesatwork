@@ -22,9 +22,15 @@ angular.module('dashboard').directive 'projectForm', [
           $scope.submitted = true
           if $scope.form.$valid
             $rootScope.clear_notifications()
-            promise = Project.create $scope.project, notify_success: false
+            switch $scope.type
+              when 'new'
+                promise = Project.create $scope.project, notify_success: false
+                success_msg = 'Project created successfully'
+              when 'edit'
+                promise = $scope.project.put()
+                success_msg = 'Project updated successfully'
             promise.then ((project)->
-              $rootScope.redirect_to "projects.show/#{project.id}" ,success: 'Your project is created successfully'
+              $rootScope.redirect_to "projects.show/#{project.id}" ,success: success_msg
             ), ->
               $rootScope.notify_error 'Form has missing or invalid values'
           else

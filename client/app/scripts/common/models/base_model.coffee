@@ -23,10 +23,10 @@ class BaseModel
         notify_error: true
       opts.notify_success = options.notify_success if options.notify_success?
       opts.notify_error = options.notify_error if options.notify_error?
-      promise.then ((project)=>
-        @operation_success {project}
+      promise.then ((item)=>
+        @operation_success {item}
         @$rootScope.notify_success "#{@humanizedSingularName} created successfully" if opts.notify_success
-        project
+        item
       ), (response) =>
         @operation_failed {response, model, options}
         @$rootScope.notify_error "Failed to create #{@humanizedSingularName}" if opts.notify_error
@@ -86,12 +86,27 @@ class BaseModel
     if options.delegate? and options.delegate
       promise
     else
-      promise.then ((project) =>
-        @operation_success {project}
-        project
+      promise.then ((item) =>
+        @operation_success {item}
+        item
       ), (response) =>
         @operation_failed {response}
-        @$rootScope.notify_error "Unable to find #{@humanizedSingularName} with id = #{id}"
+        @$rootScope.notify_error "Unable to find #{@humanizedSingularName}"
         console.log '@find error'
         console.log response
 
+  destroy: (id, options={}) ->
+    @before_operation {id, options}
+    console.log id
+    console.log @Restangular.one(@pluralName, id).remove
+    promise = @Restangular.one(@pluralName, id).remove()
+    if options.delegate? and options.delegate
+      promise
+    else
+      promise.then ((item) =>
+        @operation_success {item}
+      ), (response) =>
+        @operation_failed {response}
+        @$rootScope.notify_error "Unable to delete #{@humanizedSingularName}"
+        console.log '@destroy error'
+        console.log response

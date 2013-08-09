@@ -4,19 +4,17 @@
       <div class="span3">
         <div class="con_box uncon_box">
           <a class="btn btn-block btn-primary" href="#/projects">Browse All Projects</a>
-          <a class="btn btn-block btn-danger" href ng-click="notify_success('dummy')">Delete This Projects</a>
-          <a class="btn btn-block btn-info" ng-href="#/dashboard.edit_project/{{ project.id }}" ng-click="notify_success('dummy')">Edit This Projects</a>
+          <a class="btn btn-block btn-danger" ng-show="project.employer.id == current_user.id" href ng-click="deleteProject()">Delete This Projects</a>
+          <a class="btn btn-block btn-info" ng-show="project.employer.id == current_user.id" href="#/dashboard.edit_project/{{ project.id }}">Edit This Projects</a>
         </div>
-
       </div>
       <!-- end of span3 -->
 
       <div class="span9">
         <h4 class="title-listing-1">Project in <span class="title-listing-1-skill">{{project.job_category.name}}</span></h4>
         <div class="slider_div projects_listing_div con_box">
-          <div class="slider_details_con"> <a>
+          <div class="slider_details_con">
             <h3>{{ project.title }}</h3>
-          </a>
             <div class="slider_skills">
               <span class="demo-inline">
                 <span class="label" ng-repeat="tag in project.tags">{{tag}}</span>
@@ -33,7 +31,7 @@
 
             </div>
 
-            <div class="slider_bid">
+            <div class="slider_bid" ng-show="user_type=='freelancer'">
               <p>If you are interested to work on this project, please bid for it.</p>
               <a ng-click="bidProject()" class="btn btn-header-nav btn-success" href>Bid for this project</a><div class="clearfix"></div>
             </div>
@@ -47,25 +45,7 @@
         <!-- end of slider_div -->
 
         <div class="slider_div projects_listing_div con_box">
-          <div class="project-offer-to">
-            <div class="offer-name"> <i class="icon-bolt"></i>
-              Bid by
-              <div ng-repeat="bidder in project.bidders">
-                <a href="#/freelancers.show/{{ bidder.id }}" >{{ bidder.first_name }}</a>
-              </div>
-
-            </div>
-            <div class="offer-name"> <i class="icon-arrow-right"></i>
-              Offered to
-              <div ng-repeat="offer in project.offers">
-                <a href="#/freelancers.show/{{ offer.id }}" >{{ offer.first_name }}</a>
-              </div>
-            </div>
-          </div>
-          <!-- end of project-offer-to -->
-
-          <div class="hr1"></div>
-
+          This project has {{ project.bidders.length }} bids
           <div class="clearfix"></div>
         </div>
         <!-- end of slider_div -->

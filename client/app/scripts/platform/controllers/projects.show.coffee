@@ -3,10 +3,8 @@ angular.module('platform').controller 'ProjectsShowCtrl', [
   'project'
   'Project'
   ($scope, project, Project) ->
-    console.log project
+
     $scope.project = project
-    console.log project.bidders
-    console.log project.offers
 
     $scope.bidProject = ->
       Project.add_bidder(project.id, $scope.current_user.id).then (res) ->
@@ -15,4 +13,11 @@ angular.module('platform').controller 'ProjectsShowCtrl', [
       , (res) ->
         console.log res
         $scope.notify_error 'Something wrong..'
+
+    $scope.deleteProject = ->
+      promise = Project.destroy project.id, delegate: true
+      promise.then ->
+        $scope.redirect_to 'projects', success: 'Your project is deleted'
+      , ->
+        $scope.notify_error 'Unable to delete this project'
 ]
