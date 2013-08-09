@@ -11,11 +11,9 @@ angular.module('dashboard').controller 'DashboardCreateProjectCtrl', [
       $scope.submitted = true
       if $scope.form.$valid
         $scope.clear_notifications()
-        promise = Project.create $scope.project
+        promise = Project.create $scope.project, notify_success: false
         promise.then ((project)->
-          console.log project
-          alert 'success'
-          #$scope.redirect_to "projects.show/#{project.id}" ,success: 'Your project is created successfully'
+          $scope.redirect_to "projects.show/#{project.id}" ,success: 'Your project is created successfully'
         ), ->
           $scope.error_notification 'Form has missing or invalid values'
       else

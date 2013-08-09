@@ -6,6 +6,10 @@ angular.module('common').config [
     RestangularProvider.setListTypeIsArray true
 
     RestangularProvider.setFullRequestInterceptor (element, operation, route, url, headers, params) ->
+
+      if element?._deny_fields?
+        for k in element._deny_fields
+          delete element[k]
       {
         element
         operation
@@ -17,7 +21,5 @@ angular.module('common').config [
 
     RestangularProvider.setResponseExtractor (response, operation) ->
       response
-
-    #RestangularProvider.setRestangularFields id: "_id.$oid"
 
 ]

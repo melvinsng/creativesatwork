@@ -41,7 +41,8 @@
             <div class="control-group">
               <div class="control-group" ng-class="{error: hasError(form.company_name)}">
                 <label class="control-label">Company Name</label>
-                <input type="text" ng-model="current_user.company_name" name="company_name" class="input-xlarge focused" required>
+                <input type="text" ng-model="current_user.company_name" name="company_name" class="input-xlarge focused">
+                <small>(If Any)</small>
               </div>
               <div class="control-group">
                 <label class="control-label">Company URL</label>
@@ -49,10 +50,10 @@
               </div>
               <div class="control-group" ng-class="{error: hasError(form.company_description)}">
                 <label class="control-label">Company Description</label>
-                <textarea rows="5" ng-model="current_user.company_description" name="company_description" class="input-xlarge focused" required></textarea>
+                <textarea rows="5" ng-model="current_user.company_description" name="company_description" class="input-xlarge focused"></textarea>
               </div>
               <div class="control-group"  ng-class="{error: hasError(form.company_location)}">
-                <label class="control-label">Company Location</label>
+                <label class="control-label">Location</label>
                 <input type="text" ng-model="current_user.company_location" name="company_location" class="input-xlarge focused" required>
               </div>
             </div>

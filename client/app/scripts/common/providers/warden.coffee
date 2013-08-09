@@ -5,12 +5,27 @@ angular.module('common').provider 'Warden', ->
 
     simplify: (routeProvider) ->
       @routeProvider = routeProvider
+      @requireUser = false
+      @omitView = false
+      @omitController = false
       return @
 
-    setTemplatePrefix: (prefix) ->
+    set_template_prefix: (prefix) ->
       @templatePrefix = prefix
       if prefix[-1..-1] != '/'
         @templatePrefix += '/'
+      return @
+
+    require_user: ->
+      @requireUser = true
+      return @
+
+    omit_view: ->
+      @omitView = true
+      return @
+
+    omit_controller: ->
+      @omitController = true
       return @
 
     # available options are
@@ -27,15 +42,17 @@ angular.module('common').provider 'Warden', ->
       templateUrl = "#{@templatePrefix}#{cleanRoute}.html"
 
       resolves = {}
-      if options.user? and options.user
-        resolves.current_user = resolvables['current_user']
+      options.user = @requireUser unless options.user?
+      options.omitView = @omitView unless options.omitView?
+      options.omitController = @omitController unless options.omitController?
+      resolves.current_user = resolvables['current_user'] if options.user
       if options.resolves?
         resolves[resolve] = resolvables[resolve] for resolve in options.resolves
-      if options.omitView? and options.omitView
+      if options.omitView
         templateUrl = 'views/pages/empty.html'
       if options.templateUrl?
         templateUrl = options.templateUrl
-      if options.omitController? and options.omitController
+      if options.omitController
         @routeProvider.when routeStr, templateUrl: templateUrl, resolve: resolves
       else
         @routeProvider.when routeStr, templateUrl: templateUrl, controller: controller, resolve: resolves

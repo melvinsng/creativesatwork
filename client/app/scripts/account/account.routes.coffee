@@ -3,7 +3,7 @@ angular.module('account').config [
   'WardenProvider'
   ($routeProvider, WardenProvider) ->
 
-    WardenProvider.simplify($routeProvider).setTemplatePrefix('views/account')
+    WardenProvider.simplify($routeProvider).set_template_prefix('views/account')
     .when('freelancer.login')
     .when('freelancer.login.custom_provider')
     .when('freelancer.register')

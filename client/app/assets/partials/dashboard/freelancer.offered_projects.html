@@ -7,7 +7,7 @@
   </h3>
   <div class="slider_div projects_listing_div con_box" ng-repeat="project in current_user.offered_projects">
     <div class="slider_details_con">
-      <a href="">
+      <a ng-href="#/projects.show/{{ project.id }}">
         <h3>
           {{ project.title }}
         </h3>
@@ -15,16 +15,8 @@
 
       <div class="slider_skills">
         <span class="demo-inline">
-          <span class="label">
-            CSS3
-          </span>
-
-          <span class="label">
-            HTML5
-          </span>
-
-          <span class="label">
-            Javascript
+          <span class="label" ng-repeat="tag in project.tags">
+            {{ tag }}
           </span>
         </span>
       </div>
@@ -53,13 +45,13 @@
           <span>
             Budget:
           </span>
-          $500.00 - $1,500
+          {{ project.budget_range }}
         </div>
 
         <div class="slider_place">
           <em class="fui-location">
           </em>
-          Singapore
+          {{ project.location }}
         </div>
 
         <div class="clearfix">

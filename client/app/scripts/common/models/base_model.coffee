@@ -18,13 +18,18 @@ class BaseModel
     if options.delegate? and options.delegate
       promise
     else
+      opts =
+        notify_success: true
+        notify_error: true
+      opts.notify_success = options.notify_success if options.notify_success?
+      opts.notify_error = options.notify_error if options.notify_error?
       promise.then ((project)=>
         @operation_success {project}
-        @$rootScope.success_notification "#{@humanizedSingularName} created successfully"
+        @$rootScope.success_notification "#{@humanizedSingularName} created successfully" if opts.notify_success
         project
       ), (response) =>
         @operation_failed {response, model, options}
-        @$rootScope.error_notification "#{@humanizedSingularName} failed to create"
+        @$rootScope.error_notification "Failed to create #{@humanizedSingularName}" if opts.notify_error
         console.log '@create error: '
         console.log response
 

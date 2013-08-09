@@ -2,39 +2,25 @@
   <h3 class="title-listing-1 margin-bottom-10">
     Completed Projects
   <span>
-    (3)
+    ({{ current_user.completed_projects.length }})
   </span>
   </h3>
-  <div class="slider_div projects_listing_div con_box" ng-repeat="project in projects">
+  <div class="slider_div projects_listing_div con_box" ng-repeat="project in current_user.completed_projects">
     <div class="slider_details_con">
 
-      <a href="">
+      <a ng-href="#/projects.show/{{ project.id }}">
         <h3>
           {{ project.title }}
         </h3>
       </a>
+
       <div class="slider_skills">
-
-      <span class="demo-inline">
-
-        <span class="label">
-          CSS3
+        <span class="demo-inline">
+          <span class="label" ng-repeat="tag in project.tags">
+            {{ tag }}
+          </span>
         </span>
-
-        <span class="label">
-          HTML5
-        </span>
-
-        <span class="label">
-          Javascript
-        </span>
-
-      </span>
-
-        <!-- /tags -->
-
       </div>
-      <!-- /row -->
 
       <div class="project-offer-to">
         <div class="offer-name">
