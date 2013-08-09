@@ -5,15 +5,20 @@ angular.module('platform').controller 'ProjectsShowCtrl', [
   ($scope, project, Project) ->
 
     $scope.project = project
-    $scope.userOffered = _.contains project.offer_ids, $scope.current_user.id
-    $scope.userBidded = _.contains project.bidder_ids, $scope.current_user.id
+    $scope.selected_bidder_id = null
+
     $scope.userEmployed = project.freelancer_id == $scope.current_user.id
     $scope.userIsEmployer = project.employer_id == $scope.current_user.id
+    $scope.userOffered = _.contains project.offer_ids, $scope.current_user.id
+    $scope.userBidded = _.contains project.bidder_ids, $scope.current_user.id
+    $scope.userCanBid = !$scope.userEmployed and !$scope.userBidded and !$scope.userOffered
 
     $scope.bidProject = ->
-      Project.add_bidder(project.id, $scope.current_user.id).then ->
+      Project.add_bidder(project.id, $scope.current_user.id).then (project) ->
+        $scope.project = project
         $scope.userOffered = false
         $scope.userBidded = true
+        $scope.userCanBid = false
         $scope.notify_success 'Your bid has been placed'
       , (res) ->
         console.log res
@@ -27,22 +32,30 @@ angular.module('platform').controller 'ProjectsShowCtrl', [
         $scope.notify_error 'Unable to delete this project'
 
     $scope.acceptOffer = ->
-      Project.accept_offer(project.id, $scope.current_user.id).then ->
+      Project.accept_offer(project.id, $scope.current_user.id).then (project)->
+        $scope.project = project
         $scope.userOffered = false
         $scope.userBidded = false
         $scope.userEmployed = true
-        $scope.notify_success 'You accepted the offer. Thank you'
+        $scope.userCanBid = false
+        $scope.notify_success 'You accepted the offer.'
       , (res) ->
         console.log res
         $scope.notify_error 'Something wrong...'
 
-    $scope.acceptBid = (user_id)->
-      Project.accept_offer(project.id, user_id).then ->
-        $scope.userOffered = false
-        $scope.userBidded = false
-        $scope.notify_success 'You accepted the bid. Thank you'
-      , (res) ->
-        console.log res
-        $scope.notify_error 'Something wrong...'
+    $scope.acceptBid = (selected) ->
+      console.log selected
+      if selected == null
+        $scope.notify_error 'Please select a bidder from the list'
+      else
+        Project.accept_bid(project.id, selected).then (project) ->
+          $scope.project = project
+          $scope.userOffered = false
+          $scope.userBidded = false
+          $scope.userCanBid = false
+          $scope.notify_success 'You accepted the bid.'
+        , (res) ->
+          console.log res
+          $scope.notify_error 'Something wrong...'
 
 ]

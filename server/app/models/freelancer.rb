@@ -1,7 +1,7 @@
 class Freelancer < User
   belongs_to :job_category
 
-  has_many :projects
+  has_many :projects, inverse_of: :freelancer
 
   has_and_belongs_to_many :bidding_projects, class_name: 'Project', inverse_of: :bidders
   has_and_belongs_to_many :offered_projects, class_name: 'Project', inverse_of: :offers
