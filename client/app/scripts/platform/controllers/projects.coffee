@@ -51,7 +51,8 @@ angular.module('platform').controller 'ProjectsCtrl', [
       $scope.query.search = ''
       $scope.query.page = 1
       $scope.query.per_page = 5
-      $scope.query.conditions = {}
+      $scope.query.conditions =
+        project_status: 'project_pending'
       $scope.job_categories = job_categories
       $scope.$watch 'query', (new_value, old_value, scope) =>
         if new_value.page == old_value.page

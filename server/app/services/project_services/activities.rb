@@ -13,12 +13,16 @@ module ProjectServices
       end
 
       def accept_bid(pid, uid)
-        project(pid).freelancer = bidder(pid, uid)
+        project = project(pid)
+        project.freelancer = bidder(pid, uid)
+        project.project_status = Project::ACTIVE
         project.save!
       end
 
       def accept_offer(pid, uid)
-        project(pid).freelancer = offer(pid, uid)
+        project = project(pid)
+        project.freelancer = offer(pid, uid)
+        project.project_status = Project::ACTIVE
         project.save!
       end
     end

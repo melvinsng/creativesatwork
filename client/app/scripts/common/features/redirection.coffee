@@ -1,8 +1,7 @@
 angular.module('common').run [
   '$rootScope'
-  '$timeout'
   '$location'
-  ($rootScope, $timeout, $location) ->
+  ($rootScope, $location) ->
 
     $rootScope.redirect_to = (path, options={}) ->
       path = path.replace(/^\//,'')

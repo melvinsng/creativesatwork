@@ -27,35 +27,14 @@
 
           <i class="icon-bolt">
           </i>
-          Bid by
-          <div  ng-repeat="bidder in project.bidders">
-            <a ng-click="fulfillBid(bidder, project)">
-              {{ bidder.first_name }}
-            </a>
-          </div>
-
-
+          Bid by {{ project.bidders.length }} bidders
         </div>
-        <div class="offer-name">
-
-          <i class="icon-arrow-right">
-          </i>
-          Offered to
-          <a ng-href="#/freelancers.show/{{ bidder.id }}" ng-repeat="offer in project.offers">
-            {{ offer.first_name }}
-          </a>
-
-        </div>
-      </div>
-      <!-- end of project-offer-to -->
-
-      <div class="hr1">
-      </div>
-
-      <div class="clearfix">
       </div>
     </div>
+
     <div class="clearfix">
     </div>
+  </div>
+  <div class="clearfix">
   </div>
 </div>

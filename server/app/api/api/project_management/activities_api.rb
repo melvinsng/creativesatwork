@@ -5,7 +5,7 @@ module Api
 
       resources 'projects' do
 
-        desc 'Add volunteer'
+        desc 'Add bidder'
         params do
           requires :user_id
         end
@@ -20,13 +20,43 @@ module Api
           end
         end
 
-        desc 'Add supporter'
+        desc 'Add offer'
         params do
           requires :user_id
         end
         post ':id/add_offer' do
           begin
             ProjectServices::Activities.add_offer params[:id], params[:user_id]
+          rescue ProjectServices::Exceptions::Exception => e
+            status(404)
+            {
+                message: e.message
+            }
+          end
+        end
+
+        desc 'Accept offer'
+        params do
+          requires :user_id
+        end
+        post ':id/accept_offer' do
+          begin
+            ProjectServices::Activities.accept_offer params[:id], params[:user_id]
+          rescue ProjectServices::Exceptions::Exception => e
+            status(404)
+            {
+                message: e.message
+            }
+          end
+        end
+
+        desc 'Accept bid'
+        params do
+          requires :user_id
+        end
+        post ':id/accept_bid' do
+          begin
+            ProjectServices::Activities.accept_bid params[:id], params[:user_id]
           rescue ProjectServices::Exceptions::Exception => e
             status(404)
             {

@@ -32,8 +32,20 @@
             </div>
 
             <div class="slider_bid" ng-show="user_type=='freelancer'">
-              <p>If you are interested to work on this project, please bid for it.</p>
-              <a ng-click="bidProject()" class="btn btn-header-nav btn-success" href>Bid for this project</a><div class="clearfix"></div>
+              <div ng-show="!userOffered && !userBidded">
+                <p>If you are interested to work on this project, please bid for it.</p>
+                <a ng-click="bidProject()" class="btn btn-header-nav btn-success" href>Bid for this project</a><div class="clearfix"></div>
+              </div>
+              <div ng-show="userOffered">
+                <p>If you are interested to work on this project, please accept this offer.</p>
+                <a ng-click="acceptOffer()" class="btn btn-header-nav btn-success" href>Accept Offer</a>
+              </div>
+              <div ng-show="userBidded">
+                <p>You have placed your bid for this project</p>
+              </div>
+              <div ng-show="userEmployed">
+                <p>You are working on this project</p>
+              </div>
             </div>
 
           </div>
