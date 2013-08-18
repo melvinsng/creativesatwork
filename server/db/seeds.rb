@@ -27,6 +27,20 @@ skill_list = %w{css html javascript python ruby photoshop copywriting actionscri
   )
 end
 
+Employer.create!(
+    password: 'asdfqwer',
+    password_confirmation: 'asdfqwer',
+    first_name: 'Employer',
+    last_name: "ONe",
+    email: "employer1@gmail.com",
+    account_status: 'active',
+    location: 'Malaysia',
+    company_name: 'Shell',
+    company_url: 'http://shell.com',
+    company_description: 'richest company',
+    company_location: 'Arab'
+)
+
 empl = Employer.first
 budget_list = ['$0 - $500','$500 - $1000','$1000 - $2000','$2000 - $3000','$3000 - $5000','$5000 - $10000']
 
