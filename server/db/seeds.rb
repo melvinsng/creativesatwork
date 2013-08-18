@@ -1,3 +1,8 @@
+categories = ["Writing", "Production", "Design", "Others"]
+categories.each do |cat|
+  JobCategory.create! name: cat
+end
+
 skill_list = %w{css html javascript python ruby photoshop copywriting actionscript flash}
 100.times do |index|
   Freelancer.create!(
