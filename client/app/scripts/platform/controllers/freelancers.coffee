@@ -6,10 +6,10 @@ angular.module('platform').controller 'FreelancersCtrl', [
 
     $scope.$on 'search:menu', (e, result) ->
       if result.selected == false
-        $scope.query.conditions = {}
+        delete $scope.query.conditions.job_category_id
         $scope.current_job_category = 'All'
       else
-        $scope.query.conditions = {job_category_id: result.selected.id}
+        $scope.query.conditions.job_category_id = result.selected.id
         $scope.current_job_category = result.selected.name
 
     $scope.$on 'search:input', (e, search_text) ->
@@ -36,7 +36,7 @@ angular.module('platform').controller 'FreelancersCtrl', [
       $scope.query.search = ''
       $scope.query.page = 1
       $scope.query.per_page = 5
-      $scope.query.conditions = {}
+      $scope.query.conditions = {profile_incomplete: false}
       $scope.job_categories = job_categories
       $scope.$watch 'query', (new_value, old_value, scope) =>
         if new_value.page == old_value.page

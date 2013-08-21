@@ -14,6 +14,7 @@ class Freelancer < User
   field :other_information
   field :accolades_and_awards
   field :day_rate
+  field :profile_incomplete, type: Boolean
 
   accepts_nested_attributes_for :portfolios, reject_if: :all_blank, allow_destroy: true
 
@@ -28,14 +29,20 @@ class Freelancer < User
   include Mongoid::Search
   search_in :first_name, :last_name, :job_title, :skills_string
 
+  before_save :persist_profile_incomplete
+
   def active_projects; projects.where(project_status: Project::ACTIVE) end
   def completed_projects; projects.where(project_status: Project::COMPLETED) end
-  def profile_incomplete; job_title.blank? || years_of_experience.blank? || day_rate.blank? || location.blank? end
+  def _profile_incomplete; job_title.blank? || years_of_experience.blank? || day_rate.blank? || location.blank? end
   def _deny_fields; %W{pending_projects active_projects completed_projects} end
+
+  def persist_profile_incomplete
+    self.profile_incomplete = _profile_incomplete
+  end
 
   def as_json_options(options={})
     # val must be array!
-    exposed = [:skills, :job_category, :profile_incomplete, :portfolios,
+    exposed = [:skills, :job_category, :portfolios,
                :bidding_projects, :offered_projects, :active_projects, :completed_projects, :_deny_fields]
     preset_options = {methods: exposed}
     if defined?(super)
