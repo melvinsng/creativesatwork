@@ -62,6 +62,8 @@ angular.module('account').factory 'CustomProvider', [
             fields.additional_fields.job_title = result.values[0].threeCurrentPositions?.values?[0]?.title
             fields.additional_fields.professional_history = result.values[0].threeCurrentPositions?.values?[0]?.summary
             fields.additional_fields.other_information = result.values[0].summary
+          IN.API.Raw('/people/~/picture-urls::(original)').result (res) ->
+            fields.additional_fields.photo_url = res.values[0]
           authenticate_with_custom_provider fields
 
       connect: (providerName, user_class, user_type) ->
