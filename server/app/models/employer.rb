@@ -19,6 +19,7 @@ class Employer < User
 
   def persist_profile_incomplete
     self.profile_incomplete = _profile_incomplete
+    true
   end
 
   def as_json_options(options={})
