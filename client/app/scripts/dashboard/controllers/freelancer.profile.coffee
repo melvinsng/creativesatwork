@@ -1,7 +1,8 @@
 angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
   '$scope'
   'job_categories'
-  ($scope, job_categories) ->
+  '$rootScope'
+  ($scope, job_categories, $rootScope) ->
 
     $scope.$watch 'current_user.job_title', (new_val) ->
       angular.forEach $scope.jobTitles, (cat_value, cat_key) ->
@@ -10,7 +11,7 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
             angular.forEach job_categories, (jc_val) ->
               if angular.equals(jc_val.name, cat_key)
                 console.log jc_val
-                $scope.current_user.job_category_id = jc_val.id
+                $rootScope.current_user.job_category_id = jc_val.id
 
     $scope.select2Options =
       width: 290
@@ -25,8 +26,8 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
       if url?
         $scope.$apply ->
           $scope.avatar_upload_state = ''
-          $scope.current_user.photo_url = data.domain + url
-          $scope.current_user.put().then ((current_user) ->
+          $rootScope.current_user.photo_url = data.domain + url
+          $rootScope.current_user.put().then ((current_user) ->
             $scope.notify_success 'New profile picture saved.'
             $scope.$apply()
           ), ->
@@ -42,8 +43,8 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
       $scope.submitted = true
       if $scope.form.$valid
         $scope.clear_notifications()
-        $scope.current_user.put().then ((current_user)->
-          $scope.current_user = current_user
+        $rootScope.current_user.put().then ((current_user)->
+          $rootScope.current_user = current_user
           $scope.redirect_to "freelancers.show/#{current_user.id}", success: 'Your profile is updated successfully'
         ), ->
           $scope.notify_error 'Form has missing or invalid values'
@@ -51,15 +52,15 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
         $scope.notify_error 'Form has missing or invalid values'
 
     $scope.removePortfolio = (index) ->
-      $scope.current_user.portfolios.splice(index,1)
+      $rootScope.current_user.portfolios.splice(index,1)
 
     $scope.addPortfolio = ->
-      console.log($scope.current_user.portfolios)
-      $scope.current_user.portfolios.push
+      console.log($rootScope.current_user.portfolios)
+      $rootScope.current_user.portfolios.push
         name: ''
         url: ''
         description: ''
-      console.log($scope.current_user.portfolios)
+      console.log($rootScope.current_user.portfolios)
 
     init = ->
       $scope.submitted = false
@@ -69,8 +70,8 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
         Design: _.uniq ["Product Designer", "Graphic Designer", "Multimedia Designer", "Motion Graphic Designer", "Art Director", "Creative Director", "Set Designer", "Wardrode Designer", "Web Designer"]
         Production: _.uniq ["2D & 3D Animator", "Illustrator", "Video Producer", "Director", "Soundman", "Lightingman", "Videographer", "Cameraman", "Grip & Gaffer", "Production Manager", "Location Manager", "Director", "Video Editor", "3D Artist", "Photographer", "DI Artist", "Audio Producer", "Project Manager"]
         Others: _.uniq ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
-      if not $scope.current_user.portfolios?.length > 0
-        $scope.current_user.portfolios = [
+      if not $rootScope.current_user.portfolios?.length > 0
+        $rootScope.current_user.portfolios = [
           {
             url: ''
           }
