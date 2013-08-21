@@ -69,11 +69,12 @@
 
             <div class="control-group" ng-class="{error: hasError(form.job_category_id)}">
               <label class="control-label">Your Talent</label>
-              <select ng-model="current_user.job_category_id" name="job_category_id" ng-options="cat.id as cat.name for cat in job_categories" required></select>
-            </div>
-            <div class="control-group" ng-class="{error: hasError(form.job_title)}">
-              <label class="control-label">Job Title</label>
-              <input type="text" ng-model="current_user.job_title" name="job_title" class="input-xlarge focused" required>
+              <select ui-select2="select2Options" ng-model="current_user.job_title" name="job_category_id" data-placeholder="What is your job title?" required>
+                  <optgroup label="{{ cat.name }}" ng-repeat="cat in job_categories">
+                      <option value="{{ title }}" ng-repeat="title in jobTitles[cat.name]">{{ title }}</option>
+                  </optgroup>
+                  <option ng-repeat="cat in job_categories" value="{{ cat.id }}">{{ cat.name }}</option>
+              </select>
             </div>
             <div class="control-group" ng-class="{error: hasError(form.years_of_experience)}">
               <label class="control-label">Years of Experience</label>

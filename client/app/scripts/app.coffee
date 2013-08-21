@@ -7,6 +7,7 @@ angular.module 'common', [
   'ngCookies'
   'restangular'
   'ui.bootstrap'
+  'ui.select2'
 ]
 
 angular.module 'account', []
