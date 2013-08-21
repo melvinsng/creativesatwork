@@ -11,9 +11,9 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
 
     $scope.$watch 'current_user.job_title', (new_val) ->
       angular.forEach $scope.jobTitles, (cat_value, cat_key) ->
-        angular.forEach cat_value, (value, key) ->
+        angular.forEach cat_value, (value) ->
           if angular.equals(new_val, value)
-            angular.forEach job_categories, (jc_val, jc_key) ->
+            angular.forEach job_categories, (jc_val) ->
               if angular.equals(jc_val.name, cat_key)
                 $scope.current_user.job_category_id = jc_val.id
 
