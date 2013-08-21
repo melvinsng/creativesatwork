@@ -132,9 +132,9 @@
                 <input type="url" ng-model="portfolio.url" name="portfolio" placeholder="http://www.my-portfolio.me" class="input-xlarge focused" required>
                 <a class="btn btn-danger" ng-click="removePortfolio($index)">remove</a>
             </div>
-            <div class="control-group">
+            <div class="control-group" ng-show="current_user.portfolios.length < 5">
               <label class="control-label"></label>
-              <a class="btn btn-info" ng-click="addPortfolio()">More Portfolios</a>
+              <a class="btn btn-info" ng-click="addPortfolio()">Add Portfolios</a>
             </div>
             <div class="settings_divider"></div>
 

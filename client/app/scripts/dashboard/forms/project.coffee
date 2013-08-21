@@ -4,9 +4,9 @@ angular.module('dashboard').directive 'projectForm', [
     replace: true
     scope: {
       type: '@'
-      user: '@'
+      user: '='
     }
-    templateUrl: 'partials/dashboard/forms.project.html'
+    templateUrl: 'forms/dashboard/project.html'
     controller: [
       '$scope'
       'JobCategory'
