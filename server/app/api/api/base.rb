@@ -127,7 +127,7 @@ module Api
         end
         action_block = Proc.new{
           attributes = {}
-          entity = entity_class.find params[:id]
+          entity = resource_name.camelize.constantize.find params[:id]
           entity_class = entity._type.constantize if entity.respond_to? :_type
           associations = entity_class.nested_attributes.keys.map {|x| x.gsub(/_attributes/, '').to_sym}
           params.reject{|k| [:route_info, :id, :_id].include? k.to_sym}.each do |k,v|
@@ -137,9 +137,7 @@ module Api
           if block_given?
             attributes = block.yield attributes, params
           end
-          p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-          p params
-          p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+          p ">>ATTRIBUTES>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
           p attributes
           p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
 
