@@ -36,6 +36,10 @@
               <label class="control-label">Last Name</label>
               <input type="text" ng-model="current_user.last_name" name="last_name" class="input-xlarge focused" required>
             </div>
+            <div class="control-group" ng-class="{error: hasError(form.email)}">
+              <label class="control-label">Email</label>
+              <input type="email" ng-model="current_user.email" name="email" class="input-xlarge focused" required>
+            </div>
             <div class="control-group" ng-class="{error: hasError(form.location)}">
               <label class="control-label">Location</label>
               <input type="text" ng-model="current_user.location" name="location" class="input-xlarge focused" required>
@@ -55,7 +59,7 @@
             <div class="control-group">
               <label class="control-label"></label>
               <img ng-show="current_user.photo_url != '' && current_user.photo_url != null "
-                   nailthumb height="200" width="240" method="resize"
+                   nailthumb height="180" width="180" method="resize"
                    ng-src="{{current_user.photo_url}}">
             </div>
 
@@ -118,11 +122,20 @@
               <label class="control-label">Your Accolades/Awards</label>
               <textarea rows="5" ng-model="current_user.accolades_and_awards" class="input-xlarge focused"></textarea>
             </div>
-            <div class="control-group">
-              <label class="control-label">Your Portfolio URL</label>
-              <input type="url" ng-model="current_user.portfolio" class="input-xlarge focused">
-            </div>
 
+            <div class="control-group"
+                 ng-form="subForm"
+                 ng-class="{error: hasError(subForm.portfolio)}"
+                 ng-repeat="portfolio in current_user.portfolios">
+                <label class="control-label" ng-show="$index == 0">Your Portfolio URL</label>
+                <label class="control-label" ng-hide="$index == 0"></label>
+                <input type="url" ng-model="portfolio.url" name="portfolio" placeholder="http://www.my-portfolio.me" class="input-xlarge focused" required>
+                <a class="btn btn-danger" ng-click="removePortfolio($index)">remove</a>
+            </div>
+            <div class="control-group">
+              <label class="control-label"></label>
+              <a class="btn btn-info" ng-click="addPortfolio()">More Portfolios</a>
+            </div>
             <div class="settings_divider"></div>
 
             <div class="box_main_title">

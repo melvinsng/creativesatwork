@@ -18,7 +18,6 @@ skill_list = %w{css html javascript python ruby photoshop copywriting actionscri
       education_and_certificates: 'education and cert',
       other_information: 'about me......',
       accolades_and_awards: 'my accolades and awards.....',
-      portfolio: 'portfolio....',
       day_rate: '99',
       photo_url: 'https://si0.twimg.com/profile_images/1019961979/Formal_Avatar_Face_B_W_Sample.jpg',
       professional_history: "This is summary for freelancer-#{index}", 

@@ -2,6 +2,7 @@ class Freelancer < User
   belongs_to :job_category
 
   has_many :projects, inverse_of: :freelancer
+  embeds_many :portfolios
 
   has_and_belongs_to_many :bidding_projects, class_name: 'Project', inverse_of: :bidders
   has_and_belongs_to_many :offered_projects, class_name: 'Project', inverse_of: :offers
@@ -12,8 +13,9 @@ class Freelancer < User
   field :education_and_certificates
   field :other_information
   field :accolades_and_awards
-  field :portfolio
   field :day_rate
+
+  accepts_nested_attributes_for :portfolios, reject_if: :all_blank, allow_destroy: true
 
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
@@ -28,19 +30,12 @@ class Freelancer < User
 
   def active_projects; projects.where(project_status: Project::ACTIVE) end
   def completed_projects; projects.where(project_status: Project::COMPLETED) end
-
-  def profile_incomplete
-    job_title.blank? || years_of_experience.blank? || day_rate.blank? ||
-        education_and_certificates.blank? || location.blank?
-  end
-
-  def _deny_fields
-    %W{pending_projects active_projects completed_projects}
-  end
+  def profile_incomplete; job_title.blank? || years_of_experience.blank? || day_rate.blank? || location.blank? end
+  def _deny_fields; %W{pending_projects active_projects completed_projects} end
 
   def as_json_options(options={})
     # val must be array!
-    exposed = [:skills, :job_category, :profile_incomplete,
+    exposed = [:skills, :job_category, :profile_incomplete, :portfolios,
                :bidding_projects, :offered_projects, :active_projects, :completed_projects, :_deny_fields]
     preset_options = {methods: exposed}
     if defined?(super)

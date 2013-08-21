@@ -3,18 +3,13 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
   'job_categories'
   ($scope, job_categories) ->
 
-    $scope.jobTitles =
-      Writing: _.uniq ['Scriptwriter','Writer','Copywriter','Journalist','Editor']
-      Design: _.uniq ["Product Designer", "Graphic Designer", "Multimedia Designer", "Motion Graphic Designer", "Art Director", "Creative Director", "Set Designer", "Wardrode Designer", "Web Designer"]
-      Production: _.uniq ["2D & 3D Animator", "Illustrator", "Video Producer", "Director", "Soundman", "Lightingman", "Videographer", "Cameraman", "Grip & Gaffer", "Production Manager", "Location Manager", "Director", "Video Editor", "3D Artist", "Photographer", "DI Artist", "Audio Producer", "Project Manager"]
-      Others: _.uniq ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
-
     $scope.$watch 'current_user.job_title', (new_val) ->
       angular.forEach $scope.jobTitles, (cat_value, cat_key) ->
         angular.forEach cat_value, (value) ->
           if angular.equals(new_val, value)
             angular.forEach job_categories, (jc_val) ->
               if angular.equals(jc_val.name, cat_key)
+                console.log jc_val
                 $scope.current_user.job_category_id = jc_val.id
 
     $scope.select2Options =
@@ -55,9 +50,31 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
       else
         $scope.notify_error 'Form has missing or invalid values'
 
+    $scope.removePortfolio = (index) ->
+      $scope.current_user.portfolios.splice(index,1)
+
+    $scope.addPortfolio = ->
+      console.log($scope.current_user.portfolios)
+      $scope.current_user.portfolios.push
+        name: ''
+        url: ''
+        description: ''
+      console.log($scope.current_user.portfolios)
+
     init = ->
       $scope.submitted = false
       $scope.job_categories = job_categories
+      $scope.jobTitles =
+        Writing: _.uniq ['Scriptwriter','Writer','Copywriter','Journalist','Editor']
+        Design: _.uniq ["Product Designer", "Graphic Designer", "Multimedia Designer", "Motion Graphic Designer", "Art Director", "Creative Director", "Set Designer", "Wardrode Designer", "Web Designer"]
+        Production: _.uniq ["2D & 3D Animator", "Illustrator", "Video Producer", "Director", "Soundman", "Lightingman", "Videographer", "Cameraman", "Grip & Gaffer", "Production Manager", "Location Manager", "Director", "Video Editor", "3D Artist", "Photographer", "DI Artist", "Audio Producer", "Project Manager"]
+        Others: _.uniq ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
+      if not $scope.current_user.portfolios?.length > 0
+        $scope.current_user.portfolios = [
+          {
+            url: ''
+          }
+        ]
     init()
 
 ]
