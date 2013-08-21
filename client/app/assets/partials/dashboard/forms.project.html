@@ -3,7 +3,7 @@
   <div class="settings_divider">
   </div>
   <div class="control-group" ng-class="{error: hasError(form.title)}">
-    <label class="control-label">Title</label>
+    <label class="control-label">Project Title</label>
     <input type="text" ng-model="project.title" name="title" class="input-xlarge focused" required>
   </div>
   <div class="control-group" ng-class="{error: hasError(form.project_description)}">
@@ -24,7 +24,7 @@
   <div class="settings_divider"></div>
 
   <div class="control-group" ng-class="{error: hasError(form.budget_range)}">
-    <label class="control-label">Range</label>
+    <label class="control-label">Range (S$)</label>
     <select ng-model="project.budget_range" name="budget_range" ng-options="budget_range for budget_range in budget_ranges" required></select>
   </div>
 

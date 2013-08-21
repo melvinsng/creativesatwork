@@ -40,12 +40,12 @@ angular.module('platform').controller 'ProjectsCtrl', [
     init = =>
       $scope.current_job_category = 'All'
       $scope.budget_ranges = [
-        '$0 - $500'
-        '$500 - $1000'
-        '$1000 - $2000'
-        '$2000 - $3000'
-        '$3000 - $5000'
-        '$5000 - $10000'
+        'S$0 - S$500'
+        'S$500 - S$1000'
+        'S$1000 - S$2000'
+        'S$2000 - S$3000'
+        'S$3000 - S$5000'
+        'S$5000 - S$10000'
       ]
       $scope.query = {}
       $scope.query.search = ''
