@@ -51,6 +51,8 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
           $scope.notify_error 'Form has missing or invalid values'
       else
         window.scrollTo(0)
+        if $rootScope.current_user.job_category_id == null
+          $scope.notify_error 'Please select your job title from the list.'
         angular.forEach $scope.form.$error, (val, key) ->
           angular.forEach val, (inner_val) ->
             switch key
