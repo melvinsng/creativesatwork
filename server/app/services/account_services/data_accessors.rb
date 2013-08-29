@@ -23,6 +23,7 @@ module AccountServices
       session = EmailSession.get_session(user, token)
       raise! SESSION_NOT_FOUND if session.blank?
       raise! TOKEN_EXPIRED if session.expired?
+      session
     end
 
 

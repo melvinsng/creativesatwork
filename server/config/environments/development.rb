@@ -30,12 +30,20 @@ CreativesAtWork::Application.configure do
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.smtp_settings = {
-      address: "smtp.gmail.com",
-      port: 587,
-      authentication: "plain",
-      enable_starttls_auto: true,
-      user_name: 'memoriodbutler@gmail.com',
-      password: 'iammemoriod'
+  config.action_mailer.sendmail_settings = {
+      :location => `which sendmail`.strip!,
+      :arguments => '-i -t'
   }
+
+=begin
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: "smtp.zoho.com",
+      port: 465,
+      authentication: :login,
+      enable_starttls_auto: true,
+      user_name: 'melvinsng@creativesatwork.me',
+      password: 'Pa$$w0rd'
+  }
+=end
 end

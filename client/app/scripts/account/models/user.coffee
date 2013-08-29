@@ -25,7 +25,7 @@ angular.module('account').factory 'User', [
       activate_with_token: (user_id, token) ->
         fields = {token}
         @before_operation fields
-        Restangular.one('users', user_id).customGET 'activate_with_token'
+        Restangular.one('users', user_id).customGET 'activate_with_token', fields
 
       forgot_password: (user_type, auth_id, auth_provider) ->
         fields = {user_type, auth_id, auth_provider}

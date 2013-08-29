@@ -12,6 +12,7 @@ module ProjectServices
         if len < project.bidders.length
           message = "<b>#{user.first_name} #{user.last_name}</b> has placed a bid on project <a href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.employer.notifications << Notification.new(read: false, message: message)
+          ProjectMailer.add_bidder(user, project.employer, project).deliver!
         end
         project.as_json
       end
@@ -24,6 +25,7 @@ module ProjectServices
         if len < project.offers.length
           message = "<b>#{project.employer.first_name} #{project.employer.last_name}</b> offered you a project <a href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           user.notifications << Notification.new(read: false, message: message)
+          ProjectMailer.add_offer(user, project.employer, project).deliver!
         end
         project.as_json
       end
@@ -38,6 +40,8 @@ module ProjectServices
           project.save!
           message = "<b>#{project.employer.first_name} #{project.employer.last_name}</b> accepted your bid for project <a href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.freelancer.notifications << Notification.new(read: false, message: message)
+          ProjectMailer.accept_bid(project.freelancer, project.employer, project).deliver!
+          ProjectMailer.notify_admin_bid_accepted(project.freelancer, project.employer, project).deliver!
         end
         project.as_json
       end
@@ -52,6 +56,8 @@ module ProjectServices
           project.save!
           message = "<b>#{project.freelancer.first_name} #{project.freelancer.last_name}</b> accepted your offer for project <a href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.employer.notifications << Notification.new(read: false, message: message)
+          ProjectMailer.accept_offer(project.freelancer, project.employer, project).deliver!
+          ProjectMailer.notify_admin_offer_accepted(project.freelancer, project.employer, project).deliver!
         end
         project.as_json
       end

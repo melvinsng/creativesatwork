@@ -4,10 +4,10 @@ module AccountServices
 
   POLICIES = {
       require_password: true,
-      require_email_confirmation: false
+      require_email_confirmation: true
   }
   PROVIDER_POLICIES = {
-      local: {require_email_confirmation: false},
+      local: {require_email_confirmation: true},
       linkedin: {}
   }
   POLICIES.freeze

@@ -26,8 +26,8 @@ class EmailSession
     end
 
     def get_session(user, token)
-      users = user.email_sessions.where(token: token)
-      users.blank?? nil : users.first
+      sessions = user.email_sessions.where(token: token)
+      sessions.blank?? nil : sessions.first
     end
   end
 end
