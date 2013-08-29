@@ -2,7 +2,7 @@ class ProjectMailer < ActionMailer::Base
   default from: "contactus@creativesatwork.com"
 
   AdminEmail = 'felixsagitta@gmail.com'
-  SiteUrl = 'http://localhost:3333'
+  SiteUrl = 'http://staging.creativesatwork.me'
 
   def add_bidder(freelancer, employer, project)
     @freelancer = freelancer

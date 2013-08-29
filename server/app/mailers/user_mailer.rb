@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: "contactus@creativesatwork.com"
 
-  SiteUrl = 'http://localhost:3333'
+  SiteUrl = 'http://staging.creativesatwork.me'
 
   def welcome_user(user)
     @user = user
