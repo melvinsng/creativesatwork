@@ -4,6 +4,8 @@ angular.module('pages').config [
   ($routeProvider, WardenProvider) ->
 
     WardenProvider.simplify($routeProvider).set_template_prefix('views/pages')
-    .when('home')
+    .when('home', resolves: ['freelancers'])
+    .when('about')
+    .when('contact')
     #.when('home', resolves: ['projects'])
 ]
