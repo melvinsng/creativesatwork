@@ -65,6 +65,18 @@ module Api
           end
         end
 
+        desc 'Mark as complete'
+        put ':id/mark_as_complete' do
+          begin
+            ProjectServices::Activities.mark_as_complete params[:id]
+          rescue ProjectServices::Exceptions::Exception => e
+            status(404)
+            {
+                message: e.message
+            }
+          end
+        end
+
       end
 
     end

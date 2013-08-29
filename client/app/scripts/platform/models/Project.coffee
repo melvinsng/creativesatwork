@@ -12,5 +12,7 @@ angular.module('platform').factory 'Project', [
         Restangular.one('projects', project_id).customPOST 'accept_offer', {user_id}
       accept_bid: (project_id, user_id) ->
         Restangular.one('projects', project_id).customPOST 'accept_bid', {user_id}
+      mark_as_complete: (project_id) ->
+        Restangular.one('projects', project_id).customPUT 'mark_as_complete'
     return new Model(Restangular, $rootScope, $filter, 'project', 'projects')
 ]

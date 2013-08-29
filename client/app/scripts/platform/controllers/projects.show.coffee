@@ -31,6 +31,13 @@ angular.module('platform').controller 'ProjectsShowCtrl', [
       , ->
         $scope.notify_error 'Unable to delete this project'
 
+    $scope.completeProject = ->
+      Project.mark_as_complete(project.id).then ->
+        $scope.redirect_to 'projects', success: 'Your project is now completed'
+      , (error) ->
+        console.log error
+        $scope.notify_error error.data?.message if error.data?.message?
+
     $scope.acceptOffer = ->
       Project.accept_offer(project.id, $scope.current_user.id).then (project)->
         $scope.project = project

@@ -61,6 +61,14 @@ module ProjectServices
         end
         project.as_json
       end
+
+      def mark_as_complete(pid)
+        project = project(pid)
+        raise! CANNOT_MARK_PENDING_PROJECT_AS_COMPLETED if project.project_status == Project::PENDING
+        project.project_status = Project::COMPLETED
+        project.save!
+        project.as_json
+      end
     end
 
   end
