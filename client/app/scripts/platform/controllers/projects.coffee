@@ -2,7 +2,8 @@ angular.module('platform').controller 'ProjectsCtrl', [
   '$scope'
   'Project'
   'job_categories'
-  ($scope, Project, job_categories) ->
+  '$route'
+  ($scope, Project, job_categories, $route) ->
 
     $scope.$on 'search:menu', (e, result) ->
       switch result.name
@@ -36,6 +37,8 @@ angular.module('platform').controller 'ProjectsCtrl', [
       ), ->
         $scope.notify_error 'Unable to fetch result from server'
 
+    $scope.clearFilters = ->
+      $route.reload()
 
     init = =>
       $scope.current_job_category = 'All'

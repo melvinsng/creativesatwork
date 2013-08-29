@@ -2,9 +2,19 @@ categories = ["Writing", "Production", "Design", "Others"]
 categories.each do |cat|
   JobCategory.create! name: cat
 end
+job_titles = {
+    'Writing' => ['Scriptwriter','Writer','Copywriter','Journalist','Editor'],
+    'Design' => ['Product Designer', 'Graphic Designer', 'Multimedia Designer', 'Motion Graphic Designer', 'Art Director', 'Creative Director', 'Set Designer', 'Wardrode Designer', 'Web Designer'],
+    'Production' => ['2D & 3D Animator', 'Illustrator', 'Video Producer', 'Director', 'Soundman', 'Lightingman', 'Videographer', 'Cameraman', 'Grip & Gaffer', 'Production Manager', 'Location Manager', 'Director', 'Video Editor', '3D Artist', 'Photographer', 'DI Artist', 'Audio Producer', 'Project Manager'],
+    'Others' => ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
+}
+
 
 skill_list = %w{css html javascript python ruby photoshop copywriting actionscript flash}
 100.times do |index|
+  job_cat_num = rand(4)
+  job_cat_id = JobCategory.all[job_cat_num].id
+  job_cat_name = JobCategory.all[job_cat_num].name
   Freelancer.create!(
       password: 'asdfqwer',
       password_confirmation: 'asdfqwer',
@@ -12,8 +22,8 @@ skill_list = %w{css html javascript python ruby photoshop copywriting actionscri
       last_name: "#{index}",
       email: "freelancer-#{index}@gmail.com",
       account_status: 'active',
-      job_category_id: JobCategory.all[rand(4)].id,
-      job_title: 'Designer',
+      job_category_id: job_cat_id,
+      job_title: job_titles[job_cat_name][rand(job_titles[job_cat_name].length)],
       years_of_experience: 4,
       education_and_certificates: 'education and cert',
       other_information: 'about me......',

@@ -2,15 +2,22 @@ angular.module('platform').controller 'FreelancersCtrl', [
   '$scope'
   'Freelancer'
   'job_categories'
-  ($scope, Freelancer, job_categories) ->
+  '$route'
+  ($scope, Freelancer, job_categories, $route) ->
+
+    $scope.$watch 'query.conditions.job_title', (new_val) ->
+      angular.forEach $scope.jobTitles, (cat_value, cat_key) ->
+        angular.forEach cat_value, (value) ->
+          if angular.equals(new_val, value)
+            $scope.current_job_category = cat_key
 
     $scope.$on 'search:menu', (e, result) ->
       if result.selected == false
-        delete $scope.query.conditions.job_category_id
-        $scope.current_job_category = 'All'
+        delete $scope.query.conditions.job_title
+        $scope.current_job_title = 'All'
       else
-        $scope.query.conditions.job_category_id = result.selected.id
-        $scope.current_job_category = result.selected.name
+        $scope.query.conditions.job_title = result.selected
+        $scope.current_job_title = result.selected
 
     $scope.$on 'search:input', (e, search_text) ->
       if search_text? and search_text.length > 0
@@ -29,8 +36,17 @@ angular.module('platform').controller 'FreelancersCtrl', [
       ), ->
         $scope.notify_error 'Unable to fetch result from server'
 
+    $scope.clearFilters = ->
+      $route.reload()
 
     init = =>
+      $scope.jobTitles =
+        Writing: _.uniq ['Scriptwriter','Writer','Copywriter','Journalist','Editor']
+        Design: _.uniq ["Product Designer", "Graphic Designer", "Multimedia Designer", "Motion Graphic Designer", "Art Director", "Creative Director", "Set Designer", "Wardrode Designer", "Web Designer"]
+        Production: _.uniq ["2D & 3D Animator", "Illustrator", "Video Producer", "Director", "Soundman", "Lightingman", "Videographer", "Cameraman", "Grip & Gaffer", "Production Manager", "Location Manager", "Director", "Video Editor", "3D Artist", "Photographer", "DI Artist", "Audio Producer", "Project Manager"]
+        Others: _.uniq ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
+
+      $scope.current_job_title = 'All'
       $scope.current_job_category = 'All'
       $scope.query = {}
       $scope.query.search = ''

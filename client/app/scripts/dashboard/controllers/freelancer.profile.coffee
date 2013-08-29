@@ -93,11 +93,7 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
         Production: _.uniq ["2D & 3D Animator", "Illustrator", "Video Producer", "Director", "Soundman", "Lightingman", "Videographer", "Cameraman", "Grip & Gaffer", "Production Manager", "Location Manager", "Director", "Video Editor", "3D Artist", "Photographer", "DI Artist", "Audio Producer", "Project Manager"]
         Others: _.uniq ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
       if not $rootScope.current_user.portfolios?.length > 0
-        $rootScope.current_user.portfolios = [
-          {
-            url: ''
-          }
-        ]
+        $rootScope.current_user.portfolios = []
     init()
 
 ]
