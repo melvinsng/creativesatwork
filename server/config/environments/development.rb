@@ -32,18 +32,21 @@ CreativesAtWork::Application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.sendmail_settings = {
       :location => `which sendmail`.strip!,
-      :arguments => '-i -t'
+      :arguments => '-i -t -f contactus@creativesatwork.me'
   }
 
 =begin
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      address: "smtp.zoho.com",
-      port: 465,
+      address: 'smtp.zoho.com',
+      port: '465',
+      user_name: 'contactus@creativesatwork.me',
+      password: 'Pa$$w0rd',
       authentication: :login,
-      enable_starttls_auto: true,
-      user_name: 'melvinsng@creativesatwork.me',
-      password: 'Pa$$w0rd'
+      ssl: true,
+      tls: true,
+      enable_starttls_auto: true
   }
 =end
+
 end

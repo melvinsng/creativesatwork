@@ -3,14 +3,10 @@ class UserMailer < ActionMailer::Base
 
   SiteUrl = 'http://staging.creativesatwork.me'
 
-  def welcome_user(user)
-    @user = user
-    mail to: user.email, subject: 'Welcome to CreativesAtWork'
-  end
-
   def activate_account(user, token)
     @user = user
     @siteUrl = SiteUrl
+    @siteLoginLink = SiteUrl + "/#/#{user.user_type.downcase}.login"
     attachments.inline['logo.png'] = File.read(File.join(Rails.root, 'assets/logo-w450.png'))
     @confirmation_link = "#{SiteUrl}/#/account.email_confirmation/#{user.id}/#{token}"
     mail to: user.email, subject: 'Account Activation'
