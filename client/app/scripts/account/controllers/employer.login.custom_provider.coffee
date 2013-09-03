@@ -6,6 +6,7 @@ angular.module('account').controller 'EmployerLoginCustomProviderCtrl', [
 
     info = MemoryStore.get('auth_info')
     $scope.user = info
+    console.log(info)
     MemoryStore.clear()
 
     $scope.submitForm = ->
@@ -13,7 +14,5 @@ angular.module('account').controller 'EmployerLoginCustomProviderCtrl', [
       Auth.authenticate('Employer', $scope.user.auth_id, $scope.user.auth_provider, $scope.user.password)
 
     $scope.forgotPassword = ->
-      $dialog.dialog().open('dialogs/account.forgot_password.html').then (result) ->
-        if result?
-          Auth.forgot_password('Employer', result, $scope.user.auth_provider)
+      Auth.forgot_password(info.user_class, info.auth_id, info.auth_provider)
 ]

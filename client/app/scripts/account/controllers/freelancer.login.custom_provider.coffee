@@ -13,7 +13,5 @@ angular.module('account').controller 'FreelancerLoginCustomProviderCtrl', [
       Auth.authenticate('Freelancer', $scope.user.auth_id, $scope.user.auth_provider, $scope.user.password)
 
     $scope.forgotPassword = ->
-      $dialog.dialog().open('dialogs/account.forgot_password.html').then (result) ->
-        if result?
-          Auth.forgot_password('Freelancer', result, $scope.user.auth_provider)
+      Auth.forgot_password(info.user_class, info.auth_id, info.auth_provider)
 ]
