@@ -4,8 +4,10 @@ angular.module('account').controller 'AccountResetPasswordCtrl', [
   'User'
   ($scope, $routeParams, User) ->
 
-    $scope.submitForm = (new_password)->
-      User.reset_password_with_token($routeParams.userId, $routeParams.token, new_password)
+    $scope.user = {new_password: ''}
+
+    $scope.submitForm = ->
+      User.reset_password_with_token($routeParams.userId, $routeParams.token, $scope.user.new_password)
       .then ( ->
         $scope.redirect_to 'user.login', success: 'Your password is changed successfully. Please login'
       ), ->

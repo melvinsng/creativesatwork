@@ -56,7 +56,7 @@ angular.module('account').service 'Auth',[
 
     @forgot_password = (user_type, auth_id, auth_provider, opts={}) ->
       User.forgot_password(user_type, auth_id, auth_provider).then ( (success) ->
-        $rootScope.notify_success 'An email has been sent to you to confirm password'
+        $rootScope.notify_success 'An email has been sent to you to reset your password'
         opts.successHandler?(success)
       ), (response) ->
         console.log response
