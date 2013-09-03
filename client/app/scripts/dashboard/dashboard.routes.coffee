@@ -21,5 +21,6 @@ angular.module('dashboard').config [
     .when('dashboard.freelancer.offered_projects')
     .when('dashboard.freelancer.bid_projects')
     .when('dashboard.freelancer.active_projects')
+    .when('dashboard.freelancer.completed_projects')
     .when('dashboard.freelancer.profile', omitController: false, resolves: ['job_categories'])
 ]
