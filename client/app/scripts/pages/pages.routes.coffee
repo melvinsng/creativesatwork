@@ -5,7 +5,7 @@ angular.module('pages').config [
 
     WardenProvider.simplify($routeProvider).set_template_prefix('views/pages')
     .when('home', resolves: ['freelancers'])
-    .when('about')
+    .when('about', omitController: true)
     .when('contact')
     #.when('home', resolves: ['projects'])
 ]
