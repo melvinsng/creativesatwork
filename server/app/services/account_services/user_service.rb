@@ -91,6 +91,19 @@ module AccountServices
             status: SUCCESS
         }
       end
+
+      def clear_notifications(user_id)
+        user = user(user_id)
+        unread_notifications_no = user.unread_notifications.length
+        user.unread_notifications.each do |notification|
+          notification.read = true
+          notification.save!
+        end
+        {
+            status: SUCCESS,
+            unread_notifications_no: unread_notifications_no
+        }
+      end
     end
 
   end

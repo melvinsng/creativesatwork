@@ -41,6 +41,18 @@ module Api
           end
         end
 
+        desc 'Clear read notifications'
+        post ':user_id/clear_notifications' do
+          begin
+            AccountServices::UserService.clear_notifications(params[:user_id])
+          rescue AccountServices::Exceptions::Exception => e
+            status(400)
+            {
+                message: e.message
+            }
+          end
+        end
+
       end
 
     end

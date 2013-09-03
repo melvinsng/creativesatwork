@@ -38,5 +38,8 @@ angular.module('account').factory 'User', [
         @before_operation fields
         Restangular.one('users', user_id).customPOST 'reset_password_with_token', {}, {}, fields
 
+      clear_notifications: (user_id) ->
+        Restangular.one('users', user_id).customPOST 'clear_notifications', {}, {}
+
     return new User(Restangular, $rootScope, $filter, 'user', 'users')
 ]
