@@ -41,7 +41,7 @@ angular.module('account').run [
     $rootScope.$on 'authenticate:success', (event, response) ->
       $rootScope.attemptLogin {
         successHandler: (user) ->
-          success_msg = if response.register then 'Welcome to Creatives@Work!' else 'You are logged in'
+          success_msg = if response.register then 'Welcome to CreativesAtWork!' else 'You are logged in'
           $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: success_msg
       }
 

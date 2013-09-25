@@ -7,6 +7,7 @@ angular.module('pages').config [
     .when('home', resolves: ['freelancers'])
     .when('about', omitController: true)
     .when('contact')
+    .when('terms', omitController: true)
     .when('privacy', omitController: true)
     #.when('home', resolves: ['projects'])
 ]
