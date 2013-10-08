@@ -12,7 +12,7 @@ module ProjectServices
         if len < project.bidders.length
           message = "<b><a target=\"_blank\" href=\"/#/freelancers.show/#{user.id}\">#{user.first_name} #{user.last_name}</a></b> has placed a bid on project <a target=\"_blank\" href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.employer.notifications << Notification.new(read: false, message: message)
-          ProjectMailer.delay.add_bidder(user, project.employer, project)
+          ProjectMailer.delay.add_bidder(user.id, project.employer.id, project.id)
         end
         project.as_json
       end
@@ -25,7 +25,7 @@ module ProjectServices
         if len < project.offers.length
           message = "<b>#{project.employer.first_name} #{project.employer.last_name}</b> offered you a project <a target=\"_blank\" href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           user.notifications << Notification.new(read: false, message: message)
-          ProjectMailer.delay.add_offer(user, project.employer, project)
+          ProjectMailer.delay.add_offer(user.id, project.employer.id, project.id)
         end
         project.as_json
       end
@@ -40,8 +40,8 @@ module ProjectServices
           project.save!
           message = "<b>#{project.employer.first_name} #{project.employer.last_name}</b> accepted your bid for project <a target=\"_blank\" href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.freelancer.notifications << Notification.new(read: false, message: message)
-          ProjectMailer.delay.accept_bid(project.freelancer, project.employer, project)
-          ProjectMailer.delay.notify_admin_bid_accepted(project.freelancer, project.employer, project)
+          ProjectMailer.delay.accept_bid(project.freelancer.id, project.employer.id, project.id)
+          ProjectMailer.delay.notify_admin_bid_accepted(project.freelancer.id, project.employer.id, project.id)
         end
         project.as_json
       end
@@ -56,8 +56,8 @@ module ProjectServices
           project.save!
           message = "<b><a target=\"_blank\" href=\"/#/freelancers.show/#{project.freelancer.id}\">#{project.freelancer.first_name} #{project.freelancer.last_name}</a></b> accepted your offer for project <a href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.employer.notifications << Notification.new(read: false, message: message)
-          ProjectMailer.delay.accept_offer(project.freelancer, project.employer, project)
-          ProjectMailer.delay.notify_admin_offer_accepted(project.freelancer, project.employer, project)
+          ProjectMailer.delay.accept_offer(project.freelancer.id, project.employer.id, project.id)
+          ProjectMailer.delay.notify_admin_offer_accepted(project.freelancer.id, project.employer.id, project.id)
         end
         project.as_json
       end
