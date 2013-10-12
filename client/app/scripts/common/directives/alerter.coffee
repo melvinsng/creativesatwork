@@ -20,6 +20,7 @@ angular.module('common').directive 'alerter', [
           firstpos2: 25
 
         clearAlertTimeout = null
+        $.pnotify.defaults.history = false;
         $scope.addAlert = (type, message)->
           _alerts = (alert.msg for alert in $scope.alerts)
           return if _alerts.indexOf(message) >= 0
