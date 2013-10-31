@@ -26,7 +26,7 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
       if url?
         $scope.$apply ->
           $scope.avatar_upload_state = ''
-          $rootScope.current_user.photo_url = data.domain + url
+          $rootScope.current_user.photo_url = url
           $rootScope.current_user.put().then ((current_user) ->
             $scope.notify_success 'New profile picture saved.'
             $scope.$apply()
