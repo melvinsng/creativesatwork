@@ -2,6 +2,9 @@ categories = ["Writing", "Production", "Design", "Others"]
 categories.each do |cat|
   JobCategory.create! name: cat
 end
+
+
+=begin
 job_titles = {
     'Writing' => ['Scriptwriter','Writer','Copywriter','Journalist','Editor'],
     'Design' => ['Product Designer', 'Graphic Designer', 'Multimedia Designer', 'Motion Graphic Designer', 'Art Director', 'Creative Director', 'Set Designer', 'Wardrode Designer', 'Web Designer'],
@@ -36,6 +39,7 @@ skill_list = %w{css html javascript python ruby photoshop copywriting actionscri
   )
 end
 
+
 Employer.create!(
     password: 'asdfqwer',
     password_confirmation: 'asdfqwer',
@@ -65,3 +69,5 @@ budget_list = ['$0 - $500','$500 - $1000','$1000 - $2000','$2000 - $3000','$3000
       job_category_id: JobCategory.all[rand(4)].id
   )
 end
+
+=end
