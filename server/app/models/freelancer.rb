@@ -3,6 +3,7 @@ class Freelancer < User
 
   has_many :projects, inverse_of: :freelancer
   embeds_many :portfolios
+  embeds_many :portfolio_images
 
   has_and_belongs_to_many :bidding_projects, class_name: 'Project', inverse_of: :bidders
   has_and_belongs_to_many :offered_projects, class_name: 'Project', inverse_of: :offers
@@ -17,6 +18,7 @@ class Freelancer < User
   field :profile_incomplete, type: Boolean
 
   accepts_nested_attributes_for :portfolios, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :portfolio_images, reject_if: :all_blank, allow_destroy: true
 
   validates :email, presence: true, uniqueness: true,
             format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
@@ -43,7 +45,7 @@ class Freelancer < User
 
   def as_json_options(options={})
     # val must be array!
-    exposed = [:skills, :job_category, :portfolios,
+    exposed = [:skills, :job_category, :portfolios, :portfolio_images,
                :bidding_projects, :offered_projects, :active_projects, :completed_projects, :_deny_fields]
     preset_options = {methods: exposed}
     if defined?(super)
