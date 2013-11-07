@@ -6,7 +6,8 @@ module AccountServices
     class << self
       def send_confirmation_email(user)
         session = EmailSession.create_from_user!(user, ACTIVATE_USER)
-        UserMailer.delay.activate_account(user.id, session.token)
+        UserMailer.delay.activate_freelancer_account(user.id, session.token) if user._type == "Freelancer"
+        UserMailer.delay.activate_employer_account(user.id, session.token) if user._type == "Employer"
       end
 
       def request_password_reset(user)
@@ -58,8 +59,8 @@ module AccountServices
         rescue Exception => e
           status(400)
           {
-            status: FAILED,
-            message: e.message
+              status: FAILED,
+              message: e.message
           }
         end
       end
