@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: "contactus@creativesatwork.me"
 
-  SiteUrl = 'http://staging.creativesatwork.me'
+  SiteUrl = 'http://creativesatwork.me'
   #SiteUrl = 'http://localhost:3333'
 
   def activate_freelancer_account(user, token)
