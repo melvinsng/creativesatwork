@@ -48,10 +48,10 @@ file.each do |k|
       job_category_id: job_title_category_id,
       job_title: job_title,
       other_information: other_information,
-      years_of_experience: k[12],
+      years_of_experience: k[7],
       education_and_certificates: k[8],
       accolades_and_awards: k[10],
-      day_rate: '99',
+      day_rate: k[12],
       skills: k[4].gsub(/\//, ','),
       location: k[5]
   )
