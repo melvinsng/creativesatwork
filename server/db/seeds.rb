@@ -19,53 +19,59 @@ job_titles.each do |j, t|
 end
 
 path = "#{Rails.root}/db/freelancerdata.csv"
+writepath = "#{Rails.root}/db/freelancerdata_p.csv"
 require 'csv'
 file = CSV.read path
-file.each do |k|
-  k.collect{|x| x.strip! unless x.nil?}
-  rand_password=('0'..'z').to_a.shuffle.first(8).join
-  job_title = k[6]
-  if job_title_map.key? job_title
-    job_title_category = job_title_map[job_title]
-  else
-    job_title_category = 'Others'
-  end
-  job_title_category_id = JobCategory.where(name: job_title_category).first.id
-  portfolio = nil
-  if k[11] && k[11].match(/^http/)
-    portfolio = k[11]
-  else
-    other_information = k[11]
-  end
-  freelancer = Freelancer.new(
-      password: rand_password,
-      password_confirmation: rand_password,
-      email: k[0],
-      phone: k[1],
-      first_name: k[2],
-      last_name: k[3],
-      account_status: 'active',
-      job_category_id: job_title_category_id,
-      job_title: job_title,
-      other_information: other_information,
-      years_of_experience: k[7],
-      education_and_certificates: k[8],
-      accolades_and_awards: k[10],
-      day_rate: k[12],
-      skills: k[4].gsub(/\//, ','),
-      location: k[5]
-  )
-  if freelancer.valid?
-    if !portfolio.nil?
-      freelancer.portfolios << Portfolio.new(
-          url: portfolio
-      )
+
+CSV.open(writepath, "wb") do |csv|
+  file.each do |k|
+    k.collect{|x| x.strip! unless x.nil?}
+    rand_password=('0'..'z').to_a.shuffle.first(8).join
+    job_title = k[6]
+    if job_title_map.key? job_title
+      job_title_category = job_title_map[job_title]
+    else
+      job_title_category = 'Others'
     end
-    freelancer.save!
-  else
-    p "Invalid: "
-    p freelancer.errors.messages
-    p "\n"
+    job_title_category_id = JobCategory.where(name: job_title_category).first.id
+    portfolio = nil
+    if k[11] && k[11].match(/^http/)
+      portfolio = k[11]
+    else
+      other_information = k[11]
+    end
+    freelancer = Freelancer.new(
+        password: rand_password,
+        password_confirmation: rand_password,
+        email: k[0],
+        phone: k[1],
+        first_name: k[2],
+        last_name: k[3],
+        account_status: 'active',
+        job_category_id: job_title_category_id,
+        job_title: job_title,
+        other_information: other_information,
+        years_of_experience: k[7],
+        education_and_certificates: k[8],
+        accolades_and_awards: k[10],
+        day_rate: k[12],
+        skills: k[4].gsub(/\//, ','),
+        location: k[5]
+    )
+    if freelancer.valid?
+      if !portfolio.nil?
+        freelancer.portfolios << Portfolio.new(
+            url: portfolio
+        )
+      end
+      freelancer.save!
+      m = k << rand_password
+      csv << m
+    else
+      p "Invalid: "
+      p freelancer.errors.messages
+      p "\n"
+    end
   end
 end
 
