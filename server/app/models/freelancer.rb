@@ -35,7 +35,7 @@ class Freelancer < User
 
   def active_projects; projects.where(project_status: Project::ACTIVE) end
   def completed_projects; projects.where(project_status: Project::COMPLETED) end
-  def _profile_incomplete; job_title.blank? || years_of_experience.blank? || day_rate.blank? || location.blank? end
+  def _profile_incomplete; job_title.blank? || years_of_experience.blank? end
   def _deny_fields; %W{pending_projects active_projects completed_projects} end
 
   def persist_profile_incomplete
