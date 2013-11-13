@@ -4,13 +4,72 @@ categories.each do |cat|
 end
 
 
-=begin
 job_titles = {
-    'Writing' => ['Scriptwriter','Writer','Copywriter','Journalist','Editor'],
-    'Design' => ['Product Designer', 'Graphic Designer', 'Multimedia Designer', 'Motion Graphic Designer', 'Art Director', 'Creative Director', 'Set Designer', 'Wardrode Designer', 'Web Designer'],
-    'Production' => ['2D & 3D Animator', 'Illustrator', 'Video Producer', 'Director', 'Soundman', 'Lightingman', 'Videographer', 'Cameraman', 'Grip & Gaffer', 'Production Manager', 'Location Manager', 'Director', 'Video Editor', '3D Artist', 'Photographer', 'DI Artist', 'Audio Producer', 'Project Manager'],
-    'Others' => ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
+    'Writing' => ["Copywriter", "Editor", "Journalist", "Scriptwriter", "Writer"],
+    'Design' => ["Art Director", "Audio Designer", "Character Designer", "Creative Director", "Game Designer", "Graphic Designer", "Lighting Designer", "Motion Graphic Designer", "Multimedia Designer", "Product Designer", "Set Designer", "UI/UX Designer", "Wardrode Designer", "Web Designer"],
+    'Production' => ["2D Animator", "3D Animator", "3D Artist", "Animator", "Audio Producer", "Camera Assistant", "Cameraman", "Casting Manager", "DI Artist", "Director", "Director and Producer", "Director of Photography", "Grip & Gaffer", "Illustrator", "Lightingman", "Location Manager", "Make Up Artist", "Musician", "Photographer", "Production Assistant", "Production Manager", "Project Manager", "Soundman", "Storyboard Artist", "VFX Artist", "Video Editor", "Video Producer", "Videographer", "Videographer and SteadiCam Operator"],
+    'Others' => ["Commentator", "Host", "Marketing", "PR", "Social Media Consultant", "Translator", "Voiceover Artist", "Web Developer"]
 }
+
+job_title_map = {}
+job_titles.each do |j, t|
+  t.each do |i|
+    job_title_map[i] = j
+  end
+end
+
+path = "#{Rails.root}/db/freelancerdata.csv"
+require 'csv'
+file = CSV.read path
+file.each do |k|
+  k.collect{|x| x.strip! unless x.nil?}
+  rand_password=('0'..'z').to_a.shuffle.first(8).join
+  job_title = k[6]
+  if job_title_map.key? job_title
+    job_title_category = job_title_map[job_title]
+  else
+    job_title_category = 'Others'
+  end
+  job_title_category_id = JobCategory.where(name: job_title_category).first.id
+  portfolio = nil
+  if k[11] && k[11].match(/^http/)
+    portfolio = k[11]
+  else
+    other_information = k[11]
+  end
+  freelancer = Freelancer.new(
+      password: rand_password,
+      password_confirmation: rand_password,
+      email: k[0],
+      phone: k[1],
+      first_name: k[2],
+      last_name: k[3],
+      account_status: 'active',
+      job_category_id: job_title_category_id,
+      job_title: job_title,
+      other_information: other_information,
+      years_of_experience: k[12],
+      education_and_certificates: k[8],
+      accolades_and_awards: k[10],
+      day_rate: '99',
+      skills: k[4].gsub(/\//, ','),
+      location: k[5]
+  )
+  if freelancer.valid?
+    if !portfolio.nil?
+      freelancer.portfolios << Portfolio.new(
+          url: portfolio
+      )
+    end
+    freelancer.save!
+  else
+    p "Invalid: "
+    p freelancer.errors.messages
+    p "\n"
+  end
+end
+
+=begin
 
 
 skill_list = %w{css html javascript python ruby photoshop copywriting actionscript flash}

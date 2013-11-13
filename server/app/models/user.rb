@@ -23,7 +23,7 @@ class User
   field :email_confirmed, type: Boolean, default: false
   field :account_status, default: ACCOUNT_ACTIVE
 
-  validates_presence_of :has_password, :first_name, :last_name
+  validates_presence_of :has_password, :first_name
 
   def user_type; self._type end
   def active?; self.account_status == ACCOUNT_ACTIVE end
