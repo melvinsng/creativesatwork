@@ -2,7 +2,9 @@ resolvables['current_user'] = [
   'Auth'
   '$q'
   '$rootScope'
-  (Auth, $q, $rootScope) ->
+  '$location'
+  'RouteSession'
+  (Auth, $q, $rootScope, $location, RouteSession) ->
     authenticated = Auth.user delegate: true
     authenticated.then ((user) ->
       $rootScope.current_user = user
@@ -16,5 +18,7 @@ resolvables['current_user'] = [
       $rootScope.user_class = 'User'
       $rootScope.user_type = 'guest'
       $rootScope.notify_error 'Please login first', false
+      RouteSession.set $location.path()
+      $location.path 'home'
       $q.reject('Access not allowed')
 ]

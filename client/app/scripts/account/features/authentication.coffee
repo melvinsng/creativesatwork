@@ -2,7 +2,8 @@ angular.module('account').run [
   '$rootScope'
   'Auth'
   '$q'
-  ($rootScope, Auth, $q) ->
+  'RouteSession'
+  ($rootScope, Auth, $q, RouteSession) ->
 
     $rootScope.logout = ->
       Auth.logout()
@@ -42,7 +43,10 @@ angular.module('account').run [
       $rootScope.attemptLogin {
         successHandler: (user) ->
           success_msg = if response.register then 'Welcome to CreativesAtWork!' else 'You are logged in'
-          $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: success_msg
+          if RouteSession.isEmpty()
+            $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: success_msg
+          else
+            $rootScope.redirect_to RouteSession.path, success: 'You are logged in!'
       }
 
     $rootScope.attemptLogin()
