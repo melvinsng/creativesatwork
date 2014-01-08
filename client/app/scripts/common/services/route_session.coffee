@@ -28,7 +28,7 @@ angular.module('account').factory 'RouteSession',[
         JSON.stringify @attributes()
 
       isEmpty: ->
-        @as_json == '{}'
+        @as_json() == '{}'
 
     return new RouteSession
 ]

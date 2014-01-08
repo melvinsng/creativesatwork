@@ -42,11 +42,17 @@ angular.module('account').run [
     $rootScope.$on 'authenticate:success', (event, response) ->
       $rootScope.attemptLogin {
         successHandler: (user) ->
+          console.log $rootScope.user_type
           success_msg = if response.register then 'Welcome to CreativesAtWork!' else 'You are logged in'
           if RouteSession.isEmpty()
-            $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: success_msg
+            if $rootScope.user_type == 'admin'
+              $rootScope.redirect_to "admin.users"
+            else
+              $rootScope.redirect_to "dashboard.#{user.user_type.toLowerCase()}.profile", success: success_msg
           else
-            $rootScope.redirect_to RouteSession.path, success: 'You are logged in!'
+            prev_path = RouteSession.path
+            RouteSession.destroy()
+            $rootScope.redirect_to prev_path, success: 'You are logged in!'
       }
 
     $rootScope.attemptLogin()

@@ -14,12 +14,14 @@ angular.module 'account', []
 angular.module 'dashboard', []
 angular.module 'pages', []
 angular.module 'platform', []
+angular.module 'admin', []
 
 angular.module 'app', [
   'config'
   'common'
   'dashboard'
   'account'
+  'admin'
   'pages'
   'platform'
 ]
