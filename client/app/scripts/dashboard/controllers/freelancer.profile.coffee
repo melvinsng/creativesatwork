@@ -51,6 +51,12 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
     $scope.hasError = (input) ->
       !input.$valid && (input.$dirty || $scope.submitted)
 
+
+    contentIncludesPhoneAndEmail = (content) ->
+      emailFound = content.match /[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}/
+      numberFound = content.match /\d{8nfi}/
+      emailFound || numberFound
+
     $scope.submitForm = ->
       $scope.submitted = true
       if $rootScope.current_user.job_category_id == null
@@ -58,12 +64,15 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
       else
         if $scope.form.$valid
           $scope.clear_notifications()
-          $rootScope.current_user.put().then ((current_user)->
-            $rootScope.current_user = current_user
-            $scope.redirect_to "freelancers.show/#{current_user.id}", success: 'Your profile is updated successfully'
-          ), ->
-            window.scrollTo(0)
-            $scope.notify_error 'Form has missing or invalid values'
+          if contentIncludesPhoneAndEmail($scope.current_user.other_information)
+            $scope.notify_info 'Phone number or email is not allowed in "Extra Information" section'
+          else
+            $rootScope.current_user.put().then ((current_user)->
+              $rootScope.current_user = current_user
+              $scope.redirect_to "freelancers.show/#{current_user.id}", success: 'Your profile is updated successfully'
+            ), ->
+              window.scrollTo(0)
+              $scope.notify_error 'Form has missing or invalid values'
         else
           window.scrollTo(0)
           angular.forEach $scope.form.$error, (val, key) ->

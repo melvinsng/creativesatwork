@@ -1,10 +1,11 @@
 <p>Dear Admin,</p>
 
 <p>
+  <%= @employer.first_name %> <%= @employer.last_name %> has a question for
   <a href="<%= @siteUrl %>/#/freelancers.show/<%= @freelancer.id %>"><%= @freelancer.first_name %> <%= @freelancer.last_name%></a>
-  has accepted an offer from <%= @employer.first_name %> <%= @employer.last_name %>
-  for project: <a href="<%= @siteUrl %>/#/projects.show/<%= @project.id %>">"<%= @project.title%>"</a>
 </p>
+
+<hr>
 
 <div>
   <legend>Employer Info</legend>
@@ -45,11 +46,11 @@
 <div>
   <legend>Employer Active Projects</legend>
 
-  <% @employer.active_projects.each do |p| %>
-      <p>
-        <a href="<%= @siteUrl %>/#/projects.show/<%= p.id %>"><%= p.title %></a>
-      </p>
-  <% end %>
+    <% @employer.active_projects.each do |p| %>
+       <p>
+         <a href="<%= @siteUrl %>/#/projects.show/<%= p.id %>"><%= p.title %></a>
+       </p>
+    <% end %>
 </div>
 
 <hr>

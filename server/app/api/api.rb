@@ -44,6 +44,7 @@ module Api
 
     mount Api::Common::MailingApi
     mount Api::Common::ExportApi
+    mount Api::Common::QuestionsApi
     mount Api::AccountManagement::AuthApi
     mount Api::AccountManagement::ServicesApi
     mount Api::AccountManagement::UserApi # ordering is important! because of users/:id and users/authenticate

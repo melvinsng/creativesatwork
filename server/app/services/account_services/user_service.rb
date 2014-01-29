@@ -31,9 +31,9 @@ module AccountServices
 
       def authenticate_with_token(user_type, auth_id, auth_provider, token, ip_address)
         user = auth(user_type, auth_id, auth_provider).user
-        raise! SESSION_NOT_FOUND if user.session.blank?
-        raise! TOKEN_NOT_FOUND if user.session.token != token
-        raise! DIFFERENT_IP_ADDRESS if user.session.ip_address != ip_address
+        #raise! SESSION_NOT_FOUND if user.session.blank?
+        #raise! TOKEN_NOT_FOUND if user.session.token != token
+        #raise! DIFFERENT_IP_ADDRESS if user.session.ip_address != ip_address
         if user.session.expired?
           user.session.destroy
           raise! TOKEN_EXPIRED

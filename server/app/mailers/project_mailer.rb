@@ -57,6 +57,13 @@ class ProjectMailer < ActionMailer::Base
     @siteUrl = SiteUrl
     mail to: AdminEmail, subject: "#{@freelancer.first_name} #{@freelancer.last_name} accepted #{@employer.first_name} #{@employer.last_name} offer"
   end
+
+  def submit_question_about_freelancer_to_admin(freelancer, employer, question)
+    @freelancer = Freelancer.find(freelancer)
+    @employer = Employer.find(employer)
+    @siteUrl = SiteUrl
+    mail to: AdminEmail, subject: "#{@employer.first_name} #{@employer.last_name} has a question for #{@freelancer.first_name} #{@freelancer.last_name}"
+  end
 end
 
 
