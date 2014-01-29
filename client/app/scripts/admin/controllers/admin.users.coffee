@@ -56,7 +56,7 @@ angular.module('admin').controller 'AdminUsersCtrl', [
       $scope.query.page = 1
       $scope.query.order = 'first_name ASC'
       $scope.query.per_page = 15
-      $scope.query.conditions = {profile_incomplete: false}
+      #$scope.query.conditions = {profile_incomplete: false}
       $scope.job_categories = job_categories
       $scope.$watch 'query', (new_value, old_value, scope) =>
         if new_value.page == old_value.page
