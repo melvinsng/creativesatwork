@@ -8,8 +8,6 @@ angular.module('admin').config [
     .require_admin()
     .set_template_prefix('views/admin')
     .when('admin.login', omitController: true, admin: false)
-    .when('admin.projects')
     .when('admin.users', resolves: ['job_categories'])
-    .when('admin.freelancer.show/:id', resolves: ['freelancer'])
-    .when('admin.project.show/:id', resolves: ['project'])
+    .when('admin.employers')
 ]
