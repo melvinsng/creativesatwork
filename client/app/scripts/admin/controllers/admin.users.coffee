@@ -54,6 +54,7 @@ angular.module('admin').controller 'AdminUsersCtrl', [
       $scope.query = {}
       $scope.query.search = ''
       $scope.query.page = 1
+      $scope.query.order = 'first_name ASC'
       $scope.query.per_page = 15
       $scope.query.conditions = {profile_incomplete: false}
       $scope.job_categories = job_categories
