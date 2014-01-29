@@ -13,6 +13,7 @@ angular.module('account').run [
     $rootScope.attemptLogin = (opts={})->
       deferred = $q.defer()
       if $rootScope.authenticated? and $rootScope.authenticated
+        $rootScope.$broadcast 'user_ready'
         deferred.resolve($rootScope.current_user)
       else
         authenticated = Auth.user delegate: true
@@ -22,6 +23,7 @@ angular.module('account').run [
           $rootScope.user_class = user.user_type
           $rootScope.user_type = user.user_type.toLowerCase()
           opts.successHandler?(user)
+          $rootScope.$broadcast 'user_ready'
           deferred.resolve(user)
         ), ->
           $rootScope.current_user = null
@@ -29,6 +31,7 @@ angular.module('account').run [
           $rootScope.user_class = 'User'
           $rootScope.user_type = 'guest'
           opts.failedHandler?(user)
+          $rootScope.$broadcast 'user_ready'
           deferred.reject('user is not logged in')
       deferred.promise
 
