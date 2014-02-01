@@ -1,0 +1,82 @@
+<p>Dear Admin,</p>
+
+<p>
+  <a href="<%= @siteUrl %>/#/freelancers.show/<%= @freelancer.id %>"><%= @freelancer.first_name %> <%= @freelancer.last_name%></a>
+    has placed a bid
+  for project: <a href="<%= @siteUrl %>/#/projects.show/<%= @project.id %>">"<%= @project.title%>"</a>
+  from <%= @employer.first_name %> <%= @employer.last_name %>
+</p>
+
+<div>
+  <legend>Employer Info</legend>
+  <table>
+    <tr>
+      <td>First Name</td>
+      <td><%= @employer.first_name %></td>
+    </tr>
+    <tr>
+      <td>Last Name</td>
+      <td><%= @employer.last_name %></td>
+    </tr>
+    <tr>
+      <td>Phone</td>
+      <td><%= @employer.phone %></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><a href="mailto:<%= @employer.email%>"><%= @employer.email%></a></td>
+    </tr>
+    <tr>
+      <td>Company Name</td>
+      <td><%= @employer.company_name%></td>
+    </tr>
+    <tr>
+      <td>Company URL</td>
+      <td><%= @employer.company_url%></td>
+    </tr>
+    <tr>
+      <td>Company Description</td>
+      <td><%= @employer.company_description%></td>
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+<div>
+  <legend>Employer Active Projects</legend>
+
+  <% @employer.active_projects.each do |p| %>
+      <p>
+        <a href="<%= @siteUrl %>/#/projects.show/<%= p.id %>"><%= p.title %></a>
+      </p>
+  <% end %>
+</div>
+
+<hr>
+
+<div>
+  <legend>Employer Pending Projects</legend>
+
+  <% @employer.pending_projects.each do |p| %>
+      <p>
+        <a href="<%= @siteUrl %>/#/projects.show/<%= p.id %>"><%= p.title %></a>
+      </p>
+  <% end %>
+</div>
+
+<hr>
+
+<div>
+  <legend>Employer Completed Projects</legend>
+
+  <% @employer.completed_projects.each do |p| %>
+      <p>
+        <a href="<%= @siteUrl %>/#/projects.show/<%= p.id %>"><%= p.title %></a>
+      </p>
+  <% end %>
+</div>
+
+
+<p>Cheers</p>
+<p>CreativesAtWork Support Team</p>

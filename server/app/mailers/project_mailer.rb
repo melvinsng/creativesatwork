@@ -6,13 +6,30 @@ class ProjectMailer < ActionMailer::Base
   SiteUrl = 'http://creativesatwork.me'
   #SiteUrl = 'http://localhost:3333'
 
+  def notify_admin_add_offer(freelancer, employer, project)
+    @freelancer = Freelancer.find(freelancer)
+    @employer = Employer.find(employer)
+    @project = Project.find(project)
+    @siteUrl = SiteUrl
+    mail to: AdminEmail, subject: "System: #{@employer.first_name} #{@employer.last_name} made an offer to #{@freelancer.first_name} #{@freelancer.last_name}"
+
+  end
+
+  def notify_admin_add_bidder(freelancer, employer, project)
+    @freelancer = Freelancer.find(freelancer)
+    @employer = Employer.find(employer)
+    @project = Project.find(project)
+    @siteUrl = SiteUrl
+    mail to: AdminEmail, subject: "System: #{@freelancer.first_name} #{@freelancer.last_name} placed a bid on #{@employer.first_name} #{@employer.last_name}'s project"
+  end
+
   def add_bidder(freelancer, employer, project)
     @freelancer = Freelancer.find(freelancer)
     @employer = Employer.find(employer)
     @project = Project.find(project)
     @siteUrl = SiteUrl
     attachments.inline['logo.png'] = File.read(File.join(Rails.root, 'assets/logo-w450.png'))
-    mail to: @employer.email, subject: 'Someone placed a bid on your project'
+    mail to: @employer.email, subject: "#{@freelancer.first_name} #{@freelancer.last_name} placed a bid on your project"
   end
 
   def add_offer(freelancer, employer, project)
@@ -21,7 +38,7 @@ class ProjectMailer < ActionMailer::Base
     @project = Project.find(project)
     @siteUrl = SiteUrl
     attachments.inline['logo.png'] = File.read(File.join(Rails.root, 'assets/logo-w450.png'))
-    mail to: @freelancer.email, subject: 'Someone offered you a project'
+    mail to: @freelancer.email, subject: "#{@employer.first_name} #{@employer.last_name} offered you a project"
   end
 
   def accept_bid(freelancer, employer, project)
