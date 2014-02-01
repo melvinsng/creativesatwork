@@ -30,8 +30,8 @@ angular.module('account').run [
           $rootScope.authenticated = false
           $rootScope.user_class = 'User'
           $rootScope.user_type = 'guest'
-          opts.failedHandler?(user)
           $rootScope.$broadcast 'user_ready'
+          opts.failedHandler?(user)
           deferred.reject('user is not logged in')
       deferred.promise
 

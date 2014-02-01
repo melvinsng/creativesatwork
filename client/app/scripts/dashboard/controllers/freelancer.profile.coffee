@@ -54,7 +54,7 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
 
     contentIncludesPhoneAndEmail = (content) ->
       emailFound = content.match /[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}/
-      numberFound = content.match /\d{8nfi}/
+      numberFound = content.match /\d{7}/
       emailFound || numberFound
 
     $scope.submitForm = ->
