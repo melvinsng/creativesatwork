@@ -13,6 +13,7 @@ module ProjectServices
           message = "<b><a target=\"_blank\" href=\"/#/freelancers.show/#{user.id}\">#{user.first_name} #{user.last_name}</a></b> has placed a bid on project <a target=\"_blank\" href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           project.employer.notifications << Notification.new(read: false, message: message)
           ProjectMailer.delay.add_bidder(user.id, project.employer.id, project.id)
+          ProjectMailer.delay.notify_admin_add_bidder(user.id, project.employer.id, project.id)
         end
         project.as_json
       end
@@ -26,6 +27,7 @@ module ProjectServices
           message = "<b>#{project.employer.first_name} #{project.employer.last_name}</b> offered you a project <a target=\"_blank\" href=\"/#/projects.show/#{project.id}\">#{project.title}</a>"
           user.notifications << Notification.new(read: false, message: message)
           ProjectMailer.delay.add_offer(user.id, project.employer.id, project.id)
+          ProjectMailer.delay.notify_admin_add_offer(user.id, project.employer.id, project.id)
         end
         project.as_json
       end
