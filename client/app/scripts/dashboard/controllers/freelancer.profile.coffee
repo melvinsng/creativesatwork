@@ -74,10 +74,10 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
               $rootScope.current_user = current_user
               $scope.redirect_to "freelancers.show/#{current_user.id}", success: 'Your profile is updated successfully'
             ), ->
-              window.scrollTo(0)
+              window.scrollTo(0,0)
               $scope.notify_error 'Form has missing or invalid values'
         else
-          window.scrollTo(0)
+          window.scrollTo(0,0)
           angular.forEach $scope.form.$error, (val, key) ->
             angular.forEach val, (inner_val) ->
               switch key
