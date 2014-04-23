@@ -112,10 +112,11 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
       $scope.submitted = false
       $scope.job_categories = job_categories
       $scope.jobTitles =
-        Writing: _.uniq ['Scriptwriter','Writer','Copywriter','Journalist','Editor']
-        Design: _.uniq ["Product Designer", "Graphic Designer", "Multimedia Designer", "Motion Graphic Designer", "Art Director", "Creative Director", "Set Designer", "Wardrode Designer", "Web Designer"]
-        Production: _.uniq ["2D & 3D Animator", "Illustrator", "Video Producer", "Director", "Soundman", "Lightingman", "Videographer", "Cameraman", "Grip & Gaffer", "Production Manager", "Location Manager", "Director", "Video Editor", "3D Artist", "Photographer", "DI Artist", "Audio Producer", "Project Manager"]
-        Others: _.uniq ['Voice-over Artist', 'Translator', 'Marketing', 'PR']
+        Writing: _.uniq ["Copywriter", "Editor", "Journalist", "Scriptwriter", "Writer"]
+        Design: _.uniq ["Art Director", "Audio Designer", "Character Designer", "Creative Director", "Game Designer", "Graphic Designer", "Lighting Designer", "Motion Graphic Designer", "Multimedia Designer", "Product Designer", "Set Designer", "UI/UX Designer", "Wardrode Designer", "Web Designer"]
+        Production: _.uniq ["2D Animator", "3D Animator", "3D Artist", "Animator", "Audio Producer", "Camera Assistant", "Cameraman", "Casting Manager", "DI Artist", "Director", "Director and Producer", "Director of Photography", "Grip & Gaffer", "Illustrator", "Lightingman", "Location Manager", "Make Up Artist", "Musician", "Photographer", "Production Assistant", "Production Manager", "Project Manager", "Soundman", "Storyboard Artist", "VFX Artist", "Video Editor", "Video Producer", "Videographer", "Videographer and SteadiCam Operator"]
+        Others: _.uniq ["Commentator", "Host", "Marketing", "PR", "Social Media Consultant", "Translator", "Voiceover Artist", "Web Developer"]
+
       if not $rootScope.current_user.portfolios?.length > 0
         $rootScope.current_user.portfolios = []
       if not $rootScope.current_user.portfolio_images?.length > 0
