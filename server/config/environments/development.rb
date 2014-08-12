@@ -41,7 +41,7 @@ CreativesAtWork::Application.configure do
       authentication: "plain",
       enable_starttls_auto: true,
       user_name: 'creativesatwork.mailer@gmail.com',
-      password: 'Pass1234##'
+      password: 'PassMeNone123'
   }
 
 =begin
