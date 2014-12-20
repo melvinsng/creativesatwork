@@ -16,6 +16,9 @@ class Freelancer < User
   field :accolades_and_awards
   field :day_rate
   field :profile_incomplete, type: Boolean
+  field :overall_rating
+
+  has_many :reviews
 
   accepts_nested_attributes_for :portfolios, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :portfolio_images, reject_if: :all_blank, allow_destroy: true
