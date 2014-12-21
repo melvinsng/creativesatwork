@@ -100,6 +100,9 @@ angular.module('dashboard').controller 'DashboardFreelancerProfileCtrl', [
     $scope.removePortfolio = (index) ->
       $rootScope.current_user.portfolios.splice(index,1)
 
+    $scope.removePortfolioImage = (index) ->
+      $rootScope.current_user.portfolio_images.splice(index,1)
+
     $scope.addPortfolio = ->
       console.log($rootScope.current_user.portfolios)
       $rootScope.current_user.portfolios.push
