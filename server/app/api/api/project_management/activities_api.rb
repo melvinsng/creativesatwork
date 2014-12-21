@@ -79,6 +79,50 @@ module Api
 
       end
 
+      resources 'messages' do
+        params do
+          requires :user_id
+        end
+        get 'threads' do
+          begin
+            threads = {}
+            user_id = params[:user_id]
+            Message.any_of({recipient_id: user_id}, {sender_id:user_id}).each do |m|
+              if m.recipient_id.to_s != user_id
+                if threads[m.recipient_id]
+                  if threads[m.recipient_id].updated_at < m.updated_at
+                    threads[m.recipient_id] = m
+                  end
+                else
+                  threads[m.recipient_id] = m
+                end
+              end
+              if m.sender_id.to_s != user_id
+                if threads[m.sender_id]
+                  if threads[m.sender_id].updated_at < m.updated_at
+                    threads[m.sender_id] = m
+                  end
+                else
+                  threads[m.sender_id] = m
+                end
+              end
+            end
+            threads.to_a.map {|x| x[1]}.map do |x|
+              if x.sender_id.to_s == user_id
+                x[:conversation_id] = x.recipient_id
+              else
+                x[:conversation_id] = x.sender_id
+              end
+              x
+            end
+          rescue Exception => e
+            status(404)
+            {
+                message: e.message
+            }
+          end
+        end
+      end
     end
   end
 end
