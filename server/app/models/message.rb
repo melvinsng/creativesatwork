@@ -6,6 +6,8 @@ class Message
 
   belongs_to :recipient, class_name: 'User', inverse_of: :received_messages
   belongs_to :sender, class_name: 'User', inverse_of: :sent_messages
+  embeds_many :message_attachments
+  accepts_nested_attributes_for :message_attachments, reject_if: :all_blank, allow_destroy: true
 
   after_create :notify_parties
 
@@ -32,7 +34,7 @@ class Message
 
   def as_json_options(options={})
     # val must be array!
-    preset_options = {include: [],
+    preset_options = {include: [:message_attachments],
                       methods: [:recipient_name, :sender_name, :recipient_photo, :sender_photo]}
     if defined?(super)
       super(preset_options).each do |key,val|

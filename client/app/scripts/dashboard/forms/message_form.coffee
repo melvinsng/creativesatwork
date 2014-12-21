@@ -42,6 +42,34 @@ angular.module('platform').directive 'messageForm', [
             sender_id: $scope.sender.id
             recipient_id: $scope.recipient.id
             content: ''
+            message_attachments: []
+
+        $scope.$on 'fileupload:add', (e, data)->
+          $scope.$apply ->
+            $scope.message_attachment_state = 'Uploading...'
+
+        $scope.$on 'fileupload:done', (e, response) ->
+          console.log response
+          url = response.data.result?.url
+          filename = response.data.result?.filename
+          console.log url
+          if url?
+            $scope.$apply ->
+              $scope.message_attachment_state = ''
+              $scope.form_object.message_attachments.push {
+                url: url
+                filename: filename
+              }
+          else
+            $scope.message_attachment_state = ''
+            $scope.notify_error 'Upload failed', false
+
+        $scope.$on 'fileupload:failed', ->
+          $scope.message_attachment_state = ''
+          $scope.notify_error 'Upload failed', false
+
+        $scope.removeAttachment = (index) ->
+          $scope.form_object.message_attachments.splice(index,1)
 
         init = ->
           FormHandler.formify $scope
@@ -49,7 +77,7 @@ angular.module('platform').directive 'messageForm', [
             sender_id: $scope.sender.id
             recipient_id: $scope.recipient.id
             content: ''
-
+            message_attachments: []
 
         init()
     ]

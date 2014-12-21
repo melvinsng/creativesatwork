@@ -56,20 +56,12 @@
                 <div class="span11 desc">
                   <h4><a href="">{{message.sender_name}}</a><span class="time-meta">{{message.updated_at | date:medium_date }}, {{message.updated_at | date:'h:mma' }}</span></h4>
                   <p>{{message.content}}</p>
-                  <div class="message-attach">
+                  <div class="message-attach" ng-if="message.message_attachments.length > 0">
                     <h5>Attachments</h5>
                     <div class="attach-items-div">
-                      <div class="attach-items">
-                        <a href=""><i class="icon-download-alt"></i> [File Name]</a>
+                      <div class="attach-items" ng-repeat="attachment in message.message_attachments">
+                        <a href="{{attachment.url}}"><i class="icon-download-alt"></i> {{attachment.filename}}</a>
                       </div>
-
-                      <div class="attach-items">
-                        <a href=""><i class="icon-download-alt"></i> [File Name]</a>
-                      </div>
-                      <div class="attach-items">
-                        <a href=""><i class="icon-download-alt"></i> [File Name]</a>
-                      </div>
-
                     </div>
                   </div>
                 </div>

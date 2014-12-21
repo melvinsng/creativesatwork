@@ -14,7 +14,10 @@
           <div class="row-fluid message-box-action">
             <div class="span7">
               <div class="upload-button">
-                <input type="file" class="custom-file-input" multiple="multiple">
+                <input type="file" fileupload class="custom-file-input" name="attachment"
+                       server-domain="http://creativesatwork.me:8989"
+                       service-path="attachments" />
+                <span class="label label-primary">{{message_attachment_state}}</span>
               </div>
               <div class="message-box-mb">
                 Max size 30MB
@@ -32,14 +35,8 @@
           <div class="uploaded-file">
             <div class="message-attach">
               <div class="attach-items-div">
-                <div class="attach-items">
-                  <a href=""><i class="icon-download-alt"></i> [File Name]</a> <span>Completed</span>
-                </div>
-                <div class="attach-items">
-                  <a href=""><i class="icon-download-alt"></i> [File Name]</a> <span>Completed</span>
-                </div>
-                <div class="attach-items">
-                  <a href=""><i class="icon-download-alt"></i> [File Name]</a> <span>Completed</span>
+                <div class="attach-items" ng-repeat="attachment in form_object.message_attachments">
+                  <a href="{{ attachment.url }}"><i class="icon-download-alt"></i> {{ attachment.filename }}</a> <span><a href ng-click="removeAttachment($index)">remove</a></span>
                 </div>
               </div>
             </div>
