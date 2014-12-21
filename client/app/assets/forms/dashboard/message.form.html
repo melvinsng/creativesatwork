@@ -1,0 +1,51 @@
+<form class="form-horizontal" name="form" ng-submit="submitMessage()" novalidate>
+  <div class="message-box-item">
+    <div class="row-fluid">
+      <div class="span12 message-input">
+        <p><b>Send {{recipient.first_name}} a message</b></p>
+        <textarea class="form-control" ng-model="form_object.content" rows="6"></textarea>
+        <div class="message-input-list">
+          <div class="row-fluid">
+            <div class="span12"><div class="message-error">
+              Please do not key in your email address in the message.
+            </div>
+            </div>
+          </div>
+          <div class="row-fluid message-box-action">
+            <div class="span7">
+              <div class="upload-button">
+                <input type="file" class="custom-file-input" multiple="multiple">
+              </div>
+              <div class="message-box-mb">
+                Max size 30MB
+              </div>
+            </div>
+            <div class="span3">
+              <div class="message-box-chars">
+                1200 CHARS MAX
+              </div>
+            </div>
+            <div class="span2 message-submit">
+              <button type="submit" class="btn btn-primary">SEND</button>
+            </div>
+          </div>
+          <div class="uploaded-file">
+            <div class="message-attach">
+              <div class="attach-items-div">
+                <div class="attach-items">
+                  <a href=""><i class="icon-download-alt"></i> [File Name]</a> <span>Completed</span>
+                </div>
+                <div class="attach-items">
+                  <a href=""><i class="icon-download-alt"></i> [File Name]</a> <span>Completed</span>
+                </div>
+                <div class="attach-items">
+                  <a href=""><i class="icon-download-alt"></i> [File Name]</a> <span>Completed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

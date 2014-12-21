@@ -1,0 +1,91 @@
+<div class="body_container">
+  <div class="container">
+    <div class="row">
+      <div class="span3">
+        <div class="box_main sidenav" ng-if="user_type == 'employer'">
+          <div ng-include src="'partials/dashboard/employer.side_menu.html'"></div>
+        </div>
+        <div class="box_main sidenav" ng-if="user_type == 'freelancer'">
+          <div ng-include src="'partials/dashboard/freelancer.side_menu.html'"></div>
+        </div>
+      </div>
+      <div class="span9">
+
+        <h3 class="title-listing-1 margin-bottom-10" style="margin-top: 0px;"> Recent Messages <span class="ng-binding"> (4) </span> </h3>
+        <div class="messages-table">
+          <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Sender</th>
+              <th>Last Message</th>
+              <th>Updated</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="m-table-name"><a href=""><img src="/styles/img/team-melvin.jpg">[name]</a></td>
+              <td class="m-table-desc"><a href="">
+                <p>Fabio vel iudice vincam, sunt in culpa qui officia o vel iudice vincam, sunt in culpa qui officia o vel iudice vincam, sunt in culpa qui officia.</p>
+              </a></td>
+              <td class="m-table-time">08 Sep 14</td>
+            </tr>
+            <tr>
+              <td class="m-table-name"><a href=""><img src="/styles/img/team-melvin.jpg">[name]</a></td>
+              <td class="m-table-desc"><a href="">
+                <p>Fabio vel iudice vincam, sunt in culpa qui officia o vel iudice vincam, sunt in culpa qui officia o vel iudice vincam, sunt in culpa qui officia.</p>
+              </a></td>
+              <td class="m-table-time">08 Sep 14</td>
+            </tr>
+            <tr>
+              <td width="150" class="m-table-name"><a href=""><img src="/styles/img/team-melvin.jpg">[name]</a></td>
+              <td class="m-table-desc"><a href="">
+                <p>Fabio vel iudice vincam, sunt in culpa qui officia o vel iudice vincam, sunt in culpa qui officia o vel iudice vincam, sunt in culpa qui officia.</p>
+              </a></td>
+              <td width="120" class="m-table-time">08 Sep 14</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="hr2"></div>
+        <div class="message-list-div">
+          <h3>Conversation with {{recipient.first_name}}</h3>
+          <div class="con_box message-box">
+            <div class="message-box-item" ng-repeat="message in messages">
+              <div class="row-fluid">
+                <div class="span1 profile-img"> <a href=""><img src="{{message.sender_photo}}"></a> </div>
+                <div class="span11 desc">
+                  <h4><a href="">{{message.sender_name}}</a><span class="time-meta">{{message.updated_at | date:medium_date }}, {{message.updated_at | date:'h:mma' }}</span></h4>
+                  <p>{{message.content}}</p>
+                  <div class="message-attach">
+                    <h5>Attachments</h5>
+                    <div class="attach-items-div">
+                      <div class="attach-items">
+                        <a href=""><i class="icon-download-alt"></i> [File Name]</a>
+                      </div>
+
+                      <div class="attach-items">
+                        <a href=""><i class="icon-download-alt"></i> [File Name]</a>
+                      </div>
+                      <div class="attach-items">
+                        <a href=""><i class="icon-download-alt"></i> [File Name]</a>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <message-form sender="sender" recipient="recipient"></message-form>
+          </div>
+        </div><!-- message-list-div -->
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

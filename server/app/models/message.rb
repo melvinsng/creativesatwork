@@ -22,10 +22,18 @@ class Message
     [sender.first_name, sender.last_name].join(' ')
   end
 
+  def recipient_photo
+    recipient.photo_url
+  end
+
+  def sender_photo
+    sender.photo_url
+  end
+
   def as_json_options(options={})
     # val must be array!
     preset_options = {include: [],
-                      methods: [:recipient_name, :sender_name]}
+                      methods: [:recipient_name, :sender_name, :recipient_photo, :sender_photo]}
     if defined?(super)
       super(preset_options).each do |key,val|
         if options.has_key?(key)
