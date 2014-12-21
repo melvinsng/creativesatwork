@@ -41,4 +41,39 @@ class Review
     #ProjectMailer.delay.notify_admin_upon_review_created self.id
     #ProjectMailer.delay.notify_vendor_upon_review_created self.id
   end
+
+  def freelancer_name
+    [freelancer.first_name, freelancer.last_name].join(' ')
+  end
+
+  def reviewer_name
+    [reviewer.first_name, reviewer.last_name].join(' ')
+  end
+
+  def as_json_options(options={})
+    # val must be array!
+    preset_options = {include: [],
+                      methods: [:freelancer_name, :reviewer_name]}
+    if defined?(super)
+      super(preset_options).each do |key,val|
+        if options.has_key?(key)
+          options[key] = (val.to_set.merge options[key]).to_a
+        else
+          options[key] = val
+        end
+      end
+    else
+      preset_options.each do |key,val|
+        if options.has_key?(key)
+          options[key] = (val.to_set.merge options[key]).to_a
+        else
+          options[key] = val
+        end
+      end
+    end
+    options
+  end
+  def as_json(options={})
+    super as_json_options(options)
+  end
 end
