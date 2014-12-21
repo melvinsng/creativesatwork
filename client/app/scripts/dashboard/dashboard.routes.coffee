@@ -9,7 +9,7 @@ angular.module('dashboard').config [
     .require_user()
     .omit_controller()
     .when('dashboard.employer')
-    .when('dashboard.messages', omitController: false)
+    .when('dashboard.threads')
     .when('dashboard.messages/:id', resolves: ['recipient'], omitController: false)
     .when('dashboard.employer.notifications', omitController: false)
     .when('dashboard.employer.completed_projects')

@@ -37,8 +37,6 @@ angular.module('dashboard').controller 'DashboardMessagesCtrl', [
         $scope.notify_error 'Unable to fetch result from server'
 
     $scope.joinMessages = ->
-      console.log($scope.received_messages)
-      console.log($scope.sent_messages)
       messages = $scope.received_messages.concat $scope.sent_messages
       messages = _.sortBy messages, (m) ->
         m.updated_at
