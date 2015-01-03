@@ -5,6 +5,36 @@ class ProjectMailer < ActionMailer::Base
   #AdminEmail = 'felixsagitta@gmail.com, contactus@creativesatwork.me'
   SiteUrl = 'http://staging.creativesatwork.me'
   #SiteUrl = 'http://localhost:3333'
+  BccList = 'zen9.felix@gmail.com, contactus@creativesatwork.me'
+
+  def new_review(review)
+    @review = Review.find review
+    @reviewer = @review.reviewer
+    @freelancer = @review.freelancer
+    @siteUrl = SiteUrl
+    attachments.inline['logo.png'] = File.read(File.join(Rails.root, 'assets/logo-w450.png'))
+    mail to: @freelancer.email, bcc: BccList, subject: "#{@reviewer.first_name} #{@reviewer.last_name} just rated you"
+  end
+
+  def new_message(message)
+    @message = Message.find message
+    @sender = @message.sender
+    @recipient = @message.recipient
+    @siteUrl = SiteUrl
+    attachments.inline['logo.png'] = File.read(File.join(Rails.root, 'assets/logo-w450.png'))
+    mail to: @recipient.email, bcc: BccList, subject: "#{@sender.first_name} #{@sender.last_name} just sent you a message"
+  end
+
+  def notify_admin_new_message(message)
+    @message = Message.find message
+    @sender = @message.sender
+    @recipient = @message.recipient
+    @messages = Message.where(recipient_id: @recipient.id, sender_id: @sender.id).to_a
+    @messages = @messages.concat Message.where(sender_id: @recipient.id, recipient_id: @sender.id).to_a
+    @messages = @messages.sort_by {|x| x.updated_at}.reverse
+    @siteUrl = SiteUrl
+    mail to: AdminEmail, subject: "System: Conversation between #{@sender.first_name} and #{@recipient.first_name}"
+  end
 
   def notify_admin_add_offer(freelancer, employer, project)
     @freelancer = Freelancer.find(freelancer)

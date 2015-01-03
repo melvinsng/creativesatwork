@@ -12,6 +12,8 @@ class Message
   after_create :notify_parties
 
   def notify_parties
+    ProjectMailer.delay.new_message self.id
+    ProjectMailer.delay.notify_admin_new_message self.id
     #ProjectMailer.delay.notify_admin_upon_review_created self.id
     #ProjectMailer.delay.notify_vendor_upon_review_created self.id
   end

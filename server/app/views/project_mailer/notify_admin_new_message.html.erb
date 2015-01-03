@@ -1,0 +1,22 @@
+<p>Hi Admin,</p>
+
+<p>Below is the ongoing conversation between <%= @sender.first_name %> and <%= @recipient.first_name %></p>
+
+<br><br>
+
+<h2>>>> BEGIN CONVERSATION</h2>
+<% @messages.each do |m| %>
+    <p>
+      <strong><%= m.sender.first_name %>: </strong><%= m.content %> <small>(<%= m.updated_at.strftime("%m/%d/%Y at %I:%M%p")%>)</small>
+      <% if m.message_attachments.present? %>
+        <h5>Attachments</h5>
+        <div class="attach-items-div">
+          <% m.message_attachments.each do |a| %>
+              <a href="<%= a.url %>"><%= a.filename %></a>
+          <% end %>
+        </div>
+      <% end %>
+    </p>
+    <hr>
+<% end %>
+<h2>>>> END OF CONVERSATION</h2>

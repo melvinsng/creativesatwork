@@ -16,7 +16,7 @@ class Review
 
   before_save :average_rating
   after_save :update_provider_rating
-  after_create :notify_admin
+  after_create :notify_parties
 
   def average_rating
     combined_score = self.rating_1 + self.rating_2 + self.rating_3
@@ -37,7 +37,8 @@ class Review
     update_provider_rating
   end
 
-  def notify_admin
+  def notify_parties
+    ProjectMailer.delay.new_review self.id
     #ProjectMailer.delay.notify_admin_upon_review_created self.id
     #ProjectMailer.delay.notify_vendor_upon_review_created self.id
   end
