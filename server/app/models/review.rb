@@ -7,6 +7,7 @@ class Review
   field :rating_1
   field :rating_2
   field :rating_3
+  field :rating_4
   field :is_approved, type: Boolean, default: true
   field :flagged, type: Boolean, default: false
 
@@ -19,8 +20,8 @@ class Review
   after_create :notify_parties
 
   def average_rating
-    combined_score = self.rating_1 + self.rating_2 + self.rating_3
-    self.rating = combined_score.to_f / 3
+    combined_score = self.rating_1 + self.rating_2 + self.rating_3 + self.rating_4
+    self.rating = combined_score.to_f / 4
   end
 
   def update_provider_rating
