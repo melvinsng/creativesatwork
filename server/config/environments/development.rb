@@ -30,32 +30,29 @@ CreativesAtWork::Application.configure do
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address => 'smtp.zoho.com',
+      :port => '465',
+      :user_name => 'contactus@creativesatwork.me',
+      :password => 'Pa$$w0rd',
+      :authentication => :login,
+      :ssl => true,
+      :tls => true,
+      :enable_starttls_auto => true
+  }
+
   #config.action_mailer.sendmail_settings = {
   #    :location => `which sendmail`.strip!,
   #    :arguments => '-i -t -f contactus@creativesatwork.me'
   #}
 
-  config.action_mailer.smtp_settings = {
-      address: "smtp.gmail.com",
-      port: 587,
-      authentication: "plain",
-      enable_starttls_auto: true,
-      user_name: 'creativesatwork.mailer@gmail.com',
-      password: 'swnlvmvsjmpltcnb'
-  }
-
-=begin
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address: 'smtp.zoho.com',
-      port: '465',
-      user_name: 'contactus@creativesatwork.me',
-      password: 'Pa$$w0rd',
-      authentication: :login,
-      ssl: true,
-      tls: true,
-      enable_starttls_auto: true
-  }
-=end
+  #config.action_mailer.smtp_settings = {
+  #    address: "smtp.gmail.com",
+  #    port: 587,
+  #    authentication: "plain",
+  #    enable_starttls_auto: true,
+  #    user_name: 'creativesatwork.mailer@gmail.com',
+  #    password: 'swnlvmvsjmpltcnb'
+  #}
 
 end
