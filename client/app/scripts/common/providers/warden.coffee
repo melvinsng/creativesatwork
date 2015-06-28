@@ -60,7 +60,7 @@ angular.module('common').provider 'Warden', ->
       if options.templateUrl?
         templateUrl = options.templateUrl
 
-      version = '3.5'
+      version = '3.6'
       templateUrl = templateUrl + "?v=#{version}"
 
       if options.omitController
