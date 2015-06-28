@@ -3,18 +3,16 @@ module Api
     class ExportApi < Grape::API
       extend Api::Base
 
-      require 'csv'
-      content_type :csv, "application/csv"
+      content_type :xls, "text/excel"
 
       resources 'common' do
         get 'export_freelancers' do
           begin
-            CSV.generate do |csv|
-              csv << ['first name', 'last name', 'email', 'job title', 'day rate', 'location','education and certificates','years of experience', 'professional history','accolades and awards','photo url', 'other info']
-              Freelancer.all.each do |f|
-                csv << [f.first_name, f.last_name, f.email, f.job_title, f.day_rate, f.location, f.education_and_certificates, f.years_of_experience, f.professional_history, f.accolades_and_awards, f.photo_url, f.other_information]
-              end
-            end
+            exported = Freelancer.all.to_xls only: [:first_name, :last_name, :job_title, :email, :phone], column_width: [20,20,30,40,20]
+            filename = "freelancers-#{Time.now.strftime("%Y%m%d%H%M%S")}.xls"
+            content_type "application/excel; charset=utf-8; header=present"
+            header['Content-Disposition'] = "attachment; filename=#{filename}"
+            body(exported)
           rescue Exception => e
             status(400)
             {

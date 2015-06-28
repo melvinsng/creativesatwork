@@ -1,8 +1,10 @@
 angular.module 'config', []
+angular.module 'fork', []
 
 angular.module 'common', [
   'ui.route'
   'config'
+  'fork'
   'ngMobile'
   'ngCookies'
   'restangular'

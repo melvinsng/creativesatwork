@@ -5,7 +5,8 @@ module Api
 
       crud :job_category
       crud :project
-
+      crud :review
+      crud :message
     end
   end
 end

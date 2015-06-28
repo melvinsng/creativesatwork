@@ -16,6 +16,7 @@ gem 'grape-swagger'
 gem 'thin'
 gem 'rack-cors'   # check application.rb
 gem 'mongoid-erd', git: 'git://github.com/sagittaros/mongoid-erd-gem.git'
+gem 'to_xls-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

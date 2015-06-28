@@ -12,6 +12,8 @@ class User
   embeds_many :email_sessions
   embeds_many :notifications
   has_many :auth_accounts
+  has_many :sent_messages, class_name: 'Message', inverse_of: :sender
+  has_many :received_messages, class_name: 'Message', inverse_of: :recipient
   field :email
   field :first_name
   field :last_name
